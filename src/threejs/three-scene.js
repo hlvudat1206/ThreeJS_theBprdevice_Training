@@ -38,7 +38,7 @@ export default class ThreeScene extends Component {
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
-
+      // check check check with github
       // //create cube
       // const geometry = new THREE.BoxGeometry();
       // const material = new THREE.MeshBasicMaterial( { 
