@@ -109,7 +109,7 @@ export default class ThreeScene extends Component {
 
       const loader3 = new GLTFLoader();
       loader3.load("./boyring3.glb", function (gltf) {
-        
+        console.log('in ra boyboy: ',gltf.scene.children[0]);
         model2 = gltf.scene.children [0];
         model2.traverse(n => { if ( n.isMesh ) {
           n.castShadow = true; 
