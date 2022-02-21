@@ -107,24 +107,42 @@ export default class ThreeScene extends Component {
 
       })
 
+      const loader4 = new GLTFLoader();
+      loader2.load("./baodo4.glb", function (gltf) {
+        console.log('in ra:', gltf);
+        console.log('in ra children22: ',gltf.scene.children[0]);
+        model = gltf.scene.children[0];
+        model.traverse(n => { if ( n.isMesh ) {
+          n.castShadow = true; 
+          n.receiveShadow = true;
+          if(n.material.map) n.material.map.anisotropy = 16; 
+        }});
+
+        gltf.scene.position.set(2,2.2,2);
+        gltf.scene.scale.set(0.9, 0.9, 0.9);
+
+        scene.add( gltf.scene );
+
+      })
+
       const loader3 = new GLTFLoader();
-      loader3.load("./boyring3.glb", function (gltf) {
-        console.log('in ra boyboy: ',gltf.scene.children[0]);
-        model2 = gltf.scene.children [0];
+      loader3.load("./boyring5.glb", function (gltf) {
+        console.log('in ra boyboy: ',gltf.scene);
+        model2 = gltf.scene;
         model2.traverse(n => { if ( n.isMesh ) {
           n.castShadow = true; 
           n.receiveShadow = true;
           if(n.material.map) n.material.map.anisotropy = 16; 
         }});
 
-        gltf.scene.position.set(5,0,0);
+        gltf.scene.position.set(4,0,2);
         gltf.scene.scale.set(1.8, 1.8, 1.8);
 
         scene.add( gltf.scene );
       })
 
       const loader = new GLTFLoader();
-      loader.load("./huyetap20.glb", function (gltf) {
+      loader.load("./huyetap22.glb", function (gltf) {
         console.log('in ra:', gltf);
         console.log('in ra children: ',gltf.scene.children[6]);
 
@@ -145,11 +163,12 @@ export default class ThreeScene extends Component {
             mixer.clipAction( clip ).play();
           
         } );
-        gltf.scene.scale.set(0.3, 0.3, 0.3);
-        
+        gltf.scene.scale.set(0.25, 0.25, 0.25);
+        gltf.scene.position.set(0,1.8,3);
+
         let object = gltf.scene.children[6];
             
-        object.position.set(4, 6, 2);
+        // object.position.set(4, 7, 2);
         // object.material.transparent = true;
 
         // object.material.opacity = 0.1;
