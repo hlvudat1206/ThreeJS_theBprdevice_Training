@@ -125,22 +125,40 @@ export default class ThreeScene extends Component {
 
       })
 
+      let mixer;
       const loader3 = new GLTFLoader();
-      loader3.load("./boyring5.glb", function (gltf) {
+      loader3.load("./boyring6.glb", function (gltf) {
         console.log('in ra boyboy: ',gltf.scene);
         model2 = gltf.scene;
-        model2.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
+        // model2.traverse(n => { if ( n.isMesh ) {
+        //   n.castShadow = true; 
+        //   n.receiveShadow = true;
+        //   if(n.material.map) n.material.map.anisotropy = 16; 
+        // }});
 
         gltf.scene.position.set(4,0,2);
         gltf.scene.scale.set(1.8, 1.8, 1.8);
 
-        scene.add( gltf.scene );
-      })
+        scene.add( model2 );
 
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model2 );
+        const clips = gltf.animations;
+
+
+        // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips, 'RigAction' );
+        const action = mixer.clipAction(clip);
+        // action.play();
+
+        // Play all animations
+        clips.forEach( function ( clip ) {
+        mixer.clipAction( clip ).play();
+        } );
+      },undefined,function(error){
+        console.error(error);
+      });
+      
       const loader = new GLTFLoader();
       loader.load("./huyetap22.glb", function (gltf) {
         console.log('in ra:', gltf);
@@ -287,28 +305,29 @@ export default class ThreeScene extends Component {
         return null;
       }
 
-  
-      function animate() {
-        requestAnimationFrame(animate);
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      if (mixer)
+            mixer.update(clock.getDelta());
+      light.position.set( 
+        camera.position.x + 10,
+        camera.position.y + 10,
+        camera.position.z + 10,
+      );
 
-        light.position.set( 
-          camera.position.x + 10,
-          camera.position.y + 10,
-          camera.position.z + 10,
-        );
-  
-        controls.autoRotate = false;
-        controls.autoRotateSpeed = 0.0;
-        // hoverPieces();
+      controls.autoRotate = false;
+      controls.autoRotateSpeed = 0.0;
+      // hoverPieces();
 
-        resetMaterials();
-        controls.update();
-  
-        renderer.render(scene, camera);
+      resetMaterials();
+      controls.update();
 
-      }
-  
-      animate();
+      renderer.render(scene, camera);
+
+    }
+    renderer.setAnimationLoop(animate);
+      // animate();
 
     function onMouseMove( event ) {
  
