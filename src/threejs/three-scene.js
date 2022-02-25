@@ -89,75 +89,74 @@ export default class ThreeScene extends Component {
       raycaster = new THREE.Raycaster();
       // const _mixers = [];
       //import glb file
-      const loader2 = new GLTFLoader();
-      loader2.load("./Room103.glb", function (gltf) {
-        console.log('in ra:', gltf);
-        console.log('in ra children22: ',gltf.scene.children[0]);
-        model = gltf.scene.children[0];
-        model.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
+      // const loader2 = new GLTFLoader();
+      // loader2.load("./Room103.glb", function (gltf) {
+      //   console.log('in ra:', gltf);
+      //   console.log('in ra children22: ',gltf.scene.children[0]);
+      //   model = gltf.scene.children[0];
+      //   model.traverse(n => { if ( n.isMesh ) {
+      //     n.castShadow = true; 
+      //     n.receiveShadow = true;
+      //     if(n.material.map) n.material.map.anisotropy = 16; 
+      //   }});
 
-        gltf.scene.position.set(0,0,0);
-        gltf.scene.scale.set(2.8, 2.8, 2.8);
+      //   gltf.scene.position.set(0,0,0);
+      //   gltf.scene.scale.set(2.8, 2.8, 2.8);
 
-        scene.add( gltf.scene );
+      //   scene.add( gltf.scene );
 
-      })
+      // })
 
-      const loader4 = new GLTFLoader();
-      loader2.load("./baodo4.glb", function (gltf) {
-        console.log('in ra:', gltf);
-        console.log('in ra children22: ',gltf.scene.children[0]);
-        model = gltf.scene.children[0];
-        model.traverse(n => { if ( n.isMesh ) {
-          n.castShadow = true; 
-          n.receiveShadow = true;
-          if(n.material.map) n.material.map.anisotropy = 16; 
-        }});
+      // const loader4 = new GLTFLoader();
+      // loader2.load("./baodo4.glb", function (gltf) {
+      //   console.log('in ra:', gltf);
+      //   console.log('in ra children22: ',gltf.scene.children[0]);
+      //   model = gltf.scene.children[0];
+      //   model.traverse(n => { if ( n.isMesh ) {
+      //     n.castShadow = true; 
+      //     n.receiveShadow = true;
+      //     if(n.material.map) n.material.map.anisotropy = 16; 
+      //   }});
 
-        gltf.scene.position.set(2,2.2,2);
-        gltf.scene.scale.set(0.9, 0.9, 0.9);
+      //   gltf.scene.position.set(2,2.2,2);
+      //   gltf.scene.scale.set(0.9, 0.9, 0.9);
 
-        scene.add( gltf.scene );
+      //   scene.add( gltf.scene );
 
-      })
+      // })
 
-      let mixer;
-      const loader3 = new GLTFLoader();
-      loader3.load("./boyring6.glb", function (gltf) {
-        console.log('in ra boyboy: ',gltf.scene);
-        model2 = gltf.scene;
-        // model2.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
+      // let mixer;
+      // const loader3 = new GLTFLoader();
+      // loader3.load("./boyring6.glb", function (gltf) {
+      //   console.log('in ra boyboy: ',gltf.scene);
+      //   model2 = gltf.scene;
+      //   // model2.traverse(n => { if ( n.isMesh ) {
+      //   //   n.castShadow = true; 
+      //   //   n.receiveShadow = true;
+      //   //   if(n.material.map) n.material.map.anisotropy = 16; 
+      //   // }});
+      //   // model2.name = 'bdpressure';
+      //   gltf.scene.position.set(4,0,2);
+      //   gltf.scene.scale.set(1.8, 1.8, 1.8);
 
-        gltf.scene.position.set(4,0,2);
-        gltf.scene.scale.set(1.8, 1.8, 1.8);
+      //   scene.add( model2 );
 
-        scene.add( model2 );
-
-        // Create an AnimationMixer, and get the list of AnimationClip instances
-        mixer = new THREE.AnimationMixer( model2 );
-        const clips = gltf.animations;
+      //   // Create an AnimationMixer, and get the list of AnimationClip instances
+      //   mixer = new THREE.AnimationMixer( model2 );
+      //   const clips = gltf.animations;
 
 
-        // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips, 'RigAction' );
-        const action = mixer.clipAction(clip);
-        // action.play();
+      //   // Play a specific animation
+      //   const clip = THREE.AnimationClip.findByName( clips, 'RigAction' );
+      //   const action = mixer.clipAction(clip);
+      //   // action.play();
 
-        // Play all animations
-        clips.forEach( function ( clip ) {
-        mixer.clipAction( clip ).play();
-        } );
-      },undefined,function(error){
-        console.error(error);
-      });
+      //   // Play all animations
+      //   clips.forEach( function ( clip ) {
+      //   mixer.clipAction( clip ).play();
+      //   } );
+      // });
+      
       
       const loader = new GLTFLoader();
       loader.load("./huyetap22.glb", function (gltf) {
@@ -181,11 +180,13 @@ export default class ThreeScene extends Component {
             mixer.clipAction( clip ).play();
           
         } );
-        gltf.scene.scale.set(0.25, 0.25, 0.25);
+        // gltf.scene.scale.set(0.25, 0.25, 0.25);
+        gltf.scene.scale.set(2.5, 2.5, 2.5);
+
         gltf.scene.position.set(0,1.8,3);
 
         let object = gltf.scene.children[6];
-            
+            gltf.scene.children.name = 'bdpressure';
         // object.position.set(4, 7, 2);
         // object.material.transparent = true;
 
@@ -194,103 +195,25 @@ export default class ThreeScene extends Component {
        
 
         
-        // const intersects = raycaster.intersectObjects( scene.children);
+        const intersects = raycaster.intersectObjects( scene.children);
         
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
       
-        mmi.addHandler('bdpressure', 'click', function(object) {
-          console.log('bdpressure mesh is being clicked!');
-          // object.rotation._x = 60;
-          // object.rotation._onChangeCallback=true
-          // object.rotation._x = 60
-          // object.rotation._y = 60
-          // object.rotation._z = 60
-          // console.log('in xoay: ',object.rotation)
-
-
-
-
-        })
+        
       
-      // const cube = gltf.scene.getObjectByName("Vert001");
-      // if (
-      //   cube instanceof THREE.Mesh &&
-      //   cube.material instanceof THREE.MeshStandardMaterial
-      // ) {
-      //   scene.add(cube);
-      //   cube.material.opacity = 0.1;
-      //   cube.material.color.set("#0000ff");
-      //   cube.material.transparent = true;
-      //   cube.material.depthWrite = false;
-      //   cube.material.side = THREE.FrontSide;
-      // }
+      
 
 
       //   });
         // just to test if the new features are conflicting with previously supported events
 			//		(everything seems to be OK)
-        mmi.addHandler('bdpressure', 'dblclick', function(object) {
-          console.log('bdpressure is double clicked!');
-          // gltf.scene.parent.background.set(0xffaa00);
-          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
-          object.material.color.b = 0.5;
-          object.material.color.r = 0.5;
-          object.material.emissive.b = 0.5;
-          object.material.emissive.r = 0.5;
-          object.material.emissive.g = 0.8;
-
-
-          console.log('in color ', object.material.color)
-          console.log('in color ', object.material.emissive)
-
-
-        });
-        mmi.addHandler('bdpressure', 'contextmenu', function(object) {
-          console.log('bdpressure is pressed with the right button!');
-          // gltf.scene.parent.background.set(0xff0a0a);
-          // gltf.scene.children[6].parent.parent.background.set(0xff0a0a);
-          object.material.opacity = 0.8;
-
-
-
-        });
+        
+        
 			
-        //Object 2
-			const green_color = new THREE.Color(0x00bb00);
-			const orange_color = new THREE.Color(0xffaa00);
-			const red_color = new THREE.Color(0xff0a0a);
-			const test_mesh_geometry = new THREE.BoxGeometry( 5, 5, 5 ); 
-			const test_mesh_material = new THREE.MeshBasicMaterial( { color: green_color } );
-
-			var test_mesh = new THREE.Mesh(test_mesh_geometry, test_mesh_material);
-			test_mesh.name = 'new_features_mesh';
-			test_mesh.position.set(10, 0, 10);
-			scene.add(test_mesh);
-					
-			// mmi.addHandler('new_features_mesh', 'mouseenter', function(mesh) {
-			// 	console.log('mouse is over the mesh!  ', mesh);
-			// 	mesh.material.color = orange_color;
-			// });
+      
 			
-			// mmi.addHandler('new_features_mesh', 'mouseleave', function(mesh) {
-			// 	console.log('mouse has left!  ', mesh);
-			// 	mesh.material.color = green_color;
-			// });
 			
-			// mmi.addHandler('new_features_mesh', 'mousedown', function(mesh) {
-			// 	console.log('mouse button is pressing on the mesh!  ', mesh);
-			// 	mesh.material.color = red_color;
-			// });
-			
-			// mmi.addHandler('new_features_mesh', 'mouseup', function(mesh) {
-			// 	console.log('mouse button is released on the mesh!  ', mesh);
-			// 	mesh.material.color = orange_color;
-			// });
-			
-			// mmi.addHandler('new_features_mesh', 'click', function(mesh) {
-			// 	console.log('mouse button is clicked on the mesh!  ', mesh);
-			// });
 
       /////////////
       } );
@@ -333,7 +256,7 @@ export default class ThreeScene extends Component {
  
         // calculate mouse position in normalized device coordinates
         // (-1 to +1) for both components
-     
+      console.log('Toi la HLVD')
         mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
      
@@ -348,32 +271,30 @@ export default class ThreeScene extends Component {
             }
         }
       }
-      // function onClick( event ) {
+      function onClick( event ) {
 
-      //   event.preventDefault();
+        event.preventDefault();
       
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         
       
-      //   raycaster.setFromCamera( mouse, camera );
+        raycaster.setFromCamera( mouse, camera );
       
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
+        var intersects = raycaster.intersectObjects( scene.children, true );
       
-      //   if ( intersects.length > 0 ) {
+        if ( intersects.length > 0 ) {
           
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
+          console.log( 'Intersection:', intersects[ 0 ] );
+          console.log('Click done !')
       
-      //   }
+        }
       
-      // }
+      }
       
       function render() {
 				requestAnimationFrame(render);
-				// update the mmi
-				mmi.update();
-				renderer.render(scene, camera);
+				
 
         raycaster.setFromCamera( mouse, camera );
 
@@ -401,7 +322,7 @@ export default class ThreeScene extends Component {
 			render();
       
       window.addEventListener( 'mousemove', onMouseMove, false );
-      // window.addEventListener('click', onClick);
+      window.addEventListener('click', onClick);
 
       
     }
