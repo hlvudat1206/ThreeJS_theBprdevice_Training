@@ -314,27 +314,30 @@ export default class ThreeScene extends Component {
             }
         }
       }
-      // function onClick( event ) {
+      function onClick( event ) {
 
-      //   event.preventDefault();
+        event.preventDefault();
       
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
         
       
-      //   raycaster.setFromCamera( mouse, camera );
+        raycaster.setFromCamera( mouse, camera );
       
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
+        var intersects = raycaster.intersectObjects( scene.children, true );
       
-      //   if ( intersects.length > 0 ) {
+        if ( intersects.length > 0 ) {
           
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
+          console.log( 'Intersection:', intersects[ 0 ] );
+          console.log('Click done !')
+          scene.scale.set(2.0, 2.0, 2.0);
+          scene.position.set(4, 7, 2);
+          scene.rotation_Y=60;
+
       
-      //   }
+        }
       
-      // }
-      mmi.onClick();
+      }
       function render() {
 				requestAnimationFrame(render);
 				// update the mmi
@@ -367,7 +370,7 @@ export default class ThreeScene extends Component {
 			render();
       
       // window.addEventListener( 'mousemove', onMouseMove, false );
-      // window.addEventListener('click', onClick);
+      window.addEventListener('click', onClick);
 
       
     }
