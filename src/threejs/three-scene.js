@@ -120,7 +120,7 @@ export default class ThreeScene extends Component {
 
         gltf.scene.position.set(2,2.2,2);
         gltf.scene.scale.set(0.9, 0.9, 0.9);
-
+      
         scene.add( gltf.scene );
 
       })
@@ -165,13 +165,12 @@ export default class ThreeScene extends Component {
         console.log('in ra children: ',gltf.scene.children[6]);
         gltf.scene.scale.set(0.25, 0.25, 0.25);
         gltf.scene.position.set(0,1.8,3);
-
-        let object = gltf.scene.children[6];
-            
+        model = gltf.scene
         // object.position.set(4, 7, 2);
         // object.material.transparent = true;
 
         // object.material.opacity = 0.1;
+        // loader.name = 'bdpressure';
         scene.add( gltf.scene );
        
 
@@ -259,6 +258,8 @@ export default class ThreeScene extends Component {
 
       /////////////
       } );
+      
+
      // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
@@ -333,7 +334,7 @@ export default class ThreeScene extends Component {
       //   }
       
       // }
-      
+      mmi.onClick();
       function render() {
 				requestAnimationFrame(render);
 				// update the mmi

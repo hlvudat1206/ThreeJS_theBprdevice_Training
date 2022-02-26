@@ -60,7 +60,26 @@ export default class MouseMeshInteraction extends Component {
           this.handlers.get(event_type).push(new MouseMeshInteractionHandler(mesh_name, handler_function));
         }
       }
+      onClick( event ) {
+
+        event.preventDefault();
       
+        this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        
+      
+        this.raycaster.setFromCamera( this.mouse, this.camera );
+      
+        var intersects = this.raycaster.intersectObjects( this.scene.children, true );
+      
+        if ( intersects.length > 0 ) {
+          
+          console.log( 'Intersection:', intersects[ 0 ] );
+          console.log('Click done !')
+      
+        }
+      
+      }
       update() {
         if (this.updated) {
           // update the picking ray with the camera and mouse position
@@ -74,6 +93,7 @@ export default class MouseMeshInteraction extends Component {
             if (this.event === 'motion') {
               let mouseenter_handlers = this.handlers.get('mouseenter');
               let mouseleave_handlers = this.handlers.get('mouseleave');
+              console.log('In ra move move')
               
               if (mouseleave_handlers.length > 0) {
                 for (const handler of mouseleave_handlers) {
@@ -103,8 +123,11 @@ export default class MouseMeshInteraction extends Component {
               // if mouseup event has occurred
               if (this.event === 'click' && this.last_pressed_mesh === intersects[0].object) {
                 for (const handler of this.handlers.get('mouseup')) {
+                  
                   if (handler.mesh_name === intersects[0].object.name) {
                     handler.handler_function(intersects[0].object);
+                    console.log('In ra mouseup')
+
                     break;
                   }
                 }
@@ -120,6 +143,8 @@ export default class MouseMeshInteraction extends Component {
               for (const handler of handlers_of_event) {
                 if (handler.mesh_name === intersects[0].object.name) {
                   handler.handler_function(intersects[0].object);
+                  console.log('In ra in ra mousedown')
+
                   break;
                 }
               }
@@ -133,6 +158,8 @@ export default class MouseMeshInteraction extends Component {
               // if mesh was entered by mouse previously, but not anymore, that means it has been mouseleave'd
               if (this.last_mouseenter_mesh !== undefined && handler.mesh_name === this.last_mouseenter_mesh.name) {
                 handler.handler_function(this.last_mouseenter_mesh);
+                console.log('In ra mouseleave')
+
                 this.last_mouseenter_mesh = undefined;
                 break;
               }
@@ -142,6 +169,7 @@ export default class MouseMeshInteraction extends Component {
           this.updated = false;
         }
       }
+      
     render() {
         return (
             <div>
