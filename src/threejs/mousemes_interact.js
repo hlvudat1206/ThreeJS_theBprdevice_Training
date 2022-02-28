@@ -57,6 +57,8 @@ export default class MouseMeshInteraction extends Component {
       
       addHandler(mesh_name, event_type, handler_function) {
         if (this.handlers.has(event_type)) {
+          // if input has event_type
+          // Return mesh name and event_type through update()
           this.handlers.get(event_type).push(new MouseMeshInteractionHandler(mesh_name, handler_function));
         }
       }
