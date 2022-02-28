@@ -173,35 +173,37 @@ export default class ThreeScene extends Component {
       //   console.error(error);
       // });
 
-      let mixer2;
+      // let mixer2;
       const loader = new GLTFLoader();
       loader.load("./huyetap23.glb", function (gltf) {
-        console.log('in ra huyet ap:', gltf);
-        
+        console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
-        // const object = gltf.scene;
-        // object.position.set(4, 7, 2);
-        // object.material.transparent = true;
+        // model2.traverse(n => { if ( n.isMesh ) {
+        //   n.castShadow = true; 
+        //   n.receiveShadow = true;
+        //   if(n.material.map) n.material.map.anisotropy = 16; 
+        // }});
 
-        // object.material.opacity = 0.1;
-        gltf.scene.scale.set(0.25, 0.25, 0.25);
-        gltf.scene.position.set(0,1.8,3);
+        gltf.scene.position.set(4,0,2);
+        gltf.scene.scale.set(1.8, 1.8, 1.8);
+
         scene.add( model );
 
         // Create an AnimationMixer, and get the list of AnimationClip instances
-        mixer2 = new THREE.AnimationMixer( model );
+        mixer = new THREE.AnimationMixer( model );
         const clips = gltf.animations;
 
 
         // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction.002' );
-        const action = mixer2.clipAction(clip);
-        action.play();
+        const action = mixer.clipAction(clip);
+        // action.play();
 
         // Play all animations
         clips.forEach( function ( clip ) {
-        mixer2.clipAction( clip ).play();
+        mixer.clipAction( clip ).play();
         } );
+
        
 
         
@@ -260,7 +262,9 @@ export default class ThreeScene extends Component {
         });
 			
         
-      } );
+      },undefined,function(error){
+        console.error(error);
+      });
       
 
      // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
