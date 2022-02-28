@@ -6,7 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 
-let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer;
+let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2;
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
@@ -142,7 +142,7 @@ export default class ThreeScene extends Component {
       // let mixer;
       // const loader3 = new GLTFLoader();
       // loader3.load("./boyring6.glb", function (gltf) {
-      //   console.log('in ra boyboy: ',gltf.scene);
+      //   console.log('in ra boyboy: ',gltf);
       //   model2 = gltf.scene;
       //   // model2.traverse(n => { if ( n.isMesh ) {
       //   //   n.castShadow = true; 
@@ -172,21 +172,36 @@ export default class ThreeScene extends Component {
       // },undefined,function(error){
       //   console.error(error);
       // });
-      
+
+      let mixer2;
       const loader = new GLTFLoader();
-      loader.load("./huyetap22.glb", function (gltf) {
+      loader.load("./huyetap23.glb", function (gltf) {
         console.log('in ra huyet ap:', gltf);
-        console.log('in ra children: ',gltf.scene.children[6]);
-        gltf.scene.scale.set(0.25, 0.25, 0.25);
-        gltf.scene.position.set(0,1.8,3);
+        
         model = gltf.scene;
         // const object = gltf.scene;
         // object.position.set(4, 7, 2);
         // object.material.transparent = true;
 
         // object.material.opacity = 0.1;
-        
-        scene.add( gltf.scene );
+        gltf.scene.scale.set(0.25, 0.25, 0.25);
+        gltf.scene.position.set(0,1.8,3);
+        scene.add( model );
+
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer2 = new THREE.AnimationMixer( model );
+        const clips = gltf.animations;
+
+
+        // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction.002' );
+        const action = mixer2.clipAction(clip);
+        action.play();
+
+        // Play all animations
+        clips.forEach( function ( clip ) {
+        mixer2.clipAction( clip ).play();
+        } );
        
 
         
