@@ -185,43 +185,31 @@ export default class ThreeScene extends Component {
         // }});
 
         gltf.scene.position.set(4,0,2);
-        gltf.scene.scale.set(1.8, 1.8, 1.8);
+        gltf.scene.scale.set(0.8, 0.8, 0.8);
 
         scene.add( model );
 
-        // Create an AnimationMixer, and get the list of AnimationClip instances
-        mixer = new THREE.AnimationMixer( model );
-        const clips = gltf.animations;
-
-
-        // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction.002' );
-        const action = mixer.clipAction(clip);
-        // action.play();
-
-        // Play all animations
-        clips.forEach( function ( clip ) {
-        mixer.clipAction( clip ).play();
-        } );
+        
 
        
 
-        
+        gltf.scene.children[0].children[1].name = 'Cube';      
         // const intersects = raycaster.intersectObjects( scene.children);
         
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-      
-        mmi.addHandler('Vert001', 'click', function(object) {
+        
+        mmi.addHandler('Armature', 'click', function(object) {
           console.log('bdpressure mesh is being clicked!');
           // object.rotation._x = 60;
           //     scene.scale.set(2.5, 2.5, 2.5);
-          gltf.scene.scale.set(2.0, 2.0, 2.0);
+          gltf.scene.scale.set(1.0, 1.0, 1.0);
           // for (let i=0; i<gltf.scene.children.length; i++){
           //   gltf.scene.children[i].rotation.z=150;
 
           // }
-          
+          gltf.scene.position.set(1,2,2);
+
           gltf.scene.rotation.z=30;
 
           // object.rotation._onChangeCallback=true
@@ -229,6 +217,20 @@ export default class ThreeScene extends Component {
           // object.rotation._y = 60;
           // object.rotation._z = 60;
           // console.log('in xoay: ',object.rotation)
+          // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model );
+        const clips = gltf.animations;
+
+
+        // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction.002' );
+        // const action = mixer.clipAction(clip);
+        // action.play();
+
+        // Play all animations
+        clips.forEach( function ( clip ) {
+        mixer.clipAction( clip ).play();
+        } );
 
         })
   
