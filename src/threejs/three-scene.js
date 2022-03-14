@@ -9,13 +9,10 @@ let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, 
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
-      this.updatemove = false;
       
     }
-    
     componentDidMount(){
         // create scene
-      let updatemove = false;
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x4caca5
         );
@@ -38,6 +35,7 @@ export default class ThreeScene extends Component {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.position.set(10, 2, 0);
+
       renderer.render(scene, camera);
       // //create cube
       const geometry = new THREE.BoxGeometry();
@@ -46,8 +44,12 @@ export default class ThreeScene extends Component {
           wireframe: false});
       let cube = new THREE.Mesh( geometry, material );
       // cube.position.set(2,2,5); //x z y 
+      console.log('cube', cube);
       scene.add( cube );
-       camera.position.z = 5;
+       camera.position.z = 8;
+       camera.position.x = 6;
+       camera.position.y = 2;
+
       
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
@@ -73,26 +75,19 @@ export default class ThreeScene extends Component {
       // ambientLight.position.set(0, 0, 0);
       // scene.add(ambientLight);
       
-
-     
 			//////////////
 			const gray_color = new THREE.Color(0x57554f);
-			const yellow_color = new THREE.Color(0xe0c53a);
-     
+			const yellow_color = new THREE.Color(0xe0c53a); 
       /////////////////
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
 			const mmi = new MouseMeshInteraction(scene, camera);
-			
 			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
-			
-
       mouse = new THREE.Vector2();
-     
       raycaster = new THREE.Raycaster();
-      // const _mixers = [];
-      //import glb file
-      // const loader4 = new GLTFLoader();
+      const _mixers = [];
+      // import glb file
+      const loader4 = new GLTFLoader();
       // loader4.load("./labcustom.glb", function (gltf) {
       //   console.log('in ra:', gltf);
       //   console.log('in ra children22: ',gltf.scene.children[0]);
@@ -213,25 +208,32 @@ export default class ThreeScene extends Component {
 
         scene.add( model );
 
+        const dcontrols = new DragControls( [gltf.scene.children[3]], camera, renderer.domElement );
+
+        document.body.appendChild( renderer.domElement );
+
+        dcontrols.addEventListener( 'dragstart', function ( event ) {
+        // event.object.material.emissive.set( 0xaaaaaa );
+          // gltf.scene.material.transparent = true;
+          gltf.scene.children[3].material.opacity = 0.5;
+          console.log('huyet ap 2: ',gltf);
+
+
+        } );
+
+        dcontrols.addEventListener( 'dragend', function ( event ) {
+        // event.object.material.emissive.set( 0x000000 );
+
+        });
+
         
-
-        // gltf.scene.children[0].children[1].type = 'Mesh';      
-
-
-        // gltf.scene.children[0].children[1].name = 'Cube';      
-        // const intersects = raycaster.intersectObjects( scene.children);
         
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
         mmi.addHandler('Vert001', 'click', function(object) {
-          updatemove = true;
           console.log('bdpressure mesh is being clicked!');
-          // console.log(this.mouse.x)
-          // console.log(this.mouse.y)
-
-          // object.rotation._x = 60;
-          //     scene.scale.set(2.5, 2.5, 2.5);
+          
           gltf.scene.scale.set(1.0, 1.0, 1.0);
           // for (let i=0; i<gltf.scene.children.length; i++){
           //   gltf.scene.children[i].position.set(4,4,4);
@@ -239,7 +241,7 @@ export default class ThreeScene extends Component {
           // }
           gltf.scene.position.set(1,2,2);
 
-          // gltf.scene.rotation.z=30;
+          // gltf.scene.children[3].rotation.z=40;
           
           // object.rotation._onChangeCallback=true
           // object.rotation._x = 60;
@@ -299,23 +301,13 @@ export default class ThreeScene extends Component {
         
       });
     
-      // function moveobject(event){
-      //   if (updatemove){
-      //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      //     for (let i=0; i< scene.children.length; i++){
-      //         scene.children[i].position.set(mouse.x,mouse.y,0);
-  
-      //       }
-
-      //   } else{
-      //     updatemove = false;
-      //   }
-      // }
      // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
     const controls = new OrbitControls(camera, renderer.domElement);
+
+    controls.update();
+
     function positionForSquare(square) {
         const found = board.children.find((child) => child.userData.squareNumber == square);
         if (found)
@@ -327,54 +319,7 @@ export default class ThreeScene extends Component {
     
       // animate();
 
-    
-    
 
-    
-      function resetMaterials() {
-        for (let i = 0; i < scene.children.length; i++) {
-            if (scene.children[i].material) {
-            scene.children[i].material.opacity = scene.children[i].userData.currentSquare == selectedPiece ? 1.0 : 0.1;
-            }
-        }
-      }
-      function hoverPieces() {
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(scene.children);
-        for (let i = 0; i < intersects.length; i++) {
-          intersects[i].object.material.transparent = true;
-          intersects[i].object.material.opacity = 0.5;
-        }
-      }
-      // function onClick( event ) {
-
-      //   event.preventDefault();
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        
-      
-      //   raycaster.setFromCamera( mouse, camera );
-      
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
-      
-      //   if ( intersects.length > 0 ) {
-          
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
-      //     scene.scale.set(2.5, 2.5, 2.5);
-      //     // scene.position.set(scene.position.x+10)
-      //     scene.rotation_Y=60;
-      //     scene.rotation_X=60;
-      //     scene.rotation_Z=60;
-      //     scene.position.set(1,-5,-6);
-
-
-
-      
-      //   }
-      
-      // }
       function animate() {
         requestAnimationFrame(animate);
         if (mixer)
@@ -385,11 +330,9 @@ export default class ThreeScene extends Component {
           camera.position.z + 10,
         );
         // dragObject();
-        controls.autoRotate = false;
-        controls.autoRotateSpeed = 0.0;
-        hoverPieces();
+        // controls.autoRotate = false;
+        // controls.autoRotateSpeed = 0.0;
         // moveobject();
-        resetMaterials();
         controls.update();
         // onMouseMove();
         renderer.render(scene, camera);
@@ -413,57 +356,15 @@ export default class ThreeScene extends Component {
 				// update the mmi
 				mmi.update();
 				renderer.render(scene, camera);
-
-        // raycaster.setFromCamera( mouse, camera );
-
-        //     // calculate objects intersecting the picking ray
-        //     const intersects = raycaster.intersectObjects( scene.children );
-            
-        //     for ( let i = 0; i < intersects.length; i ++ ) {
-        //       // console.log('movemouse ne')
-
-        //       intersects[i].object.material.color.set( 0x00bb00 );
-        //       intersects[i].object.material.transparent = true;
-        //       intersects[i].object.material.opacity = 0.2;
-
-        //     }
-
-            renderer.render( scene, camera );
-
-          }
+        }
 
           
 
-          window.requestAnimationFrame(render)
+      window.requestAnimationFrame(render)
 			
 			
 			render();
-      const dcontrols = new DragControls( [cube], camera, renderer.domElement );
-      document.body.appendChild( renderer.domElement );
-
-    //   function onMouseMove( event ) {
- 
-    //     // calculate mouse position in normalized device coordinates
-    //     // (-1 to +1) for both components
-     
-    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-     
-    // }
-
-
-      // add event listener to highlight dragged objects
-
-      dcontrols.addEventListener( 'dragstart', function ( event ) {
-        event.object.material.emissive.set( 0xaaaaaa );
-
-
-      } );
-
-      dcontrols.addEventListener( 'dragend', function ( event ) {
-        event.object.material.emissive.set( 0x000000 );
-
-      } );
+      
       // window.addEventListener( 'mousemove', onMouseMove, false );
       // window.addEventListener('click', onClick);
       // window.addEventListener( 'mousemove', moveobject );
