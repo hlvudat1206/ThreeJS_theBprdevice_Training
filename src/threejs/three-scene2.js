@@ -1,22 +1,20 @@
 import * as THREE from "three";
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import MouseMeshInteraction from "./mousemes_interact";
 // import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { DragControls } from "./DragControls";
+
 
 let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2;
-export default class ThreeScene extends Component {
+export default class ThreeScene2 extends Component {
     constructor(props) {
       super(props);
-      this.updatemove = false;
       
     }
     
     componentDidMount(){
         // create scene
-      let updatemove = false;
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0x4caca5
         );
@@ -39,18 +37,15 @@ export default class ThreeScene extends Component {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.position.set(10, 2, 0);
-
       renderer.render(scene, camera);
       // //create cube
-      const geometry = new THREE.BoxGeometry();
-      const material = new THREE.MeshBasicMaterial( { 
-          color: 0xff0000  ,
-          wireframe: false});
-      let cube = new THREE.Mesh( geometry, material );
-      // cube.position.set(2,2,5); //x z y 
-      console.log('cube', cube);
-      scene.add( cube );
-       camera.position.z = 5;
+      // const geometry = new THREE.BoxGeometry();
+      // const material = new THREE.MeshBasicMaterial( { 
+      //     color: 0xff0000  ,
+      //     wireframe: false});
+      // const cube = new THREE.Mesh( geometry, material );
+      // scene.add( cube );
+      //  camera.position.z = 5;
       
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
@@ -89,9 +84,8 @@ export default class ThreeScene extends Component {
 			
 			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
 			
-
+      
       mouse = new THREE.Vector2();
-     
       raycaster = new THREE.Raycaster();
       // const _mixers = [];
       //import glb file
@@ -180,86 +174,44 @@ export default class ThreeScene extends Component {
       // });
 
       // let mixer2;
-      const loader5 = new GLTFLoader();
-      loader5.load("./canhtay.glb", function (gltf) {
-        console.log('in ra canh tay: ',gltf);
-        const model5 = gltf.scene;
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
-
-        // gltf.scene.position.set(4,0,2);
-        // gltf.scene.scale.set(3.8, 3.8, 3.8);
-        gltf.scene.children[0].position.set(4,0,2);
-        gltf.scene.children[0].scale.set(3.8,3.8,3.8);
-        gltf.scene.children[0].rotation.z = 60;
-        // gltf.scene.children[0].rotation.x = 60;
-        
-
-        scene.add( model5 );
-      });
-
       const loader = new GLTFLoader();
       loader.load("./huyetap23.glb", function (gltf) {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
-        // model.traverse(n => { if ( n.isMesh ) {
+        // model2.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
 
-        gltf.scene.position.set(8,0,1);
-        gltf.scene.scale.set(0.4, 0.4, 0.4);
+        gltf.scene.position.set(4,0,2);
+        gltf.scene.scale.set(0.8, 0.8, 0.8);
 
         scene.add( model );
 
-        const dcontrols = new DragControls( [gltf.scene.children[3]], camera, renderer.domElement );
+        
 
-        document.body.appendChild( renderer.domElement );
+       
 
-        dcontrols.addEventListener( 'dragstart', function ( event ) {
-        // event.object.material.emissive.set( 0xaaaaaa );
-          // gltf.scene.material.transparent = true;
-          gltf.scene.children[3].material.opacity = 0.5;
-          console.log('huyet ap 2: ',gltf);
-
-
-        } );
-
-        dcontrols.addEventListener( 'dragend', function ( event ) {
-        // event.object.material.emissive.set( 0x000000 );
-
-        });
-
-        // gltf.scene.children[0].children[1].type = 'Mesh';      
-
-
-        // gltf.scene.children[0].children[1].name = 'Cube';      
+        gltf.scene.children[0].children[1].name = 'Cube';      
         // const intersects = raycaster.intersectObjects( scene.children);
         
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
-        mmi.addHandler('Vert001', 'click', function(object) {
-          updatemove = true;
+        mmi.addHandler('Armature', 'click', function(object) {
           console.log('bdpressure mesh is being clicked!');
-          // console.log(this.mouse.x)
-          // console.log(this.mouse.y)
-
           // object.rotation._x = 60;
           //     scene.scale.set(2.5, 2.5, 2.5);
           gltf.scene.scale.set(1.0, 1.0, 1.0);
           // for (let i=0; i<gltf.scene.children.length; i++){
-          //   gltf.scene.children[i].position.set(4,4,4);
+          //   gltf.scene.children[i].rotation.z=150;
 
           // }
           gltf.scene.position.set(1,2,2);
 
-          // gltf.scene.rotation.z=30;
-          
+          gltf.scene.rotation.z=30;
+
           // object.rotation._onChangeCallback=true
           // object.rotation._x = 60;
           // object.rotation._y = 60;
@@ -281,10 +233,6 @@ export default class ThreeScene extends Component {
         } );
 
         })
-        
-          
-
-        
   
       //   });
         // just to test if the new features are conflicting with previously supported events
@@ -316,28 +264,15 @@ export default class ThreeScene extends Component {
         });
 			
         
+      },undefined,function(error){
+        console.error(error);
       });
-    
-      // function moveobject(event){
-      //   if (updatemove){
-      //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      //     for (let i=0; i< scene.children.length; i++){
-      //         scene.children[i].position.set(mouse.x,mouse.y,0);
-  
-      //       }
+      
 
-      //   } else{
-      //     updatemove = false;
-      //   }
-      // }
      // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
-    // const controls = new OrbitControls(camera, renderer.domElement);
-
-    // controls.update();
-
+    const controls = new OrbitControls(camera, renderer.domElement);
     function positionForSquare(square) {
         const found = board.children.find((child) => child.userData.squareNumber == square);
         if (found)
@@ -346,26 +281,46 @@ export default class ThreeScene extends Component {
       }
 
     const clock = new THREE.Clock();
-    
+    function animate() {
+      requestAnimationFrame(animate);
+      if (mixer)
+            mixer.update(clock.getDelta());
+      light.position.set( 
+        camera.position.x + 10,
+        camera.position.y + 10,
+        camera.position.z + 10,
+      );
+
+      controls.autoRotate = false;
+      controls.autoRotateSpeed = 0.0;
+      // hoverPieces();
+
+      resetMaterials();
+      controls.update();
+
+      renderer.render(scene, camera);
+
+    }
+    renderer.setAnimationLoop(animate);
       // animate();
 
+    // function onMouseMove( event ) {
+ 
+    //     // calculate mouse position in normalized device coordinates
+    //     // (-1 to +1) for both components
+     
+    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+     
+    // }
     
-    
-
+     
     
       function resetMaterials() {
         for (let i = 0; i < scene.children.length; i++) {
             if (scene.children[i].material) {
             scene.children[i].material.opacity = scene.children[i].userData.currentSquare == selectedPiece ? 1.0 : 0.1;
             }
-        }
-      }
-      function hoverPieces() {
-        raycaster.setFromCamera(mouse, camera);
-        const intersects = raycaster.intersectObjects(scene.children);
-        for (let i = 0; i < intersects.length; i++) {
-          intersects[i].object.material.transparent = true;
-          intersects[i].object.material.opacity = 0.5;
         }
       }
       // function onClick( event ) {
@@ -397,39 +352,6 @@ export default class ThreeScene extends Component {
       //   }
       
       // }
-      function animate() {
-        requestAnimationFrame(animate);
-        if (mixer)
-              mixer.update(clock.getDelta());
-        light.position.set( 
-          camera.position.x + 10,
-          camera.position.y + 10,
-          camera.position.z + 10,
-        );
-        // dragObject();
-        // controls.autoRotate = false;
-        // controls.autoRotateSpeed = 0.0;
-        hoverPieces();
-        // moveobject();
-        resetMaterials();
-        // controls.update();
-        // onMouseMove();
-        renderer.render(scene, camera);
-  
-      }
-      
-
-      
-
-
-
-
-
-
-
-
-
-      renderer.setAnimationLoop(animate);
       function render() {
 				requestAnimationFrame(render);
 				// update the mmi
@@ -460,35 +382,9 @@ export default class ThreeScene extends Component {
 			
 			
 			render();
-      // const dcontrols = new DragControls( objects, camera, renderer.domElement );
-      // document.body.appendChild( renderer.domElement );
-
-    //   function onMouseMove( event ) {
- 
-    //     // calculate mouse position in normalized device coordinates
-    //     // (-1 to +1) for both components
-     
-    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-     
-    // }
-
-
-      // add event listener to highlight dragged objects
-
-      // dcontrols.addEventListener( 'dragstart', function ( event ) {
-      //   // event.object.material.emissive.set( 0xaaaaaa );
-
-
-      // } );
-
-      // dcontrols.addEventListener( 'dragend', function ( event ) {
-      //   // event.object.material.emissive.set( 0x000000 );
-
-      // } );
+      
       // window.addEventListener( 'mousemove', onMouseMove, false );
       // window.addEventListener('click', onClick);
-      // window.addEventListener( 'mousemove', moveobject );
 
       
     }
