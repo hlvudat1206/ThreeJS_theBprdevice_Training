@@ -5,6 +5,7 @@ import MouseMeshInteraction from "./mousemes_interact";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
+import { PerspectiveCamera } from "three";
 
 let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2;
 export default class ThreeScene extends Component {
@@ -23,11 +24,12 @@ export default class ThreeScene extends Component {
 
         // create camera
       const camera = new THREE.PerspectiveCamera(
-        75,
+        105,
         window.innerWidth / window.innerHeight,
         0.1,
         1000
       );
+    
         // create rendering
       const renderer = new THREE.WebGL1Renderer({
         canvas: document.querySelector("#bg"),
@@ -39,6 +41,7 @@ export default class ThreeScene extends Component {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       camera.position.set(10, 2, 0);
+
 
       renderer.render(scene, camera);
       // //create cube
@@ -202,7 +205,7 @@ export default class ThreeScene extends Component {
       });
 
       const loader = new GLTFLoader();
-      loader.load("./huyetap23.glb", function (gltf) {
+      loader.load("./huyetap27.glb", function (gltf) {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
         // model.traverse(n => { if ( n.isMesh ) {
@@ -215,15 +218,21 @@ export default class ThreeScene extends Component {
         gltf.scene.scale.set(0.4, 0.4, 0.4);
 
         scene.add( model );
+       
+        const dcontrols = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
 
-        const dcontrols = new DragControls( [gltf.scene.children[3]], camera, renderer.domElement );
+        
+
+        // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
         document.body.appendChild( renderer.domElement );
 
         dcontrols.addEventListener( 'dragstart', function ( event ) {
         // event.object.material.emissive.set( 0xaaaaaa );
           // gltf.scene.material.transparent = true;
-          gltf.scene.children[3].material.opacity = 0.5;
+          // gltf.scene.children[3].material.opacity = 0.5;
+          // gltf.scene.children.material.opacity = 0.5;
+
           console.log('huyet ap 2: ',gltf);
 
 
@@ -244,20 +253,25 @@ export default class ThreeScene extends Component {
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
         mmi.addHandler('Vert001', 'click', function(object) {
-          updatemove = true;
+          camera.position.set(0, 5, 0);
+
+        // camera.position.set(10, 3, 0);
           console.log('bdpressure mesh is being clicked!');
+          gltf.scene.rotation.x=50;
+
           // console.log(this.mouse.x)
           // console.log(this.mouse.y)
 
           // object.rotation._x = 60;
           //     scene.scale.set(2.5, 2.5, 2.5);
-          gltf.scene.scale.set(1.0, 1.0, 1.0);
+          // gltf.scene.scale.set(1.0, 1.0, 1.0);
+          // gltf.scene.position.set(1,2,2);
           // for (let i=0; i<gltf.scene.children.length; i++){
           //   gltf.scene.children[i].position.set(4,4,4);
 
           // }
-          gltf.scene.position.set(1,2,2);
-
+          
+        
           // gltf.scene.rotation.z=30;
           
           // object.rotation._onChangeCallback=true
@@ -334,9 +348,9 @@ export default class ThreeScene extends Component {
      // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
-    // const controls = new OrbitControls(camera, renderer.domElement);
+    const controls = new OrbitControls(camera, renderer.domElement);
 
-    // controls.update();
+    controls.update();
 
     function positionForSquare(square) {
         const found = board.children.find((child) => child.userData.squareNumber == square);
