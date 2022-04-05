@@ -1,0 +1,1 @@
+arging and discharging times of the capacitor, and converts the measured values into capacitance
