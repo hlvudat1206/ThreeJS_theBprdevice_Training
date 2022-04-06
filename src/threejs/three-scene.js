@@ -310,10 +310,24 @@ export default class ThreeScene extends Component {
         
         
 
-        
+        const imageArray3 = ['testture2.mp4'];
         const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
         ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
-        ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png'];
+        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
+        ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
+        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
+        ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
+        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
+        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        // ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'];
             
             // const map = new THREE.TextureLoader();
         
@@ -361,23 +375,24 @@ export default class ThreeScene extends Component {
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
         mmi.addHandler('Vert001', 'click', function(object) {
-          const map2 = new THREE.TextureLoader()
+          // const map2 = new THREE.TextureLoader()
        
-            .load(imageArray2[0]);
-            // map.rotation = Math.PI / 2;
+          //   .load(imageArray2[0]);
+          //   // map.rotation = Math.PI / 2;
             
-            map2.center.set(0.5, 0.5);
-            map2.rotation = THREE.Math.degToRad(90);
-            screen.traverse(child =>  {
-              if(child.isMesh) {
-                child.material.map = map2; 
-                child.castShadow = true;
-                child.receiveShadow = true;
+          //   map2.center.set(0.5, 0.5);
+          //   map2.rotation = THREE.Math.degToRad(90);
+          //   screen.traverse(child =>  {
+          //     if(child.isMesh) {
+          //       child.material.map = map2; 
+          //       child.castShadow = true;
+          //       child.receiveShadow = true;
                 
-            }
+          //   }
               
-              scene.add(model)
-            });
+          //     scene.add(model)
+          //   });
+          
           
          
           for (let i=0; i<imageArray.length; i++) {
