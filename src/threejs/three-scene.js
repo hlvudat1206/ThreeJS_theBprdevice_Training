@@ -37,12 +37,16 @@ export default class ThreeScene extends Component {
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
       camera.position.set(0, 0, 0);//wide position
+      // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
  
   
  
 
         // create rendering
+     
+      
+      
       const renderer = new THREE.WebGL1Renderer({
         canvas: document.querySelector("#bg"),
       });
@@ -50,26 +54,17 @@ export default class ThreeScene extends Component {
       renderer.toneMappingExposure = 2.3;
       renderer.shadowMap.enabled = true;
 
-      renderer.setPixelRatio(window.devicePixelRatio);
+      // renderer.setPixelRatio(window.devicePixelRatio);
+      // renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio( window.devicePixelRatio*0.4 );
+      // renderer.setSize( 400, 400 ); // some width and height values
       renderer.setSize(window.innerWidth, window.innerHeight);
+      // camera.aspect = window.innerWidth / window.innerHeight
+
+      
       camera.position.set(10, 2, 0);
 
-
       renderer.render(scene, camera);
-
-      
-      // //create cube
-      // const geometry2 = new THREE.BoxGeometry();
-      // const material2 = new THREE.MeshBasicMaterial( { 
-      //     color: 0xff0000  ,
-      //     wireframe: false});
-      // let cube = new THREE.Mesh( geometry2, material2 );
-      // // cube.position.set(2,2,5); //x z y 
-      // console.log('cube', cube);
-      // scene.add( cube );
-      
-      // create path
-      // const assetPath = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/";
   
       clock2 = new THREE.Clock();
       
@@ -92,7 +87,7 @@ export default class ThreeScene extends Component {
       
      
       
-      window.addEventListener( 'resize', resize, false);
+      window.addEventListener( 'resize', resize);
       
       update();
       
@@ -308,7 +303,8 @@ export default class ThreeScene extends Component {
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
         const imageArray2 = ['Artboard 00.png','Artboard 1.png'];
         
-        
+        const imageArray4 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
+        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png']
 
         const imageArray3 = ['testture2.mp4'];
         const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
@@ -361,7 +357,7 @@ export default class ThreeScene extends Component {
           console.log('in y2: ',mouse.y);
           if (mouse.x < -0.01 &&  mouse.y > 0.1) {
             
-            gltf.scene.position.set(0,4,5);
+            // gltf.scene.position.set(0,4,5);
             console.log('da move');
           } else {
             return console.log('da fail');
@@ -398,6 +394,7 @@ export default class ThreeScene extends Component {
           for (let i=0; i<imageArray.length; i++) {
             
             setTimeout(() => {
+              
               const map = new THREE.TextureLoader()
               // rotate( Math.PI / 2 );
                 .load(imageArray[i])
@@ -405,17 +402,18 @@ export default class ThreeScene extends Component {
                 map.center.set(0.5, 0.5);
                 map.rotation = THREE.Math.degToRad(90);
                 screen.traverse(child =>  {
-                
+                  
                   if(child.isMesh) {
-                    child.material.map = map; 
-                    child.castShadow = true;
-                    child.receiveShadow = true;
+                    child.receiveShadow = true;   
+                    child.material.map = map;
+                  
+                    // child.visible = false;
+                    // child.castShadow = true;
                     
                 }
-                
                 scene.add(model)
               });
-            }, 300*i); //print the results with i times
+            }, 500*i); //print the results with i times
             }
             
           
@@ -426,7 +424,7 @@ export default class ThreeScene extends Component {
         const clips = gltf.animations;
         
 
-        // Play a specific animation
+        // // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
         const action = mixer.clipAction(clip);
         action.play();
@@ -585,7 +583,7 @@ export default class ThreeScene extends Component {
       }
 
       function animate() {
-        requestAnimationFrame(animate);
+        // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
         light.position.set( 
