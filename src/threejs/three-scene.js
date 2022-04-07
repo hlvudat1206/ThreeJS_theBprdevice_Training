@@ -34,7 +34,10 @@ export default class ThreeScene extends Component {
       //   0.1,
       //   1000
       // );
-      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
+   
+
+
+      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
@@ -56,8 +59,8 @@ export default class ThreeScene extends Component {
 
       // renderer.setPixelRatio(window.devicePixelRatio);
       // renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio( window.devicePixelRatio*0.4 );
-      // renderer.setSize( 400, 400 ); // some width and height values
+      renderer.setPixelRatio( window.devicePixelRatio*0.7 );
+      // renderer.setSize( 800, 400 ); // some width and height values
       renderer.setSize(window.innerWidth, window.innerHeight);
       // camera.aspect = window.innerWidth / window.innerHeight
 
@@ -323,11 +326,56 @@ export default class ThreeScene extends Component {
         ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
         // ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
         ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'];
-            
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
+        ,'Artboard 119.png','Artboard 120.png','Artboard 121.png','Artboard 122.png','Artboard 123.png','Artboard 124.png'
+        ,'Artboard 125.png','Artboard 126.png','Artboard 127.png','Artboard 128.png','Artboard 129.png','Artboard 130.png'
+        ,'Artboard 131.png','Artboard 132.png','Artboard 133.png','Artboard 134.png','Artboard 135.png','Artboard 136.png'
+        // ,'Artboard 137.png','Artboard 138.png','Artboard 139.png','Artboard 140.png','Artboard 141.png','Artboard 142.png'
+        ,'Artboard 143.png','Artboard 144.png','Artboard 145.png','Artboard 146.png','Artboard 147.png','Artboard 148.png'
+        // ,'Artboard 149.png','Artboard 150.png','Artboard 151.png','Artboard 152.png','Artboard 153.png','Artboard 154.png'
+        ,'Artboard 155.png','Artboard 156.png','Artboard 157.png','Artboard 158.png','Artboard 159.png','Artboard 160.png'
+        ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
+        // ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
+        ,'Artboard 173.png','Artboard 174.png','Artboard 175.png','Artboard 173.png','Artboard 174.png','Artboard 172.png'];
+        
+        const imageArrayR = [
+        //   'Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
+        // ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
+        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
+        // ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
+        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
+        // ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
+        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
+        // ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        'Artboard final.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        // ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
+        ,'Artboard 119.png','Artboard 120.png','Artboard 121.png','Artboard 122.png','Artboard 123.png','Artboard 124.png'
+        ,'Artboard 125.png','Artboard 126.png','Artboard 127.png','Artboard 128.png','Artboard 129.png','Artboard 130.png'
+        ,'Artboard 131.png','Artboard 132.png','Artboard 133.png','Artboard 134.png','Artboard 135.png','Artboard 136.png'
+        // ,'Artboard 137.png','Artboard 138.png','Artboard 139.png','Artboard 140.png','Artboard 141.png','Artboard 142.png'
+        ,'Artboard 143.png','Artboard 144.png','Artboard 145.png','Artboard 146.png','Artboard 147.png','Artboard 148.png'
+        // ,'Artboard 149.png','Artboard 150.png','Artboard 151.png','Artboard 152.png','Artboard 153.png','Artboard 154.png'
+        ,'Artboard 155.png','Artboard 156.png','Artboard 157.png','Artboard 158.png','Artboard 159.png','Artboard 160.png'
+        // ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
+        ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
+        ,'Artboard 173.png'];
             // const map = new THREE.TextureLoader();
         
- 
+        const imageArrayRR = imageArrayR.reverse()
         scene.add(model);
         update();
         const dcontrols = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
@@ -371,50 +419,62 @@ export default class ThreeScene extends Component {
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
         mmi.addHandler('Vert001', 'click', function(object) {
-          // const map2 = new THREE.TextureLoader()
-       
-          //   .load(imageArray2[0]);
-          //   // map.rotation = Math.PI / 2;
-            
-          //   map2.center.set(0.5, 0.5);
-          //   map2.rotation = THREE.Math.degToRad(90);
-          //   screen.traverse(child =>  {
-          //     if(child.isMesh) {
-          //       child.material.map = map2; 
-          //       child.castShadow = true;
-          //       child.receiveShadow = true;
-                
-          //   }
-              
-          //     scene.add(model)
-          //   });
-          
-          
          
           for (let i=0; i<imageArray.length; i++) {
+            console.log('dang run image');
             
             setTimeout(() => {
               
               const map = new THREE.TextureLoader()
               // rotate( Math.PI / 2 );
                 .load(imageArray[i])
+          
+                // map.repeat.set(0.5,0.5); //scale image len
                 // map.rotation = Math.PI / 2;
                 map.center.set(0.5, 0.5);
                 map.rotation = THREE.Math.degToRad(90);
                 screen.traverse(child =>  {
                   
                   if(child.isMesh) {
-                    child.receiveShadow = true;   
+                    // child.receiveShadow = true;   
                     child.material.map = map;
                   
                     // child.visible = false;
                     // child.castShadow = true;
                     
                 }
-                scene.add(model)
+                // scene.add(model)
               });
-            }, 500*i); //print the results with i times
+            }, 300*i); //print the results with i times
             }
+
+            for (let j=0; j<imageArray.length; j++) {
+              console.log('dang run image');
+              
+              setTimeout(() => {
+                
+                const map = new THREE.TextureLoader()
+                // rotate( Math.PI / 2 );
+                  .load(imageArrayRR[j])
+            
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map.center.set(0.5, 0.5);
+                  map.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  {
+                    
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map;
+                    
+                      // child.visible = false;
+                      // child.castShadow = true;
+                      
+                  }
+                  // scene.add(model)
+                });
+              }, 600*j); //print the results with i times
+              }
             
           
           console.log('bdpressure mesh is being clicked!');
@@ -579,7 +639,7 @@ export default class ThreeScene extends Component {
       function resize(){
         // camera.aspect = window.innerWidth / window.innerHeight;
         // camera.updateProjectionMatrix();
-        // renderer.setSize( window.innerWidth, window.innerHeight );
+        // renderer.setSize( window.innerWidth*0.4, window.innerHeight*0.4 );
       }
 
       function animate() {
@@ -616,37 +676,24 @@ export default class ThreeScene extends Component {
 
       renderer.setAnimationLoop(animate);
       function render() {
-				requestAnimationFrame(render);
+  			requestAnimationFrame(render);
 				// update the mmi
 				mmi.update();
+     
+
 				renderer.render(scene, camera);
 
-        // raycaster.setFromCamera( mouse, camera );
-
-        //     // calculate objects intersecting the picking ray
-        //     const intersects = raycaster.intersectObjects( scene.children );
-            
-        //     for ( let i = 0; i < intersects.length; i ++ ) {
-        //       // console.log('movemouse ne')
-
-        //       intersects[i].object.material.color.set( 0x00bb00 );
-        //       intersects[i].object.material.transparent = true;
-        //       intersects[i].object.material.opacity = 0.2;
-
-        //     }
-
-            renderer.render( scene, camera );
+  
 
           }
 
           
 
-          window.requestAnimationFrame(render)
+          // window.requestAnimationFrame(render)
 			
 			
 			render();
-      // const dcontrols = new DragControls( objects, camera, renderer.domElement );
-      // document.body.appendChild( renderer.domElement );
+ 
       
       function onMouseMove( event ) {
  
@@ -676,6 +723,8 @@ export default class ThreeScene extends Component {
       // } );
      
       window.addEventListener( 'mousemove', onMouseMove, false );
+      // window.addEventListener( 'resize', resize, false );
+
       // window.addEventListener('click', onClick);
       // window.addEventListener( 'mousemove', moveobject );
 
