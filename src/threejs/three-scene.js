@@ -262,26 +262,35 @@ export default class ThreeScene extends Component {
 
       let mixer2;
       const loader5 = new GLTFLoader();
-      loader5.load("./canhtay.glb", function (gltf) {
+      loader5.load("./perfecthand.glb", function (gltf) {
         console.log('in ra canh tay: ',gltf);
         const model5 = gltf.scene;
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
-
-        // gltf.scene.position.set(4,0,2);
-        // gltf.scene.scale.set(3.8, 3.8, 3.8);
-        gltf.scene.position.set(0,0,7);
+        
+        gltf.scene.position.set(-1,-2,8);
+        gltf.scene.rotation.y = 0.5;
         // gltf.scene.children[0].position.set(4,-5,2);
-        gltf.scene.scale.set(15.8,15.8,15.8);
-        gltf.scene.rotation.y = 1.78
+        gltf.scene.scale.set(20.8,20.8,20.8);
+        gltf.scene.rotation.y = 1.8;
         // gltf.scene.children[0].rotation.y = 1.78; 
   // 
-        
 
         scene.add( model5 );
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model5 );
+        const clips = gltf.animations;
+        
+
+        // // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
+        const action = mixer.clipAction(clip);
+        action.clampWhenFinished = true; //Capture the last status of animation
+        action.loop = THREE.LoopOnce; //go back the initial status
+        // action.time = 2; // fhz ??
+        // action.weight = 0.5; //weight object
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
+        action.play();
       });
      
       const loader = new GLTFLoader();
@@ -472,7 +481,14 @@ export default class ThreeScene extends Component {
 
         // // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
         const action = mixer.clipAction(clip);
+        // action.clampWhenFinished = true; //Capture the status of aniamtion
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        action.weight = 0.5; //weight object
+        action.zeroSlopeAtStart = true;
+        action.zeroSlopeAtEnd = true;
         action.play();
         
         
@@ -516,7 +532,7 @@ export default class ThreeScene extends Component {
 
         });
         mmi.addHandler('Vert001', 'mouseenter', function(object) {
-          console.log('in ra khi da move');
+          console.log('in ra khi move');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
           object.material.color.r = 0.6;
@@ -538,20 +554,6 @@ export default class ThreeScene extends Component {
         
       });
     
-      // function moveobject(event){
-      //   if (updatemove){
-      //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      //     for (let i=0; i< scene.children.length; i++){
-      //         scene.children[i].position.set(mouse.x,mouse.y,0);
-  
-      //       }
-
-      //   } else{
-      //     updatemove = false;
-      //   }
-      // }
-     // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -604,40 +606,7 @@ export default class ThreeScene extends Component {
           intersects[i].object.material.opacity = 0.5;
         }
       }
-      // function onClick( event ) {
-      //   // onClick = (event )=> {
-      //   this.setState({
-      //     clickRotation : !this.state.clickRotation
       
-      //   });
-        
-      //   event.preventDefault();
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        
-      
-      //   raycaster.setFromCamera( mouse, camera );
-      
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
-      
-      //   if ( intersects.length > 0 ) {
-          
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
-      //     // scene.scale.set(2.5, 2.5, 2.5);
-      //     // // scene.position.set(scene.position.x+10)
-      //     // scene.rotation_Y=60;
-      //     // scene.rotation_X=60;
-      //     // scene.rotation_Z=60;
-      //     // scene.position.set(1,-5,-6);
-
-
-
-      
-      //   }
-      
-      // }
       // function onClick ( event ) {
 
       //   // this.setState({
