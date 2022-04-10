@@ -15,13 +15,19 @@ var clock2;
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
-     
+      // this.loader2 = this.loader2.bind(this);
       this.state = {
-        clickRotation: false
+        movehand: false
       }
-    }
      
+    }
+    
     componentDidMount(){
+   
+        
+
+     
+      // console.log('status:',!this.state.movehand);
         // create scene
       let updatemove = false;
       
@@ -63,23 +69,20 @@ export default class ThreeScene extends Component {
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
       clock2 = new THREE.Clock();
-      
-      // const envMap = new THREE.CubeTextureLoader()
-      //   .setPath(`${assetPath}skybox1_`)
-      //   .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
-      // scene.background = envMap;
+ 
 
-      const curve = new CustomSinCurve(2);
+      //create sin spline
+      // const curve = new CustomSinCurve(2);
      
       
 
-      const geometry = new THREE.TubeBufferGeometry( curve, 100, 1, 1, true );
-      const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0x00000, 
-        // side: THREE.DoubleSide 
-      });
-      const tube = new THREE.Mesh( geometry, material );
-      tube.position.set(4,4,4);
-      scene.add(tube);
+      // const geometry = new THREE.TubeBufferGeometry( curve, 100, 1, 1, true );
+      // const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0x00000, 
+      //   // side: THREE.DoubleSide 
+      // });
+      // const tube = new THREE.Mesh( geometry, material );
+      // tube.position.set(4,4,4);
+      // scene.add(tube);
       
      
       
@@ -151,7 +154,7 @@ export default class ThreeScene extends Component {
       // })
 
       const loader2 = new GLTFLoader();
-      loader2.load("./baodo4.glb", function (gltf) {
+      loader2.load("./baodo4.glb",  (gltf) => {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         model = gltf.scene.children[2];
@@ -160,15 +163,15 @@ export default class ThreeScene extends Component {
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-
-        gltf.scene.position.set(8,1,0.5);
-        gltf.scene.scale.set(0.9, 0.9, 0.9);
+        
+        gltf.scene.position.set(0,1,0.5);
+        gltf.scene.scale.set(5.9, 5.9, 5.9);
       
         scene.add( gltf.scene );
 
         const dcontrols2 = new DragControls( [gltf.scene.children[2]], camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
-        dcontrols2.addEventListener( 'dragstart', function ( event ) {
+        dcontrols2.addEventListener( 'dragstart', ( event ) => {
           // event.object.material.emissive.set( 0xaaaaaa );
             // gltf.scene.material.transparent = true;
             // gltf.scene.children[3].material.opacity = 0.5;
@@ -178,23 +181,25 @@ export default class ThreeScene extends Component {
 
           } );
   
-        dcontrols2.addEventListener( 'dragend', function ( event ) {
+        dcontrols2.addEventListener( 'dragend', ( event ) => {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
-          // if (mouse.x < -0.01 &&  mouse.y > 0.1) {
+          // if (mouse.x < -0.1 &&  mouse.y > 0.05) {
             
-          //   gltf.scene.position.set(0,4,5);
+          //   gltf.scene.position.set(-1,-2,8);
+          //   // gltf.scene.rotation.y = 0.5;
+          //   gltf.scene.scale.set(2.8,2.8,2.8);
           //   console.log('da move bao do');
           // } else {
-          //   return gltf.scene.position.set(0,2,-4);
+    
           //   console.log('da fail bao do');
           // }
 
         });
-        mmi.addHandler('nham', 'click', function(object) {
+        mmi.addHandler('nham', 'click', (object) => {
           console.log('daydo mesh is being clicked!');
-          // object.rotation._x = 60;
+          
           //     scene.scale.set(2.5, 2.5, 2.5);
           // gltf.scene.scale.set(4.0, 4.0, 4.0);
           // gltf.scene.position.set(0,0,0); //y z x
@@ -208,6 +213,25 @@ export default class ThreeScene extends Component {
 
         
         })
+        mmi.addHandler('nham', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('nham', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
 
       })
       
@@ -253,12 +277,12 @@ export default class ThreeScene extends Component {
 
       let mixer2;
       const loader5 = new GLTFLoader();
-      loader5.load("./perfecthand.glb", function (gltf) {
+      loader5.load("./perfecthand.glb",  (gltf) => {
         console.log('in ra canh tay: ',gltf);
         const model5 = gltf.scene;
         
         gltf.scene.position.set(-1,-2,8);
-        gltf.scene.rotation.y = 0.5;
+        // gltf.scene.rotation.y = 0.5;
         // gltf.scene.children[0].position.set(4,-5,2);
         gltf.scene.scale.set(20.8,20.8,20.8);
         gltf.scene.rotation.y = 1.8;
@@ -271,7 +295,7 @@ export default class ThreeScene extends Component {
         const clips = gltf.animations;
         
 
-        // // Play a specific animation
+        // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
         // clip
         const action = mixer.clipAction(clip);
@@ -282,11 +306,46 @@ export default class ThreeScene extends Component {
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
         action.play();
+        // if (mouse.x > -0.4 && mouse.y <-0.3) {
+        //   gltf.material.color.r = 0.6;
+        //   gltf.material.color.g = 0.2;
+        //   gltf.material.color.b = 0.2;
+
+        // } else {
+        //   gltf.material.color.r = 0.801;
+        //   gltf.material.color.g = 0.664;
+        //   gltf.material.color.b = 0.234;
+        // }
+        mmi.addHandler('Body001', 'mouseenter',  (object) => {
+          console.log('the hand has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          this.setState({
+            movehand: !this.state.movehand
+          })
+          console.log('status223:',this.state.movehand);
+          
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Body001', 'mouseleave', (object) => {
+          console.log('the hand hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        
       });
      
       const loader = new GLTFLoader();
       
-      loader.load("./huyetap34.glb", function (gltf) {
+      loader.load("./huyetap34.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
 
@@ -378,7 +437,7 @@ export default class ThreeScene extends Component {
 
         document.body.appendChild( renderer.domElement );
 
-        dcontrols.addEventListener( 'dragstart', function ( event ) {
+        dcontrols.addEventListener( 'dragstart', ( event ) => {
         // event.object.material.emissive.set( 0xaaaaaa );
           // gltf.scene.material.transparent = true;
           // gltf.scene.children[3].material.opacity = 0.5;
@@ -391,7 +450,7 @@ export default class ThreeScene extends Component {
 
         } );
 
-        dcontrols.addEventListener( 'dragend', function ( event ) {
+        dcontrols.addEventListener( 'dragend',  ( event ) => {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
@@ -410,7 +469,7 @@ export default class ThreeScene extends Component {
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
-        mmi.addHandler('Vert001', 'click', function(object) {
+        mmi.addHandler('Vert001', 'click', (object) => {
           
           for (let i = 0; i<imageArray.length; i++) {
             console.log('runnnnnn image');            
@@ -497,7 +556,7 @@ export default class ThreeScene extends Component {
       //   });
         // just to test if the new features are conflicting with previously supported events
 			//		(everything seems to be OK)
-        mmi.addHandler('Vert001', 'dblclick', function(object) {
+        mmi.addHandler('Vert001', 'dblclick', (object) => {
           console.log('bdpressure is double clicked!');
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
@@ -513,7 +572,7 @@ export default class ThreeScene extends Component {
 
 
         });
-        mmi.addHandler('Vert001', 'contextmenu', function(object) {
+        mmi.addHandler('Vert001', 'contextmenu', (object) => {
           console.log('bdpressure is pressed with the right button!');
           // gltf.scene.parent.background.set(0xff0a0a);
           // gltf.scene.children[6].parent.parent.background.set(0xff0a0a);
@@ -522,7 +581,7 @@ export default class ThreeScene extends Component {
 
 
         });
-        mmi.addHandler('Vert001', 'mouseenter', function(object) {
+        mmi.addHandler('Vert001', 'mouseenter', (object) => {
           console.log('in ra khi move');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
@@ -532,7 +591,7 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
-        mmi.addHandler('Vert001', 'mouseleave', function(object) {
+        mmi.addHandler('Vert001', 'mouseleave', (object) => {
           console.log('in ra khi da move');
           object.material.color.r = 0.801;
           object.material.color.g = 0.664;
@@ -541,7 +600,7 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
-        mmi.addHandler('Vert001', 'mousedown', function(object) {
+        mmi.addHandler('Vert001', 'mousedown', (object) => {
           console.log('in ra khi da movedown');
         
           
@@ -570,7 +629,7 @@ export default class ThreeScene extends Component {
       controls.enableDamping = true;
       controls.dampingFactor = 0.001;
       controls.zoomSpeed = 1.0;
-      controls.enableRotate = true;
+      controls.enableRotate = false;
    
     // controls.update();
 
@@ -606,18 +665,18 @@ export default class ThreeScene extends Component {
       }
       
       
-      function updateCamera(){
-        const time = clock2.getElapsedTime();
-        const looptime = 20;
-        const t = ( time % looptime ) / looptime;
-        const t2 = ( (time + 0.1) % looptime) / looptime
+      // function updateCamera(){
+      //   const time = clock2.getElapsedTime();
+      //   const looptime = 20;
+      //   const t = ( time % looptime ) / looptime;
+      //   const t2 = ( (time + 0.1) % looptime) / looptime
         
-        const pos = tube.geometry.parameters.path.getPointAt( t );
-        const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
+      //   const pos = tube.geometry.parameters.path.getPointAt( t );
+      //   const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
         
-        camera.position.copy(pos);
-        camera.lookAt(pos2);
-      }
+      //   camera.position.copy(pos);
+      //   camera.lookAt(pos2);
+      // }
       
       function update(){
         // requestAnimationFrame( update );
@@ -671,10 +730,19 @@ export default class ThreeScene extends Component {
 
           // window.requestAnimationFrame(render)
 			
-			
+          function onPointerMove( event ) {
+
+            // calculate pointer position in normalized device coordinates
+            // (-1 to +1) for both components
+          
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+          
+          }
+          
 			render();
    
-      // window.addEventListener( 'mousemove', onMouseMove, false );
+      window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
 
       // window.addEventListener('click', onClick);
@@ -682,15 +750,19 @@ export default class ThreeScene extends Component {
 
       
     }
+    // changeuserstatus = () => {
+    //   this.setState({
+    //     movehand: !this.state.movehand
+    //   })
+    //   console.log('status22: ',this.state.movehand)
+    // }
 
     render() {
         
       return (
           <div>
           <canvas id="bg">
-            <button >
-
-            </button>
+         
           </canvas>
           
           </div>
