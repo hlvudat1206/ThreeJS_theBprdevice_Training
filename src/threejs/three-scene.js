@@ -30,13 +30,6 @@ export default class ThreeScene extends Component {
         );
 
         // create camera
-      // camera = new THREE.PerspectiveCamera(
-      //   105,
-      //   window.innerWidth / window.innerHeight,
-      //   0.1,
-      //   1000
-      // );
-   
 
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100);
@@ -68,9 +61,7 @@ export default class ThreeScene extends Component {
 
       
       camera.position.set(10, 2, 0);
-
       renderer.render(scene, camera);
-  
       clock2 = new THREE.Clock();
       
       // const envMap = new THREE.CubeTextureLoader()
@@ -607,40 +598,7 @@ export default class ThreeScene extends Component {
         }
       }
       
-      // function onClick ( event ) {
-
-      //   // this.setState({
-      //   //   clickRotation : !this.state.clickRotation
       
-      //   // });
-        
-      //   event.preventDefault();
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        
-      
-      //   raycaster.setFromCamera( mouse, camera );
-      
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
-      
-      //   if ( intersects.length > 0 ) {
-          
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
-      //     // scene.scale.set(2.5, 2.5, 2.5);
-      //     // // scene.position.set(scene.position.x+10)
-      //     // scene.rotation_Y=60;
-      //     // scene.rotation_X=60;
-      //     // scene.rotation_Z=60;
-      //     // scene.position.set(1,-5,-6);
-
-
-
-      
-      //   }
-      
-      // }
       function updateCamera(){
         const time = clock2.getElapsedTime();
         const looptime = 20;
@@ -708,35 +666,7 @@ export default class ThreeScene extends Component {
 			
 			
 			render();
- 
-      
-    //   function onMouseMove( event ) {
- 
-    //     // calculate mouse position in normalized device coordinates
-    //     // (-1 to +1) for both components
-     
-    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    
-        
-        
-     
-    // }
-
-
-      // add event listener to highlight dragged objects
-
-      // dcontrols.addEventListener( 'dragstart', function ( event ) {
-      //   // event.object.material.emissive.set( 0xaaaaaa );
-
-
-      // } );
-
-      // dcontrols.addEventListener( 'dragend', function ( event ) {
-      //   // event.object.material.emissive.set( 0x000000 );
-
-      // } );
-     
+   
       // window.addEventListener( 'mousemove', onMouseMove, false );
       // window.addEventListener( 'resize', resize, false );
 
