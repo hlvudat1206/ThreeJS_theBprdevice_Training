@@ -541,6 +541,13 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
+        mmi.addHandler('Vert001', 'mousedown', function(object) {
+          console.log('in ra khi da movedown');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
 			
         
       });
