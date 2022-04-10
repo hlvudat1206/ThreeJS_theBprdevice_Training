@@ -157,12 +157,8 @@ export default class ThreeScene extends Component {
       loader2.load("./baodo4.glb",  (gltf) => {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
-        model = gltf.scene.children[2];
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
+        // model = gltf.scene.children[2];
+        model2 = gltf.scene;
         
         gltf.scene.position.set(0,1,0.5);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
@@ -172,12 +168,12 @@ export default class ThreeScene extends Component {
         const dcontrols2 = new DragControls( [gltf.scene.children[2]], camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
         dcontrols2.addEventListener( 'dragstart', ( event ) => {
-          // event.object.material.emissive.set( 0xaaaaaa );
-            // gltf.scene.material.transparent = true;
-            // gltf.scene.children[3].material.opacity = 0.5;
-            // gltf.scene.children.material.opacity = 0.5;
+      
             console.log('in x: ',mouse.x);
             console.log('in y: ',mouse.y);
+            this.setState({
+              movehand: true
+            })
 
           } );
   
@@ -195,6 +191,8 @@ export default class ThreeScene extends Component {
     
           //   console.log('da fail bao do');
           // }
+          
+          
 
         });
         mmi.addHandler('nham', 'click', (object) => {
@@ -320,15 +318,22 @@ export default class ThreeScene extends Component {
           console.log('the hand has been moved');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
-          this.setState({
-            movehand: !this.state.movehand
-          })
-          console.log('status223:',this.state.movehand);
-          
+          // this.setState({
+          //   movehand: !this.state.movehand
+          // })
+          // console.log('status223:',this.state.movehand);
+          if (this.state.movehand === true){
+            console.log('da group vao')
+            model2.rotation.x = 1.78;
+            model2.position.set(-1,-2,12);
+          } else {
+            console.log('chua co group')
+          }
+
           object.material.color.r = 0.6;
           object.material.color.g = 0.2;
           object.material.color.b = 0.2;
-          // gltf.scene.children.material.opacity = 0.5;
+      
           
         });
         mmi.addHandler('Body001', 'mouseleave', (object) => {
@@ -363,6 +368,9 @@ export default class ThreeScene extends Component {
         gltf.scene.rotation.y = 0;
 
         scene.add( model );
+        
+        console.log('in ra huyetapnew: ',gltf);
+
         const root = model.children[0].children[1];
         // root.children[0].visible = true;
         const screen = root.children[0];
@@ -429,7 +437,10 @@ export default class ThreeScene extends Component {
         const imageArrayRR = imageArrayR.reverse()
         scene.add(model);
         update();
-        const dcontrols = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
+
+        
+        // [gltf.scene.children[0]]
+        const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
 
         
 
