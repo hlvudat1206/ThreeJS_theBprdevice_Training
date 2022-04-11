@@ -7,6 +7,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import CustomSinCurve from "./sinline";
 import { Texture } from "three";
+import { MeshToonMaterial } from "three";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2,binormal,normal;
@@ -17,19 +18,16 @@ export default class ThreeScene extends Component {
       super(props);
       // this.loader2 = this.loader2.bind(this);
       this.state = {
-        movehand: false
+        movehand: false,
+        movebaodo: false
       }
      
     }
     
     componentDidMount(){
-   
-        
 
-     
-      // console.log('status:',!this.state.movehand);
         // create scene
-      let updatemove = false;
+ 
       
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x4caca5
@@ -44,13 +42,8 @@ export default class ThreeScene extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
  
-  
- 
-
         // create rendering
-     
-      
-      
+
       const renderer = new THREE.WebGL1Renderer({
         canvas: document.querySelector("#bg"),
       });
@@ -84,15 +77,15 @@ export default class ThreeScene extends Component {
       // tube.position.set(4,4,4);
       // scene.add(tube);
       
+      
+      
      
       
       window.addEventListener( 'resize', resize);
       
       update();
-      
-      
-      
-      
+
+  
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
       hemiLight.position.set(0, 20, 0);
@@ -154,7 +147,7 @@ export default class ThreeScene extends Component {
       // })
 
       const loader2 = new GLTFLoader();
-      loader2.load("./baodo4.glb",  (gltf) => {
+      loader2.load("./perbaodo.glb",  (gltf) => {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         // model = gltf.scene.children[2];
@@ -164,13 +157,22 @@ export default class ThreeScene extends Component {
         gltf.scene.scale.set(5.9, 5.9, 5.9);
       
         scene.add( gltf.scene );
+        
+        // const baodogroup = new THREE.Group();
+        // baodogroup.add( gltf.scene.children[0].children[4] );
+        // console.log('baodogroup: ',baodogroup)
+        // scene.add( baodogroup );
+        // [gltf.scene.children[0]]
+        // create skinned mesh and skeleton
 
-        const dcontrols2 = new DragControls( [gltf.scene.children[2]], camera, renderer.domElement );
+        
+        const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
         dcontrols2.addEventListener( 'dragstart', ( event ) => {
       
             console.log('in x: ',mouse.x);
             console.log('in y: ',mouse.y);
+           
             this.setState({
               movehand: true
             })
@@ -195,8 +197,14 @@ export default class ThreeScene extends Component {
           
 
         });
-        mmi.addHandler('nham', 'click', (object) => {
+        mmi.addHandler('Plane001', 'click', (object) => {
           console.log('daydo mesh is being clicked!');
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+          this.setState({
+            movebaodo: true
+          })
           
           //     scene.scale.set(2.5, 2.5, 2.5);
           // gltf.scene.scale.set(4.0, 4.0, 4.0);
@@ -211,7 +219,7 @@ export default class ThreeScene extends Component {
 
         
         })
-        mmi.addHandler('nham', 'mouseenter', (object) =>{
+        mmi.addHandler('Plane001', 'mouseenter', (object) =>{
           console.log('the cuff has been moved');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
@@ -221,7 +229,7 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
-        mmi.addHandler('nham', 'mouseleave', (object) => {
+        mmi.addHandler('Plane001', 'mouseleave', (object) => {
           console.log('the cuff hasnt been moved');
           object.material.color.r = 0.801;
           object.material.color.g = 0.664;
@@ -314,21 +322,38 @@ export default class ThreeScene extends Component {
         //   gltf.material.color.g = 0.664;
         //   gltf.material.color.b = 0.234;
         // }
+        mmi.addHandler('Body001', 'click', (object) => {
+          console.log('Body001 is clicked!');
+          this.setState({
+            movebaodo: false
+          })
+          // gltf.scene.parent.background.set(0xffaa00);
+          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+
+          model2.position.set(0,-4,12);
+          model2.rotation.x = 1.78;
+          
+          
+          console.log('in color ', object.material.color)
+          console.log('in color ', object.material.emissive)
+
+
+        });
         mmi.addHandler('Body001', 'mouseenter',  (object) => {
           console.log('the hand has been moved');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
-          // this.setState({
-          //   movehand: !this.state.movehand
-          // })
-          // console.log('status223:',this.state.movehand);
-          if (this.state.movehand === true){
-            console.log('da group vao')
-            model2.rotation.x = 1.78;
-            model2.position.set(-1,-2,12);
-          } else {
-            console.log('chua co group')
-          }
+        
+          // if (this.state.movehand === true){
+          //   console.log('da group vao')
+          //   model2.rotation.x = 1.78;
+          //   model2.position.set(-1,-2,12);
+          // } else {
+          //   console.log('chua co group')
+          // }
 
           object.material.color.r = 0.6;
           object.material.color.g = 0.2;
@@ -465,6 +490,7 @@ export default class ThreeScene extends Component {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
+
           if (mouse.x < -0.01 &&  mouse.y > 0.1) {
             
             // gltf.scene.position.set(0,4,5);
@@ -737,18 +763,35 @@ export default class ThreeScene extends Component {
 
           }
 
-          
+        // window.requestAnimationFrame(render)
 
-          // window.requestAnimationFrame(render)
-			
-          function onPointerMove( event ) {
+			// raycaster for my background
+           let onPointerMove = ( event ) => {
 
             // calculate pointer position in normalized device coordinates
             // (-1 to +1) for both components
           
             mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
             mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-          
+
+            //  // create sin
+            // const path = new CustomSinCurve( mouse.x*10  );
+            // const geometry = new THREE.TubeGeometry( path, 20, 2, 8, true );
+            // const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            // const mesh = new THREE.Mesh( geometry, material );
+            // mesh.rotation.y = 1.78;
+            // // mesh.rotation.z = 1.78;
+            // mesh.scale.set(0.1,0.1,0.1);
+            // mesh.position.set(0,0,6);
+            // scene.add( mesh );
+
+           if (this.state.movebaodo === true){
+             console.log('Da vao movebaodo true true true');
+             model2.position.set(0.5,15*mouse.y,-mouse.x*15);
+           } 
+            
+           
+           
           }
           
 			render();
