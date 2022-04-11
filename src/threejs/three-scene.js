@@ -12,14 +12,15 @@ import { MeshToonMaterial } from "three";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2,binormal,normal;
 var clock2;
+let arrowHelper;
 
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
       // this.loader2 = this.loader2.bind(this);
       this.state = {
-        movehand: false,
-        movebaodo: false
+        movecuff: false,
+        pullcuff: false
       }
      
     }
@@ -173,9 +174,7 @@ export default class ThreeScene extends Component {
             console.log('in x: ',mouse.x);
             console.log('in y: ',mouse.y);
            
-            this.setState({
-              movehand: true
-            })
+            
 
           } );
   
@@ -203,7 +202,7 @@ export default class ThreeScene extends Component {
           object.material.color.g = 10;
           object.material.color.b = 0;
           this.setState({
-            movebaodo: true
+            movecuff: true
           })
           
           //     scene.scale.set(2.5, 2.5, 2.5);
@@ -238,6 +237,7 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
+        
 
       })
       
@@ -312,35 +312,27 @@ export default class ThreeScene extends Component {
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
         action.play();
-        // if (mouse.x > -0.4 && mouse.y <-0.3) {
-        //   gltf.material.color.r = 0.6;
-        //   gltf.material.color.g = 0.2;
-        //   gltf.material.color.b = 0.2;
-
-        // } else {
-        //   gltf.material.color.r = 0.801;
-        //   gltf.material.color.g = 0.664;
-        //   gltf.material.color.b = 0.234;
-        // }
+      
         mmi.addHandler('Body001', 'click', (object) => {
           console.log('Body001 is clicked!');
           this.setState({
-            movebaodo: false
+            movecuff: !this.state.movecuff
           })
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+          if (this.state.movecuff === false) {
+            model2.position.set(0,-4,12);
+            model2.rotation.x = 1.78;
+            this.setState({
+             pullcuff: true
+            })
+
+          }
           object.material.color.r = 0;
           object.material.color.g = 10;
           object.material.color.b = 0;
 
-          model2.position.set(0,-4,12);
-          model2.rotation.x = 1.78;
-          
-          
-          console.log('in color ', object.material.color)
-          console.log('in color ', object.material.emissive)
-
-
+      
         });
         mmi.addHandler('Body001', 'mouseenter',  (object) => {
           console.log('the hand has been moved');
@@ -644,6 +636,13 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
+        mmi.addHandler('Vert001', 'mouseup', (object) => {
+          console.log('in ra khi da mouseup');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
 			
         
       });
@@ -766,6 +765,7 @@ export default class ThreeScene extends Component {
         // window.requestAnimationFrame(render)
 
 			// raycaster for my background
+          let arr = [];
            let onPointerMove = ( event ) => {
 
             // calculate pointer position in normalized device coordinates
@@ -784,9 +784,51 @@ export default class ThreeScene extends Component {
             // mesh.scale.set(0.1,0.1,0.1);
             // mesh.position.set(0,0,6);
             // scene.add( mesh );
+            
+            if (this.state.pullcuff === true){
+              
+           
+              const dir = new THREE.Vector3( Math.abs(mouse.y)*10, Math.abs(mouse.x)*10, 0 );
 
-           if (this.state.movebaodo === true){
-             console.log('Da vao movebaodo true true true');
+              //normalize the direction vector (convert to vector of length 1)
+              dir.normalize();
+  
+              const origin = new THREE.Vector3( 0, -4, 12 );
+          
+              const length = 10;
+              
+              // const arrwillchoose = Math.max(arr)
+              console.log('in mang x: ',Math.abs(mouse.x)*10);
+              console.log('in mang y: ',Math.abs(mouse.y)*10);
+
+              const hex = 0xffff00;
+              
+              arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+           
+        
+             
+              scene.add(arrowHelper);
+
+              // scene.remove(arr[arr.length-2]);
+              // arr = []
+
+
+              
+
+          
+
+              // if (arr.length > 1){
+              //   scene.remove(arrowHelper);
+              //   arr = []
+              // } else {
+              //   scene.add(arrowHelper);
+              // }
+              
+
+            }
+            
+           if (this.state.movecuff === true){
+             console.log('Da vao movecuff true true true');
              model2.position.set(0.5,15*mouse.y,-mouse.x*15);
            } 
             
