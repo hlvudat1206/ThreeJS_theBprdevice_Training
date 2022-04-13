@@ -10,7 +10,7 @@ import { Texture } from "three";
 import { MeshToonMaterial } from "three";
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2,binormal,normal;
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model2animation, renderer,binormal,normal;
 var clock2;
 let arrowHelper;
 
@@ -20,7 +20,9 @@ export default class ThreeScene extends Component {
       // this.loader2 = this.loader2.bind(this);
       this.state = {
         movecuff: false,
-        pullcuff: false
+        pullcuff: false,
+        clickhandforcuff: false,
+        clickwire: false
       }
      
     }
@@ -148,23 +150,19 @@ export default class ThreeScene extends Component {
       // })
 
       const loader2 = new GLTFLoader();
-      loader2.load("./perbaodo.glb",  (gltf) => {
-        console.log('in ra:', gltf);
-        console.log('in ra children22: ',gltf.scene.children[0]);
+      loader2.load("./perbaodo8.glb",  (gltf) => {
+        console.log('print perbaodo:', gltf);
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
-        
-        gltf.scene.position.set(0,1,0.5);
+        model2animation = gltf.animations;
+        gltf.scene.position.set(0,-4,0.5);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
-      
-        scene.add( gltf.scene );
-        
-        // const baodogroup = new THREE.Group();
-        // baodogroup.add( gltf.scene.children[0].children[4] );
-        // console.log('baodogroup: ',baodogroup)
-        // scene.add( baodogroup );
-        // [gltf.scene.children[0]]
-        // create skinned mesh and skeleton
+       
+        // gltf.scene.rotation.y = 0.0;
+        // console.log('print scale:', gltf.scene.scale);
+
+
+        scene.add( model2 );
 
         
         const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
@@ -173,9 +171,6 @@ export default class ThreeScene extends Component {
       
             console.log('in x: ',mouse.x);
             console.log('in y: ',mouse.y);
-           
-            
-
           } );
   
         dcontrols2.addEventListener( 'dragend', ( event ) => {
@@ -237,6 +232,16 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
+        mmi.addHandler('BezierCurve', 'click', (object) => {
+          console.log('thang ngu nay');
+
+          this.setState({
+            clickwire: true
+          })
+       
+
+        
+        })
         
 
       })
@@ -281,7 +286,7 @@ export default class ThreeScene extends Component {
       // );
       
 
-      let mixer2;
+    
       const loader5 = new GLTFLoader();
       loader5.load("./perfecthand.glb",  (gltf) => {
         console.log('in ra canh tay: ',gltf);
@@ -305,32 +310,57 @@ export default class ThreeScene extends Component {
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
         // clip
         const action = mixer.clipAction(clip);
-        action.clampWhenFinished = true; //Capture the last status of animation
-        action.loop = THREE.LoopOnce; //go back the initial status
+        // action.clampWhenFinished = true; //Capture the last status of animation
+        // action.loop = THREE.LoopOnce; //go back the initial status
         // action.time = 2; // fhz ??
         // action.weight = 0.5; //weight object
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
-        action.play();
+        // action.play();
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+        
       
         mmi.addHandler('Body001', 'click', (object) => {
           console.log('Body001 is clicked!');
           this.setState({
-            movecuff: !this.state.movecuff
+            // movecuff: !this.state.movecuff
+            clickhandforcuff: true
           })
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
-          if (this.state.movecuff === false) {
+
+          if (this.state.clickhandforcuff === true) {
             model2.position.set(0,-4,12);
             model2.rotation.x = 1.78;
+
+            mixer = new THREE.AnimationMixer( model2 );
+            const clips = model2animation;
+    
+            // // Play a specific animation
+            const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction');
+            
+            // clip
+            const action = mixer.clipAction(clip);
+            action.clampWhenFinished = true; //Capture the last status of animation
+            action.loop = THREE.LoopOnce; //go back the initial status
+            action.time = 1; // fhz ??
+            action.weight = 1; //weight object
+            action.zeroSlopeAtStart = true;
+            action.zeroSlopeAtEnd = true;
+            action.play();
+            
             this.setState({
-             pullcuff: true
+             pullcuff: true,
+             movecuff: false
             })
 
           }
           object.material.color.r = 0;
           object.material.color.g = 10;
           object.material.color.b = 0;
+         
 
       
         });
@@ -765,7 +795,7 @@ export default class ThreeScene extends Component {
         // window.requestAnimationFrame(render)
 
 			// raycaster for my background
-          let arr = [];
+        
            let onPointerMove = ( event ) => {
 
             // calculate pointer position in normalized device coordinates
@@ -774,56 +804,64 @@ export default class ThreeScene extends Component {
             mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
             mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-            //  // create sin
-            // const path = new CustomSinCurve( mouse.x*10  );
-            // const geometry = new THREE.TubeGeometry( path, 20, 2, 8, true );
-            // const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-            // const mesh = new THREE.Mesh( geometry, material );
-            // mesh.rotation.y = 1.78;
-            // // mesh.rotation.z = 1.78;
-            // mesh.scale.set(0.1,0.1,0.1);
-            // mesh.position.set(0,0,6);
-            // scene.add( mesh );
+            
+            if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
+               // create sin
+            const path = new CustomSinCurve( Math.abs(mouse.x)*50  );
+            const geometry = new THREE.TubeGeometry( path, 20, 2, 8, true );
+            const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            const mesh = new THREE.Mesh( geometry, material );
+            mesh.rotation.y = 1.78;
+            // mesh.rotation.z = 1.78;
+            mesh.scale.set(0.1,0.1,0.1);
+            mesh.position.set(-5,-6,12);
+            // model2.position.set(0,-2,12);
+            // model2.rotation.x = 1.78;
+            scene.add( mesh );
+              
+            }
             
             if (this.state.pullcuff === true){
               
            
-              const dir = new THREE.Vector3( Math.abs(mouse.y)*10, Math.abs(mouse.x)*10, 0 );
+              const dir = new THREE.Vector3( -(mouse.y)*10,Math.abs((mouse.x))*10, 0 );
 
               //normalize the direction vector (convert to vector of length 1)
               dir.normalize();
   
-              const origin = new THREE.Vector3( 0, -4, 12 );
+              const origin = new THREE.Vector3( 0, 0, 12 );
           
-              const length = 10;
+              const length = 5;
               
               // const arrwillchoose = Math.max(arr)
-              console.log('in mang x: ',Math.abs(mouse.x)*10);
-              console.log('in mang y: ',Math.abs(mouse.y)*10);
+              console.log('in mang x: ',(mouse.x)*10);
+              console.log('in mang y: ',(mouse.y)*10);
+              if (-(mouse.y)*10 < 0 && (mouse.x)*10 >-4.5){
+                const hex = 0xe83b1e;
 
-              const hex = 0xffff00;
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                scene.add(arrowHelper);
+              } else if (-(mouse.y)*10 > -4.5 && (mouse.x)*10 > -6.5){
+                const hex = 0xffff00;
               
-              arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+ 
+                scene.add(arrowHelper);
+              } else if ((mouse.y)*10 <3 ){
+                const hex = 0x76b81b;
+              
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+ 
+                scene.add(arrowHelper);
+              }
+              
+              // if ((mouse.x)*10 <0 && (mouse.y)*10 < 0 ){
+              //   scene.remove(arrowHelper);
+              // }
            
-        
-             
-              scene.add(arrowHelper);
-
               // scene.remove(arr[arr.length-2]);
               // arr = []
-
-
-              
-
-          
-
-              // if (arr.length > 1){
-              //   scene.remove(arrowHelper);
-              //   arr = []
-              // } else {
-              //   scene.add(arrowHelper);
-              // }
-              
+       
 
             }
             
