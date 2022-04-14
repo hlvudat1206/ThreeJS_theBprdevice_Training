@@ -150,6 +150,7 @@ export default class ThreeScene extends Component {
       // })
 
       const loader2 = new GLTFLoader();
+      // file perbaodo8 is belong to baodo6.glb
       loader2.load("./perbaodo8.glb",  (gltf) => {
         console.log('print perbaodo:', gltf);
         // model = gltf.scene.children[2];
@@ -324,12 +325,13 @@ export default class ThreeScene extends Component {
       
         mmi.addHandler('Body001', 'click', (object) => {
           console.log('Body001 is clicked!');
+          
+          // gltf.scene.parent.background.set(0xffaa00);
+          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
           this.setState({
             // movecuff: !this.state.movecuff
             clickhandforcuff: true
           })
-          // gltf.scene.parent.background.set(0xffaa00);
-          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
 
           if (this.state.clickhandforcuff === true) {
             model2.position.set(0,-4,12);
@@ -822,49 +824,45 @@ export default class ThreeScene extends Component {
             }
             
             if (this.state.pullcuff === true){
-              
-           
-              const dir = new THREE.Vector3( -(mouse.y)*10,Math.abs((mouse.x))*10, 0 );
+              const dir2 = new THREE.Vector3 (1, 0, 0 );
+              dir2.normalize();
 
+              const dir = new THREE.Vector3( (mouse.x)*5,Math.abs((mouse.y)), 0 );
+              // const dir = new THREE.Vector3( 1,2, 0 );
               //normalize the direction vector (convert to vector of length 1)
               dir.normalize();
   
               const origin = new THREE.Vector3( 0, 0, 12 );
           
               const length = 5;
+            
+              const p1 = {x: 1 ,y:0};
+              const p2 = {x: (mouse.x)*10, y: Math.abs((mouse.y))}; 
+              // angle in degrees
+              let angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+              // const cos2v = (1*(-(mouse.x))/(Math.sqrt(1)*Math.sqrt((mouse.x)^2 + (mouse.y)^2 )));
+              // const arccos2v = Math.acos(cos2v);
+              // console.log('in cos initial: ', cos2v);
+              console.log('in cos: ', angleDeg);
               
-              // const arrwillchoose = Math.max(arr)
-              console.log('in mang x: ',(mouse.x)*10);
-              console.log('in mang y: ',(mouse.y)*10);
-              if (-(mouse.y)*10 < 0 && (mouse.x)*10 >-4.5){
+              if (angleDeg > 170){
                 const hex = 0xe83b1e;
-
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
                 scene.add(arrowHelper);
-              } else if (-(mouse.y)*10 > -4.5 && (mouse.x)*10 > -6.5){
+              } else if (angleDeg <= 170 && angleDeg > 120){
                 const hex = 0xffff00;
-              
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
- 
                 scene.add(arrowHelper);
-              } else if ((mouse.y)*10 <3 ){
+              } else {
                 const hex = 0x76b81b;
-              
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
- 
                 scene.add(arrowHelper);
               }
               
-              // if ((mouse.x)*10 <0 && (mouse.y)*10 < 0 ){
-              //   scene.remove(arrowHelper);
-              // }
-           
-              // scene.remove(arr[arr.length-2]);
-              // arr = []
-       
-
+            
             }
             
+
            if (this.state.movecuff === true){
              console.log('Da vao movecuff true true true');
              model2.position.set(0.5,15*mouse.y,-mouse.x*15);
