@@ -235,7 +235,10 @@ export default class ThreeScene extends Component {
         });
         mmi.addHandler('BezierCurve', 'click', (object) => {
           console.log('thang ngu nay');
-
+          console.log('mouselog: ', Math.abs(mouse.x)*20 );
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
           this.setState({
             clickwire: true
           })
@@ -243,6 +246,25 @@ export default class ThreeScene extends Component {
 
         
         })
+        mmi.addHandler('BezierCurve', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('BezierCurve', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
         
 
       })
@@ -808,20 +830,25 @@ export default class ThreeScene extends Component {
 
             
             if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
-               // create sin
-            const path = new CustomSinCurve( Math.abs(mouse.x)*50  );
-            const geometry = new THREE.TubeGeometry( path, 20, 2, 8, true );
-            const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-            const mesh = new THREE.Mesh( geometry, material );
-            mesh.rotation.y = 1.78;
-            // mesh.rotation.z = 1.78;
-            mesh.scale.set(0.1,0.1,0.1);
-            mesh.position.set(-5,-6,12);
-            // model2.position.set(0,-2,12);
-            // model2.rotation.x = 1.78;
-            scene.add( mesh );
+            //    // create sin
+            // const path = new CustomSinCurve( 10  ); // start point
+            // // Math.abs(mouse.x)*50
+      
+            //   const geometry = new THREE.TubeGeometry( path, 100, 2, 8, true );
+            //   const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
+            //   const mesh = new THREE.Mesh( geometry, material );
+            //   mesh.rotation.y = 1.78;
+
+            //   // mesh.rotation.x = 1.78;
+            //   // mesh.scale.set(0.1,0.1,0.1);
+
+            //   mesh.position.set(-5,-6,16);
+            //   // model2.position.set(0,-2,12);
+            //   // model2.rotation.x = 1.78;
+            //   scene.add( mesh );
               
-            }
+            // }
+          };
             
             if (this.state.pullcuff === true){
               const dir2 = new THREE.Vector3 (1, 0, 0 );
