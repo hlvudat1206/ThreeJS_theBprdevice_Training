@@ -10,6 +10,7 @@ import { Texture } from "three";
 import { MeshToonMaterial } from "three";
 
 
+
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, model2animation, renderer,binormal,normal;
 var clock2;
 let arrowHelper;
@@ -24,7 +25,8 @@ export default class ThreeScene extends Component {
         clickhandforcuff: false,
         clickwire: false,
         onoff: 0,
-        clickbpr_to_wireconnect: false
+        clickbpr_to_wireconnect: false,
+        animationCuff: false
       }
      
     }
@@ -585,7 +587,9 @@ export default class ThreeScene extends Component {
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
         mmi.addHandler('Vert001', 'click', (object) => {
-          
+          console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
+          console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
+        if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
           for (let i = 0; i<imageArray.length; i++) {
             console.log('runnnnnn image');            
             setTimeout(() => {
@@ -596,6 +600,8 @@ export default class ThreeScene extends Component {
                 // map.rotation = Math.PI / 2;
                 map.center.set(0.5, 0.5);
                 map.rotation = THREE.Math.degToRad(90);
+                console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
                 screen.traverse(child =>  { 
                   if(child.isMesh) {
                     // child.receiveShadow = true;   
@@ -634,7 +640,7 @@ export default class ThreeScene extends Component {
                 });
               }, 500*j+ z*250); //print the results with i times
               }
-   
+        }
               
           
           console.log('bdpressure mesh is being clicked!');
@@ -871,6 +877,8 @@ export default class ThreeScene extends Component {
 
             // arrow to guide connecting to the blood pressure monitor
             if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
+
+            
               // this.setState({
               //   pullcuff: false
               // })
@@ -904,12 +912,13 @@ export default class ThreeScene extends Component {
               scene.add(model3)
             }
             if (this.state.pullcuff === true){
+              console.log('in ra animationCuff: ',this.state.animationCuff)
+              //create vector 2
               const dir2 = new THREE.Vector3 (1, 0, 0 );
               dir2.normalize();
 
+              //create vector 1
               const dir = new THREE.Vector3( (mouse.x)*5,Math.abs((mouse.y)), 0 );
-              // const dir = new THREE.Vector3( 1,2, 0 );
-              //normalize the direction vector (convert to vector of length 1)
               dir.normalize();
   
               const origin = new THREE.Vector3( 0, 0, 12 );
@@ -917,12 +926,11 @@ export default class ThreeScene extends Component {
               const length = 5;
             
               const p1 = {x: 1 ,y:0};
-              const p2 = {x: (mouse.x)*10, y: Math.abs((mouse.y))}; 
+              const p2 = {x: (mouse.x)*10, y: Math.abs((mouse.y))};
+              //compare angle between vector 2 and vector 1 to fill color 
               // angle in degrees
               let angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-              // const cos2v = (1*(-(mouse.x))/(Math.sqrt(1)*Math.sqrt((mouse.x)^2 + (mouse.y)^2 )));
-              // const arccos2v = Math.acos(cos2v);
-              // console.log('in cos initial: ', cos2v);
+            
               console.log('in cos: ', angleDeg);
               
               if (angleDeg > 170){
@@ -954,7 +962,8 @@ export default class ThreeScene extends Component {
         let onClick = (event) => {
           console.log('da click 1234567')
           this.setState({
-            pullcuff: false
+            pullcuff: false,
+            
           })
         }
 			render();
