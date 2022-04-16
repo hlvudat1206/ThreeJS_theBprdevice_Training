@@ -11,7 +11,10 @@ import { MeshToonMaterial } from "three";
 
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, model2animation, renderer,binormal,normal;
+
+
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+model2animation, renderer,binormal,normal, angleDeg;
 var clock2;
 let arrowHelper;
 
@@ -48,6 +51,7 @@ export default class ThreeScene extends Component {
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
+    
  
         // create rendering
 
@@ -69,13 +73,9 @@ export default class ThreeScene extends Component {
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
       clock2 = new THREE.Clock();
- 
 
       //create sin spline
       // const curve = new CustomSinCurve(2);
-     
-      
-
       // const geometry = new THREE.TubeBufferGeometry( curve, 100, 1, 1, true );
       // const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0x00000, 
       //   // side: THREE.DoubleSide 
@@ -83,9 +83,13 @@ export default class ThreeScene extends Component {
       // const tube = new THREE.Mesh( geometry, material );
       // tube.position.set(4,4,4);
       // scene.add(tube);
+
       
       
-      
+//       const geometry = new THREE.BoxGeometry();
+// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// const cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
      
       
       window.addEventListener( 'resize', resize);
@@ -318,7 +322,7 @@ export default class ThreeScene extends Component {
         
         // gltf.scene.position.set(-1,-2,8);
         // gltf.scene.position.set(10,0,5);
-        gltf.scene.position.set(1,-2,1);
+        gltf.scene.position.set(0,-2,-1);
 
         gltf.scene.rotation.y = 1.4;
         // gltf.scene.children[0].position.set(4,-5,2);
@@ -345,7 +349,7 @@ export default class ThreeScene extends Component {
 
     
       const loader5 = new GLTFLoader();
-      loader5.load("./perfecthand.glb",  (gltf) => {
+      loader5.load("./perhand.glb",  (gltf) => {
         console.log('in ra canh tay: ',gltf);
         const model5 = gltf.scene;
         
@@ -367,9 +371,9 @@ export default class ThreeScene extends Component {
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
         // clip
         const action = mixer.clipAction(clip);
-        // action.clampWhenFinished = true; //Capture the last status of animation
-        // action.loop = THREE.LoopOnce; //go back the initial status
-        // action.time = 2; // fhz ??
+        action.clampWhenFinished = true; //Capture the last status of animation
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
         // action.weight = 0.5; //weight object
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
@@ -464,10 +468,10 @@ export default class ThreeScene extends Component {
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-        gltf.scene.position.set(-2,0,-5);
+        gltf.scene.position.set(-4,0,-7);
 
         // gltf.scene.position.set(8,0,1);
-        gltf.scene.scale.set(1.4, 1.4, 1.4);
+        gltf.scene.scale.set(1.4, 1.4, 1.5);
         gltf.scene.rotation.z = -0.7;
         gltf.scene.rotation.x = 0;
         // gltf.scene.rotation.y = -0.05;
@@ -866,7 +870,10 @@ export default class ThreeScene extends Component {
         // window.requestAnimationFrame(render)
 
 			// raycaster for my background
-        
+            let arrayArrow = []
+            let arrayMouseX = []
+            let arrayMouseY = []
+
            let onPointerMove = ( event ) => {
 
             // calculate pointer position in normalized device coordinates
@@ -894,7 +901,7 @@ export default class ThreeScene extends Component {
                 const hex = 0xffff00;
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
                 console.log('onoff: ', this.state.onoff)
-                  scene.add(arrowHelper);
+                scene.add(arrowHelper);
                 this.setState({
                   onoff: 1
                 });
@@ -902,7 +909,7 @@ export default class ThreeScene extends Component {
                 const hex = 0xe83b1e;
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
                 console.log('onoff: ', this.state.onoff)
-                  scene.add(arrowHelper);
+                scene.add(arrowHelper);
                 this.setState({
                   onoff: 0
                 });
@@ -911,42 +918,136 @@ export default class ThreeScene extends Component {
             if (this.state.clickbpr_to_wireconnect === true) {
               scene.add(model3)
             }
+            
             if (this.state.pullcuff === true){
               console.log('in ra animationCuff: ',this.state.animationCuff)
+
+              //create circle 1
+              const geometry = new THREE.CircleGeometry( 5, 32, Math.PI, Math.PI/3 );
+              const material = new THREE.MeshBasicMaterial( { color: 0xe83b1e } );
+              const circle = new THREE.Mesh( geometry, material );
+              circle.position.set(0,0.5,14);
+              circle.rotation.y = (Math.PI)*2;
+              circle.rotation.x = (Math.PI);
+              scene.add( circle );
+
+              //create circle 2
+              const geometry2 = new THREE.CircleGeometry( 5, 32, -Math.PI/3, Math.PI/3 ); // circle from -pi to pi (left to right), -pi/3 is start, pi/3 is length
+              const material2 = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
+              const circle2 = new THREE.Mesh( geometry2, material2 );
+              circle2.position.set(0,0.5,14);
+              circle2.rotation.y = (Math.PI)*2;
+              circle2.rotation.x = (Math.PI);
+
+              scene.add( circle2 );
+
+              //create circle 3
+              const geometry3 = new THREE.CircleGeometry( 5, 32, -Math.PI*2/3, Math.PI/3 );
+              const material3 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+              const circle3 = new THREE.Mesh( geometry3, material3 );
+              circle3.position.set(0,0.5,14);
+              circle3.rotation.y = (Math.PI)*2;
+              circle3.rotation.x = (Math.PI);
+        
+              scene.add( circle3 );
+              
               //create vector 2
               const dir2 = new THREE.Vector3 (1, 0, 0 );
               dir2.normalize();
-
+              const hex = 0x191970;
+              const arrowHelper2 = new THREE.ArrowHelper( dir2, origin, length, hex  );
+              scene.add(arrowHelper2);
               //create vector 1
-              const dir = new THREE.Vector3( (mouse.x)*5,Math.abs((mouse.y)), 0 );
-              dir.normalize();
+              
   
-              const origin = new THREE.Vector3( 0, 0, 12 );
+              const origin = new THREE.Vector3( 0,0.5,14 );
           
               const length = 5;
-            
+              const headLengthzero = 1;
+              const headWidthzero = 1;
               const p1 = {x: 1 ,y:0};
-              const p2 = {x: (mouse.x)*10, y: Math.abs((mouse.y))};
+              const p2 = {x: (mouse.x)*20, y: Math.abs((mouse.y))*20};
               //compare angle between vector 2 and vector 1 to fill color 
               // angle in degrees
-              let angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+              angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
             
               console.log('in cos: ', angleDeg);
               
-              if (angleDeg > 170){
-                const hex = 0xe83b1e;
-                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
-                scene.add(arrowHelper);
-              } else if (angleDeg <= 170 && angleDeg > 120){
-                const hex = 0xffff00;
-                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
-                scene.add(arrowHelper);
+              if (angleDeg > 120){
+                
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0xFF0000;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero  );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  arrayMouseX.push((mouse.x)*20);
+                  arrayMouseY.push((mouse.y)*20);
+                
+                
+
+              } else if (angleDeg <= 120 && angleDeg > 60){
+             
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0xFFFF00;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  arrayMouseX.push((mouse.x)*20);
+                  arrayMouseY.push((mouse.y)*20);
+                
+
               } else {
-                const hex = 0x76b81b;
-                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
-                scene.add(arrowHelper);
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0x006400;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  arrayMouseX.push((mouse.x)*20);
+                  arrayMouseY.push((mouse.y)*20);
               }
-              
+              // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
+              //   console.log('arrayMouseX: ', arrayMouseX)
+              //   console.log('arrayMouseY: ', arrayMouseY)
+
+              //   const dir = new THREE.Vector3( arrayMouseX[arrayArrow.length - 1],arrayMouseY[arrayArrow.length - 1], 0 );
+              //   const origin = new THREE.Vector3( 0,0.5,14 );
+          
+              //   const length = 5;
+              //   const headLengthzero = 1;
+              //   const headWidthzero = 1;
+              //   dir.normalize();
+              //   const hex = 0x00FF00;
+              //   const arrowHelper3 = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+              //   arrowHelper3.rotation.y = (Math.PI)*2;
+              //   arrowHelper3.rotation.x = (Math.PI);
+              //   scene.add(arrowHelper3);
+
+              // }
+            
+
+
+                // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
+                // const origin2 = new THREE.Vector3( 0, -1, 15 );
+                // const length2 = 8;
+                // const hex = 0x8B008B	;
+                
+                // // arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                // // scene.add(arrowHelper);
+                // const arrowHelper = new THREE.ArrowHelper( dir, origin2, length2, hex, headLengthzero, headWidthzero*2);
+                // scene.add(arrowHelper);
+
+            
+                // }
+         
+              // console.log('arrayArrow: ',arrayArrow);
+
+
             
             }
             
