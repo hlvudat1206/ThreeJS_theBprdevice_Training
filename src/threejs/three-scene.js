@@ -10,7 +10,7 @@ import { Texture } from "three";
 import { MeshToonMaterial } from "three";
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model2animation, renderer,binormal,normal;
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, model2animation, renderer,binormal,normal;
 var clock2;
 let arrowHelper;
 
@@ -22,7 +22,9 @@ export default class ThreeScene extends Component {
         movecuff: false,
         pullcuff: false,
         clickhandforcuff: false,
-        clickwire: false
+        clickwire: false,
+        onoff: 0,
+        clickbpr_to_wireconnect: false
       }
      
     }
@@ -39,7 +41,7 @@ export default class ThreeScene extends Component {
         // create camera
 
 
-      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100);
+      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 100);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
@@ -156,7 +158,7 @@ export default class ThreeScene extends Component {
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
         model2animation = gltf.animations;
-        gltf.scene.position.set(0,-4,0.5);
+        gltf.scene.position.set(0,-4,2);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
        
         // gltf.scene.rotation.y = 0.0;
@@ -307,7 +309,37 @@ export default class ThreeScene extends Component {
       //   console.error(error);
       // }
       // );
-      
+      const loader6 = new GLTFLoader();
+      loader6.load("./wirecuff_no14.glb",  (gltf) => {
+        console.log('in wirecuff: ',gltf);
+        model3 = gltf.scene;
+        
+        // gltf.scene.position.set(-1,-2,8);
+        // gltf.scene.position.set(10,0,5);
+        gltf.scene.position.set(1,-2,1);
+
+        gltf.scene.rotation.y = 1.4;
+        // gltf.scene.children[0].position.set(4,-5,2);
+        gltf.scene.scale.set(4.8,4.8,4.8);
+        // gltf.scene.rotation.y = 1.8;
+        // gltf.scene.children[0].rotation.y = 1.78; 
+  // 
+
+        // scene.add( model3 );
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        // mixer = new THREE.AnimationMixer( model3 );
+        // const clips = gltf.animations;
+        
+
+        // // Play a specific animation
+        // const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction' );
+        // // clip
+        // const action = mixer.clipAction(clip);
+        // // action.play();
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+      });
 
     
       const loader5 = new GLTFLoader();
@@ -339,7 +371,7 @@ export default class ThreeScene extends Component {
         // action.weight = 0.5; //weight object
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
-        // action.play();
+        action.play();
         // clips.forEach( function ( clip ) {
         //   mixer.clipAction( clip ).play();
         // } );
@@ -430,13 +462,13 @@ export default class ThreeScene extends Component {
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-        gltf.scene.position.set(0,2,-5);
+        gltf.scene.position.set(-2,0,-5);
 
         // gltf.scene.position.set(8,0,1);
-        gltf.scene.scale.set(1.0, 1.0, 1.0);
+        gltf.scene.scale.set(1.4, 1.4, 1.4);
         gltf.scene.rotation.z = -0.7;
-        gltf.scene.rotation.x = 0.0;
-        gltf.scene.rotation.y = 0;
+        gltf.scene.rotation.x = 0;
+        // gltf.scene.rotation.y = -0.05;
 
         scene.add( model );
         
@@ -640,6 +672,7 @@ export default class ThreeScene extends Component {
         // just to test if the new features are conflicting with previously supported events
 			//		(everything seems to be OK)
         mmi.addHandler('Vert001', 'dblclick', (object) => {
+          
           console.log('bdpressure is double clicked!');
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
@@ -656,6 +689,14 @@ export default class ThreeScene extends Component {
 
         });
         mmi.addHandler('Vert001', 'contextmenu', (object) => {
+          this.setState({
+            clickbpr_to_wireconnect: true,
+            clickwire: false
+          })
+          console.log('onoff: ',this.state.onoff)
+          model2.children[2].visible = false;
+
+
           console.log('bdpressure is pressed with the right button!');
           // gltf.scene.parent.background.set(0xff0a0a);
           // gltf.scene.children[6].parent.parent.background.set(0xff0a0a);
@@ -828,28 +869,40 @@ export default class ThreeScene extends Component {
             mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
             mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-            
+            // arrow to guide connecting to the blood pressure monitor
             if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
-            //    // create sin
-            // const path = new CustomSinCurve( 10  ); // start point
-            // // Math.abs(mouse.x)*50
-      
-            //   const geometry = new THREE.TubeGeometry( path, 100, 2, 8, true );
-            //   const material = new THREE.MeshBasicMaterial( { color: 0x000000 } );
-            //   const mesh = new THREE.Mesh( geometry, material );
-            //   mesh.rotation.y = 1.78;
-
-            //   // mesh.rotation.x = 1.78;
-            //   // mesh.scale.set(0.1,0.1,0.1);
-
-            //   mesh.position.set(-5,-6,16);
-            //   // model2.position.set(0,-2,12);
-            //   // model2.rotation.x = 1.78;
-            //   scene.add( mesh );
+              // this.setState({
+              //   pullcuff: false
+              // })
+              const dir = new THREE.Vector3( 0,0, -1 );
+             
+              dir.normalize();
+  
+              const origin = new THREE.Vector3( 0, 0, 3 );
+          
+              const length = 5;
               
-            // }
+              if (this.state.onoff === 0){
+                const hex = 0xffff00;
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                console.log('onoff: ', this.state.onoff)
+                  scene.add(arrowHelper);
+                this.setState({
+                  onoff: 1
+                });
+              } else {
+                const hex = 0xe83b1e;
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                console.log('onoff: ', this.state.onoff)
+                  scene.add(arrowHelper);
+                this.setState({
+                  onoff: 0
+                });
+              }
           };
-            
+            if (this.state.clickbpr_to_wireconnect === true) {
+              scene.add(model3)
+            }
             if (this.state.pullcuff === true){
               const dir2 = new THREE.Vector3 (1, 0, 0 );
               dir2.normalize();
@@ -898,13 +951,18 @@ export default class ThreeScene extends Component {
            
            
           }
-          
+        let onClick = (event) => {
+          console.log('da click 1234567')
+          this.setState({
+            pullcuff: false
+          })
+        }
 			render();
    
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
 
-      // window.addEventListener('click', onClick);
+      window.addEventListener('click', onClick);
       // window.addEventListener( 'mousemove', moveobject );
 
       
