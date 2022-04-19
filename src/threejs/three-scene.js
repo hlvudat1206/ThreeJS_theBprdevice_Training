@@ -484,12 +484,8 @@ export default class ThreeScene extends Component {
         // root.children[0].visible = true;
         const screen = root.children[0];
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
-        const imageArray2 = ['Artboard final.png'];
-        
-        const imageArray4 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
-        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png']
-
-        const imageArray3 = ['testture2.mp4'];
+      
+    
         const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
         ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
         // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
@@ -541,9 +537,51 @@ export default class ThreeScene extends Component {
         // ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
         ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
         ,'Artboard 173.png'];
-            // const map = new THREE.TextureLoader();
+        
+        const imageArray2 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
+        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
+        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
+        ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
+        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
+        ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
+        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
+        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
+        
+        ];
+
+        const imageArray2R = [
+        'Artboard final.png','Artboard final.png',
+        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        ];
+        // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
+        scene.add(model);
+
+        const imageArray2RR = imageArray2R.reverse()
         scene.add(model);
         update();
 
@@ -593,59 +631,126 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'click', (object) => {
           console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
           console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
+       
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
-          for (let i = 0; i<imageArray.length; i++) {
-            console.log('runnnnnn image');            
-            setTimeout(() => {
-              
-              const map = new THREE.TextureLoader()
-                .load(imageArray[i])
-                // map.repeat.set(0.5,0.5); //scale image len
-                // map.rotation = Math.PI / 2;
-                map.center.set(0.5, 0.5);
-                map.rotation = THREE.Math.degToRad(90);
-                console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
-                screen.traverse(child =>  { 
-                  if(child.isMesh) {
-                    // child.receiveShadow = true;   
-                    child.material.map = map;
-                    // child.visible = false;
-                    // child.castShadow = true;
-                }
-                // scene.add(model)
-              });
-            }, 250*i); //print the results with i times
-            }
-        
-            const z = imageArray.length -1
-            for (let j=0  ; j<imageArrayRR.length; j++) {
-              console.log('dang run image');
-             
+          
+          console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
+          if (arrayArrow[arrayArrow.length -1] < 60){
+            for (let i =0; i<imageArray.length; i++) {
+              console.log('in iiiiiiiiiii: ',i)
+              console.log('runnnnnn image');            
               setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
-                // rotate( Math.PI / 2 );
-                  .load(imageArrayRR[j])
-            
+                  .load(imageArray[i])
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map.center.set(0.5, 0.5);
                   map.rotation = THREE.Math.degToRad(90);
-                  screen.traverse(child =>  {
-                    
+                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  screen.traverse(child =>  { 
                     if(child.isMesh) {
                       // child.receiveShadow = true;   
                       child.material.map = map;
                       // child.visible = false;
-                      // child.castShadow = true;    
+                      // child.castShadow = true;
                   }
                   // scene.add(model)
                 });
-              }, 500*j+ z*250); //print the results with i times
+              }, 250*i); //print the results with i times
               }
-        }
+          
+              const z = imageArray.length -1
+              for (let j = 0; j<imageArrayRR.length; j++) {
+                console.log('dang run image');
+               
+                setTimeout(() => {
+                  
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArrayRR[j])
               
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+                }, 500*j+ z*250); //print the results with i times
+                }
+                
+          } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
+            console.log('may chua on chut nao')
+            for (let i =0; i<imageArray2.length; i++) {
+              console.log('runnnnnn image');            
+              setTimeout(() => {
+                
+                const map = new THREE.TextureLoader()
+                  .load(imageArray[i])
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map.center.set(0.5, 0.5);
+                  map.rotation = THREE.Math.degToRad(90);
+                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+                  // scene.add(model)
+                });
+              }, 200*i); //print the results with i times
+              }
+          
+              const z = imageArray.length -1
+              for (let j = 0; j<imageArray2RR.length; j++) {
+                console.log('dang run image');
+               
+                setTimeout(() => {
+                  
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArray2RR[j])
+              
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+                }, 500*j+ z*150); //print the results with i times
+                }
+          } else {
+            console.log('hong be oi')
+          }
+         
+          
+        }
+        //lock the click function
+        this.setState({
+          clickbpr_to_wireconnect: false,
+          clickhandforcuff: false
+        })   
           
           console.log('bdpressure mesh is being clicked!');
          
@@ -835,7 +940,7 @@ export default class ThreeScene extends Component {
         // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
-        light.position.set( 
+          light.position.set( 
           camera.position.x + 10,
           camera.position.y + 10,
           camera.position.z + 10,
@@ -982,8 +1087,8 @@ export default class ThreeScene extends Component {
                   arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero  );
                   scene.add(arrowHelper);
                   arrayArrow.push(angleDeg);
-                  arrayMouseX.push((mouse.x)*20);
-                  arrayMouseY.push((mouse.y)*20);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
                 
                 
 
@@ -996,8 +1101,8 @@ export default class ThreeScene extends Component {
                   arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
                   scene.add(arrowHelper);
                   arrayArrow.push(angleDeg);
-                  arrayMouseX.push((mouse.x)*20);
-                  arrayMouseY.push((mouse.y)*20);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
                 
 
               } else {
@@ -1008,8 +1113,8 @@ export default class ThreeScene extends Component {
                   arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
                   scene.add(arrowHelper);
                   arrayArrow.push(angleDeg);
-                  arrayMouseX.push((mouse.x)*20);
-                  arrayMouseY.push((mouse.y)*20);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
               }
               // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
               //   console.log('arrayMouseX: ', arrayMouseX)
@@ -1029,26 +1134,7 @@ export default class ThreeScene extends Component {
               //   scene.add(arrowHelper3);
 
               // }
-            
-
-
-                // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
-                // const origin2 = new THREE.Vector3( 0, -1, 15 );
-                // const length2 = 8;
-                // const hex = 0x8B008B	;
-                
-                // // arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
-                // // scene.add(arrowHelper);
-                // const arrowHelper = new THREE.ArrowHelper( dir, origin2, length2, hex, headLengthzero, headWidthzero*2);
-                // scene.add(arrowHelper);
-
-            
-                // }
-         
-              // console.log('arrayArrow: ',arrayArrow);
-
-
-            
+     
             }
             
 
@@ -1077,12 +1163,7 @@ export default class ThreeScene extends Component {
 
       
     }
-    // changeuserstatus = () => {
-    //   this.setState({
-    //     movehand: !this.state.movehand
-    //   })
-    //   console.log('status22: ',this.state.movehand)
-    // }
+
 
     render() {
         
