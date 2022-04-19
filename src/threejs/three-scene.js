@@ -485,7 +485,7 @@ export default class ThreeScene extends Component {
         const screen = root.children[0];
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
       
-    
+        
         const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
         ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
         // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
@@ -576,6 +576,24 @@ export default class ThreeScene extends Component {
         // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
         ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
         ];
+
+        const imageArray3 = [
+        'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        ,'Artboard 1E.png'  
+        ];
+        const imageArray3_2 = [
+          'Artboard 1E.png',
+          'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+          // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+          ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+          // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+          ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+            
+          ];
         // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
@@ -583,13 +601,16 @@ export default class ThreeScene extends Component {
 
         const imageArray2RR = imageArray2R.reverse()
         scene.add(model);
+
+        const imageArray3RR = imageArray3_2.reverse()
+        scene.add(model);
         update();
 
         
         // [gltf.scene.children[0]]
         const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
 
-        
+          
 
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
@@ -691,7 +712,7 @@ export default class ThreeScene extends Component {
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
             for (let i =0; i<imageArray2.length; i++) {
-              console.log('runnnnnn image');            
+              console.log('runnnnnn image2');            
               setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
@@ -713,10 +734,10 @@ export default class ThreeScene extends Component {
                 });
               }, 200*i); //print the results with i times
               }
-          
+              
               const z = imageArray.length -1
               for (let j = 0; j<imageArray2RR.length; j++) {
-                console.log('dang run image');
+                console.log('dang run image2');
                
                 setTimeout(() => {
                   
@@ -741,7 +762,28 @@ export default class ThreeScene extends Component {
                 }, 500*j+ z*150); //print the results with i times
                 }
           } else {
-            console.log('hong be oi')
+                for (let j = 0; j<imageArray3RR.length; j++) {
+                  console.log('hong be oi');
+                 
+                  setTimeout(() => {
+                    
+                    const map = new THREE.TextureLoader()
+                    // rotate( Math.PI / 2 );
+                      .load(imageArray3RR[j])
+                      map.center.set(0.5, 0.5);
+                      map.rotation = THREE.Math.degToRad(90);
+                      screen.traverse(child =>  {
+                        
+                        if(child.isMesh) {
+                          // child.receiveShadow = true;   
+                          child.material.map = map;
+                          // child.visible = false;
+                          // child.castShadow = true;    
+                      }
+                      // scene.add(model)
+                    });
+                  }, 300*j); //print the results with i times
+                  }
           }
          
           
