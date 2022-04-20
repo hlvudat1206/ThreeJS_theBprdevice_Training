@@ -711,12 +711,12 @@ export default class ThreeScene extends Component {
                 
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
-            for (let i =0; i<imageArray2.length; i++) {
+            for (let k =0; k<imageArray2.length; k++) {
               console.log('runnnnnn image2');            
               setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
-                  .load(imageArray[i])
+                  .load(imageArray[k])
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map.center.set(0.5, 0.5);
@@ -732,18 +732,18 @@ export default class ThreeScene extends Component {
                   }
                   // scene.add(model)
                 });
-              }, 200*i); //print the results with i times
+              }, 200*k); //print the results with i times
               }
               
               const z = imageArray.length -1
-              for (let j = 0; j<imageArray2RR.length; j++) {
+              for (let k1 = 0; k1<imageArray2RR.length; k1++) {
                 console.log('dang run image2');
                
                 setTimeout(() => {
                   
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
-                    .load(imageArray2RR[j])
+                    .load(imageArray2RR[k1])
               
                     // map.repeat.set(0.5,0.5); //scale image len
                     // map.rotation = Math.PI / 2;
@@ -759,17 +759,17 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*j+ z*150); //print the results with i times
+                }, 500*k1+ z*150); //print the results with i times
                 }
           } else {
-                for (let j = 0; j<imageArray3RR.length; j++) {
+                for (let e = 0; e<imageArray3RR.length; e++) {
                   console.log('hong be oi');
                  
                   setTimeout(() => {
                     
                     const map = new THREE.TextureLoader()
                     // rotate( Math.PI / 2 );
-                      .load(imageArray3RR[j])
+                      .load(imageArray3RR[e])
                       map.center.set(0.5, 0.5);
                       map.rotation = THREE.Math.degToRad(90);
                       screen.traverse(child =>  {
@@ -782,17 +782,17 @@ export default class ThreeScene extends Component {
                       }
                       // scene.add(model)
                     });
-                  }, 300*j); //print the results with i times
+                  }, 300*e); //print the results with i times
                   }
           }
          
           
         }
-        //lock the click function
-        this.setState({
-          clickbpr_to_wireconnect: false,
-          clickhandforcuff: false
-        })   
+        // //lock the click function
+        // this.setState({
+        //   clickbpr_to_wireconnect: false,
+        //   clickhandforcuff: false
+        // })   
           
           console.log('bdpressure mesh is being clicked!');
          
@@ -906,18 +906,11 @@ export default class ThreeScene extends Component {
       // controls.target = loader2.posittion;
       // controls.enableDamping = true; //tao ra quan tinh
       
-      // if (this.state.clickRotation === true){
-      //   console.log('thang ngu nay')
-      //   controls.enableDamping = false;
-      // } 
-      // else {
-      //   controls.enableDamping = true;
-      //   console.log('thang ngu nay x2')
-      // }
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.001;
-      controls.zoomSpeed = 1.0;
-      controls.enableRotate = false;
+      
+      // controls.enableDamping = true;
+      // controls.dampingFactor = 0.001;
+      // controls.zoomSpeed = 1.0;
+      controls.enableRotate = true;
    
     // controls.update();
 

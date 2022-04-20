@@ -1,7 +1,10 @@
-import React, { Component } from 'react'
 import * as THREE from "three";
+import React, { Component } from 'react';
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { DragControls } from "./DragControls";
+
 import MouseMeshInteraction from "./mousemes_interact";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
@@ -18,7 +21,7 @@ export default class Objectcustom extends Component {
  
       
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x4caca5
+      scene.background = new THREE.Color(0xFFE4B5
         );
 
         // create camera
@@ -72,23 +75,179 @@ export default class Objectcustom extends Component {
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
 
+      const loader = new GLTFLoader();
+      
+      loader.load("./huyetapnew20_04.glb",  (gltf) => {
+        console.log('in ra huyetap: ',gltf);
+        model = gltf.scene;
+        // model.traverse(n => { if ( n.isMesh ) {
+        //   n.castShadow = true; 
+        //   n.receiveShadow = true;
+        //   if(n.material.map) n.material.map.anisotropy = 16; 
+        // }});
+        gltf.scene.position.set(-4,0,-7);
+        // gltf.scene.position.set(8,0,1);
+        gltf.scene.scale.set(1.4, 1.4, 1.5);
+        gltf.scene.rotation.z = -0.7;
+        gltf.scene.rotation.x = 0;
+ 
+
+        scene.add( model );
+        
+        console.log('in ra huyetapnew: ',gltf);
+        // [gltf.scene.children[0]]
+        const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
+        // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
+
+        document.body.appendChild( renderer.domElement );
+
+        dcontrols.addEventListener( 'dragstart', ( event ) => {
+        // event.object.material.emissive.set( 0xaaaaaa );
+          // gltf.scene.material.transparent = true;
+          // gltf.scene.children[3].material.opacity = 0.5;
+          // gltf.scene.children.material.opacity = 0.5;
+          console.log('in x: ',mouse.x);
+          console.log('in y: ',mouse.y);
+        
+
+
+        } );
+
+        dcontrols.addEventListener( 'dragend',  ( event ) => {
+        // event.object.material.emissive.set( 0x000000 );
+          console.log('in x2: ',mouse.x);
+          console.log('in y2: ',mouse.y);
+
+
+        });
+        
+        
+      // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
+        
+        mmi.addHandler('Vert001', 'click', (object) => {
+    
+       
+       
+          
+          console.log('bdpressure mesh is being clicked!');
+         
+          // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model );
+        const clips = gltf.animations;
+        
+
+        // // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
+        const action = mixer.clipAction(clip);
+        // action.clampWhenFinished = true; //Capture the status of aniamtion
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        action.weight = 0.5; //weight object
+        action.zeroSlopeAtStart = true;
+        action.zeroSlopeAtEnd = true;
+        action.play();
+        
+        
+        // Play all animations
+        // clips.forEach( function ( clip ) {
+        // mixer.clipAction( clip ).play();
+        // } );
+        
+        })
+        
+          
+
+        
+  
+      //   });
+        // just to test if the new features are conflicting with previously supported events
+			//		(everything seems to be OK)
+        mmi.addHandler('Vert001', 'dblclick', (object) => {
+          
+          console.log('bdpressure is double clicked!');
+          // gltf.scene.parent.background.set(0xffaa00);
+          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+          object.material.color.b = 0.5;
+          object.material.color.r = 0.5;
+          object.material.emissive.b = 0.5;
+          object.material.emissive.r = 0.5;
+          object.material.emissive.g = 0.8;
+
+
+          console.log('in color ', object.material.color)
+          console.log('in color ', object.material.emissive)
+
+
+        });
+        mmi.addHandler('Vert001', 'contextmenu', (object) => {
+          this.setState({
+            clickbpr_to_wireconnect: true,
+            clickwire: false
+          })
+          console.log('onoff: ',this.state.onoff)
+          model2.children[2].visible = false;
+
+
+          console.log('bdpressure is pressed with the right button!');
+          // gltf.scene.parent.background.set(0xff0a0a);
+          // gltf.scene.children[6].parent.parent.background.set(0xff0a0a);
+          object.material.opacity = 0.8;
+
+
+
+        });
+        mmi.addHandler('Vert001', 'mouseenter', (object) => {
+          console.log('in ra khi move');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Vert001', 'mouseleave', (object) => {
+          console.log('in ra khi da move');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Vert001', 'mousedown', (object) => {
+          console.log('in ra khi da movedown');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Vert001', 'mouseup', (object) => {
+          console.log('in ra khi da mouseup');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+			
+        
+      });
+    
+		
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enable = false;
       // controls.target = loader2.posittion;
       // controls.enableDamping = true; //tao ra quan tinh
       
-      // if (this.state.clickRotation === true){
-      //   console.log('thang ngu nay')
-      //   controls.enableDamping = false;
-      // } 
-      // else {
-      //   controls.enableDamping = true;
-      //   console.log('thang ngu nay x2')
-      // }
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.001;
+      
+      // controls.enableDamping = true;
+      // controls.dampingFactor = 0.001;
       controls.zoomSpeed = 1.0;
-      controls.enableRotate = false;
+      controls.enableRotate = false ;
+
+
+
 
       const clock = new THREE.Clock();
 
