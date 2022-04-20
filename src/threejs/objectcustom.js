@@ -7,7 +7,7 @@ import { DragControls } from "./DragControls";
 
 import MouseMeshInteraction from "./mousemes_interact";
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg;
 var clock2;
 
@@ -21,7 +21,7 @@ export default class Objectcustom extends Component {
  
       
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xFFE4B5
+      scene.background = new THREE.Color(0x87CEFA
         );
 
         // create camera
@@ -74,12 +74,47 @@ export default class Objectcustom extends Component {
       const mmi = new MouseMeshInteraction(scene, camera);
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
+      
+      const loader5 = new GLTFLoader();
+      loader5.load("./perhand.glb",  (gltf) => {
+        console.log('in ra canh tay: ',gltf);
+        model5 = gltf.scene;
+        model5_1 = gltf.scene.children[0].children[1]
+        gltf.scene.position.set(-1,-2,8);
+        // gltf.scene.rotation.y = 0.5;
+        // gltf.scene.children[0].position.set(4,-5,2);
+        gltf.scene.scale.set(20.8,20.8,20.8);
+        gltf.scene.rotation.y = 1.8;
+        // gltf.scene.children[0].rotation.y = 1.78; 
+  // 
 
+        scene.add( model5 );
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model5 );
+        const clips = gltf.animations;
+        
+
+        // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
+        const action = mixer.clipAction(clip);
+        action.clampWhenFinished = true; //Capture the last status of animation
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        // action.weight = 0.5; //weight object
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
+        action.play();
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+      });
       const loader = new GLTFLoader();
       
       loader.load("./huyetapnew20_04.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
+
         // model.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
         //   n.receiveShadow = true;
@@ -90,7 +125,6 @@ export default class Objectcustom extends Component {
         gltf.scene.scale.set(1.4, 1.4, 1.5);
         gltf.scene.rotation.z = -0.7;
         gltf.scene.rotation.x = 0;
- 
 
         scene.add( model );
         
@@ -114,22 +148,34 @@ export default class Objectcustom extends Component {
         } );
 
         dcontrols.addEventListener( 'dragend',  ( event ) => {
-        // event.object.material.emissive.set( 0x000000 );
-          console.log('in x2: ',mouse.x);
-          console.log('in y2: ',mouse.y);
-
-
+        // // event.object.material.emissive.set( 0x000000 );
+        //   console.log('in x2: ',mouse.x);
+        //   console.log('in y2: ',mouse.y);
         });
-        
-        
+  
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-        
+
         mmi.addHandler('Vert001', 'click', (object) => {
-    
+          gltf.scene.children[0].children[1] = model5_1;  
+          // gltf.scene.children[0].children[1].visible = false;
+          console.log('may huyet ap: ', gltf);
+          scene.add(gltf.scene)
+
+        //   model.traverse(child =>  { 
+        //     if(child.isMesh) {
+        //       // child.receiveShadow = true; 
+        //       gltf.scene.children[0].children[2] = model5_1;  
+        //       console.log('may huyet ap: ', gltf);
+        //       scene.add(model5_1)
+        //       // child.material.map = map;
+        //       // child.visible = false;
+        //       // child.castShadow = true;
+        //   }
+        // })
        
        
           
-          console.log('bdpressure mesh is being clicked!');
+        console.log('bdpressure mesh is being clicked!');
          
           // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model );
@@ -334,6 +380,7 @@ export default class Objectcustom extends Component {
   
 
           }
+          render();
       window.addEventListener('click', onClick);
 
     }
