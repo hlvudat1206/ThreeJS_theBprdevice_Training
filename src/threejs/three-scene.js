@@ -562,7 +562,7 @@ export default class ThreeScene extends Component {
         ];
 
         const imageArray2R = [
-        'Artboard final.png','Artboard final.png',
+        'Artboard final 2.png','Artboard final 2.png',
         ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
         // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
         // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
