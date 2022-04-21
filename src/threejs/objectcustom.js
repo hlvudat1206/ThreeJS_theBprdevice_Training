@@ -8,7 +8,7 @@ import { DragControls } from "./DragControls";
 import MouseMeshInteraction from "./mousemes_interact";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model5, model5_1,
-model2animation, renderer,binormal,normal, angleDeg;
+model2animation, renderer,binormal,normal, angleDeg, group;
 var clock2;
 
 export default class Objectcustom extends Component {
@@ -78,6 +78,7 @@ export default class Objectcustom extends Component {
       const loader5 = new GLTFLoader();
       loader5.load("./perhand.glb",  (gltf) => {
         console.log('in ra canh tay: ',gltf);
+
         model5 = gltf.scene;
         model5_1 = gltf.scene.children[0].children[1]
         gltf.scene.position.set(-1,-2,8);
@@ -88,12 +89,11 @@ export default class Objectcustom extends Component {
         // gltf.scene.children[0].rotation.y = 1.78; 
   // 
 
-        scene.add( model5 );
+        // scene.add( model5 );
         // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model5 );
         const clips = gltf.animations;
         
-
         // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
         // clip
@@ -114,6 +114,7 @@ export default class Objectcustom extends Component {
       loader.load("./huyetapnew20_04.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
+       
 
         // model.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
@@ -156,10 +157,21 @@ export default class Objectcustom extends Component {
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
 
         mmi.addHandler('Vert001', 'click', (object) => {
-          gltf.scene.children[0].children[1] = model5_1;  
-          // gltf.scene.children[0].children[1].visible = false;
-          console.log('may huyet ap: ', gltf);
-          scene.add(gltf.scene)
+          // model.children[0].children[1] = model5_1;  
+          // // gltf.scene.children[0].children[1].visible = false;
+          // console.log('may huyet ap: ', gltf);
+          // model.rotation.x = 1.8;
+          // scene.add(model)
+
+
+          group = new THREE.Group();
+          group.add( model );
+          group.add( model5_1 );
+          group.position.set(0,0,0);
+          // group.rotation.x= 1.5;
+
+          console.log('in group: ', group)
+          scene.add( group );
 
         //   model.traverse(child =>  { 
         //     if(child.isMesh) {
@@ -280,7 +292,7 @@ export default class Objectcustom extends Component {
         
       });
     
-		
+      
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enable = false;
       // controls.target = loader2.posittion;
@@ -348,12 +360,16 @@ export default class Objectcustom extends Component {
           camera.position.z + 10,
         );
         // dragObject();
-        // controls.autoRotate = false;
-        // controls.autoRotateSpeed = 0.0;
+        // controls.autoRotate = true;
+        // controls.autoRotateSpeed = 5.0;
+
+   
         hoverPieces();
         // moveobject();
         resetMaterials();
-        // controls.update();
+        controls.update();
+        
+        
         // onMouseMove();
         renderer.render(scene, camera);
   
@@ -373,7 +389,8 @@ export default class Objectcustom extends Component {
   			requestAnimationFrame(render);
 				// update the mmi
 				mmi.update();
-     
+        
+
 
 				renderer.render(scene, camera);
 

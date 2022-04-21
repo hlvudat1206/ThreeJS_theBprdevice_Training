@@ -46,7 +46,7 @@ export default class ThreeScene extends Component {
         // create camera
 
 
-      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
@@ -137,25 +137,26 @@ export default class ThreeScene extends Component {
       mouse = new THREE.Vector2();
      
       raycaster = new THREE.Raycaster();
-      // const _mixers = [];
-      //import glb file
-      // const loader4 = new GLTFLoader();
-      // loader4.load("./labcustom.glb", function (gltf) {
-      //   console.log('in ra:', gltf);
-      //   console.log('in ra children22: ',gltf.scene.children[0]);
-      //   model = gltf.scene.children[0];
-      //   // model.traverse(n => { if ( n.isMesh ) {
-      //   //   n.castShadow = true; 
-      //   //   n.receiveShadow = true;
-      //   //   if(n.material.map) n.material.map.anisotropy = 16; 
-      //   // }});
+      const _mixers = [];
+      // import glb file
+      const loader4 = new GLTFLoader();
+      //labcustom.glb
+      loader4.load("./room103.glb", function (gltf) {
+        console.log('in ra:', gltf);
+        console.log('in ra children22: ',gltf.scene.children[0]);
+        const model6 = gltf.scene.children[0];
+        // model.traverse(n => { if ( n.isMesh ) {
+        //   n.castShadow = true; 
+        //   n.receiveShadow = true;
+        //   if(n.material.map) n.material.map.anisotropy = 16; 
+        // }});
 
-      //   gltf.scene.position.set(0,0,0);
-      //   gltf.scene.scale.set(2.8, 2.8, 2.8);
+        gltf.scene.position.set(-7,-12.5,-3);
+        gltf.scene.scale.set(15.8, 15.8, 15.8);
+        gltf.scene.rotation.z = -0.1;
+        scene.add( gltf.scene );
 
-      //   scene.add( gltf.scene );
-
-      // })
+      })
 
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
@@ -164,7 +165,7 @@ export default class ThreeScene extends Component {
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
         model2animation = gltf.animations;
-        gltf.scene.position.set(0,-4,2);
+        gltf.scene.position.set(1.5,-1,2);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
        
         // gltf.scene.rotation.y = 0.0;
@@ -316,7 +317,7 @@ export default class ThreeScene extends Component {
       // }
       // );
       const loader6 = new GLTFLoader();
-      loader6.load("./wirecuff_no14.glb",  (gltf) => {
+      loader6.load("./wirecuff_no18.glb",  (gltf) => {
         console.log('in wirecuff: ',gltf);
         model3 = gltf.scene;
         
@@ -394,7 +395,7 @@ export default class ThreeScene extends Component {
           })
 
           if (this.state.clickhandforcuff === true) {
-            model2.position.set(0,-4,12);
+            model2.position.set(0,-3,12);
             model2.rotation.x = 1.78;
 
             mixer = new THREE.AnimationMixer( model2 );
@@ -468,7 +469,7 @@ export default class ThreeScene extends Component {
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-        gltf.scene.position.set(-4,0,-7);
+        gltf.scene.position.set(-4,1,-7);
 
         // gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(1.4, 1.4, 1.5);
