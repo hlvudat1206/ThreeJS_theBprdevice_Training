@@ -12,27 +12,45 @@ let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, 
 =======
 import CustomSinCurve from "./sinline";
 import { Texture } from "three";
+import { MeshToonMaterial } from "three";
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2,binormal,normal;
+
+
+
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+model2animation, renderer,binormal,normal, angleDeg;
 var clock2;
+let arrowHelper;
 
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
-     
+      // this.loader2 = this.loader2.bind(this);
       this.state = {
-        clickRotation: false
+        movecuff: false,
+        pullcuff: false,
+        clickhandforcuff: false,
+        clickwire: false,
+        onoff: 0,
+        clickbpr_to_wireconnect: false,
+        animationCuff: false
       }
-    }
      
+    }
+    
     componentDidMount(){
+
         // create scene
+<<<<<<< HEAD
       let updatemove = false;
 <<<<<<< HEAD
       const scene = new THREE.Scene();
 =======
+=======
+ 
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       
       scene = new THREE.Scene();
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
@@ -40,6 +58,7 @@ export default class ThreeScene extends Component {
         );
 
         // create camera
+<<<<<<< HEAD
 <<<<<<< HEAD
       const camera = new THREE.PerspectiveCamera(
         105,
@@ -56,22 +75,26 @@ export default class ThreeScene extends Component {
       //   1000
       // );
    
+=======
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
 
-      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 100);
+      camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
+    
  
+<<<<<<< HEAD
   
  
 
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
+=======
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
         // create rendering
-     
-      
-      
+
       const renderer = new THREE.WebGL1Renderer({
         canvas: document.querySelector("#bg"),
       });
@@ -88,8 +111,8 @@ export default class ThreeScene extends Component {
 
       
       camera.position.set(10, 2, 0);
-
       renderer.render(scene, camera);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       // //create cube
@@ -120,35 +143,41 @@ export default class ThreeScene extends Component {
 =======
 >>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
   
+=======
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       clock2 = new THREE.Clock();
-      
-      // const envMap = new THREE.CubeTextureLoader()
-      //   .setPath(`${assetPath}skybox1_`)
-      //   .load(['px.jpg', 'nx.jpg', 'py.jpg', 'ny.jpg', 'pz.jpg', 'nz.jpg']);
-      // scene.background = envMap;
 
-      const curve = new CustomSinCurve(2);
-     
-      
+      //create sin spline
+      // const curve = new CustomSinCurve(2);
+      // const geometry = new THREE.TubeBufferGeometry( curve, 100, 1, 1, true );
+      // const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0x00000, 
+      //   // side: THREE.DoubleSide 
+      // });
+      // const tube = new THREE.Mesh( geometry, material );
+      // tube.position.set(4,4,4);
+      // scene.add(tube);
 
-      const geometry = new THREE.TubeBufferGeometry( curve, 100, 1, 1, true );
-      const material = new THREE.MeshBasicMaterial({ wireframe:true, color: 0x00000, 
-        // side: THREE.DoubleSide 
-      });
-      const tube = new THREE.Mesh( geometry, material );
-      tube.position.set(4,4,4);
-      scene.add(tube);
       
+      
+//       const geometry = new THREE.BoxGeometry();
+// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+// const cube = new THREE.Mesh( geometry, material );
+// scene.add( cube );
      
       
       window.addEventListener( 'resize', resize);
       
       update();
+<<<<<<< HEAD
       
       
       
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
       
+=======
+
+  
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
       hemiLight.position.set(0, 20, 0);
@@ -198,6 +227,7 @@ export default class ThreeScene extends Component {
       mouse = new THREE.Vector2();
      
       raycaster = new THREE.Raycaster();
+<<<<<<< HEAD
       // const _mixers = [];
       //import glb file
       // const loader4 = new GLTFLoader();
@@ -253,49 +283,81 @@ export default class ThreeScene extends Component {
 =======
       const loader2 = new GLTFLoader();
       loader2.load("./baodo4.glb", function (gltf) {
+=======
+      const _mixers = [];
+      // import glb file
+      const loader4 = new GLTFLoader();
+      //labcustom.glb
+      loader4.load("./room103.glb", function (gltf) {
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
-        model = gltf.scene.children[2];
+        const model6 = gltf.scene.children[0];
         // model.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
 
-        gltf.scene.position.set(8,1,0.5);
-        gltf.scene.scale.set(0.9, 0.9, 0.9);
-      
+        gltf.scene.position.set(-7,-14,-3);
+        gltf.scene.scale.set(15.8, 15.8, 15.8);
+        gltf.scene.rotation.z = -0.1;
         scene.add( gltf.scene );
 
-        const dcontrols2 = new DragControls( [gltf.scene.children[2]], camera, renderer.domElement );
+      })
+
+      const loader2 = new GLTFLoader();
+      // file perbaodo8 is belong to baodo6.glb
+      loader2.load("./perbaodo8.glb",  (gltf) => {
+        console.log('print perbaodo:', gltf);
+        // model = gltf.scene.children[2];
+        model2 = gltf.scene;
+        model2animation = gltf.animations;
+        gltf.scene.position.set(1.5,-1,2);
+        gltf.scene.scale.set(5.9, 5.9, 5.9);
+       
+        // gltf.scene.rotation.y = 0.0;
+        // console.log('print scale:', gltf.scene.scale);
+
+
+        scene.add( model2 );
+
+        
+        const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
-        dcontrols2.addEventListener( 'dragstart', function ( event ) {
-          // event.object.material.emissive.set( 0xaaaaaa );
-            // gltf.scene.material.transparent = true;
-            // gltf.scene.children[3].material.opacity = 0.5;
-            // gltf.scene.children.material.opacity = 0.5;
+        dcontrols2.addEventListener( 'dragstart', ( event ) => {
+      
             console.log('in x: ',mouse.x);
             console.log('in y: ',mouse.y);
-
           } );
   
-        dcontrols2.addEventListener( 'dragend', function ( event ) {
+        dcontrols2.addEventListener( 'dragend', ( event ) => {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
-          // if (mouse.x < -0.01 &&  mouse.y > 0.1) {
+          // if (mouse.x < -0.1 &&  mouse.y > 0.05) {
             
-          //   gltf.scene.position.set(0,4,5);
+          //   gltf.scene.position.set(-1,-2,8);
+          //   // gltf.scene.rotation.y = 0.5;
+          //   gltf.scene.scale.set(2.8,2.8,2.8);
           //   console.log('da move bao do');
           // } else {
-          //   return gltf.scene.position.set(0,2,-4);
+    
           //   console.log('da fail bao do');
           // }
+          
+          
 
         });
-        mmi.addHandler('nham', 'click', function(object) {
+        mmi.addHandler('Plane001', 'click', (object) => {
           console.log('daydo mesh is being clicked!');
-          // object.rotation._x = 60;
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+          this.setState({
+            movecuff: true
+          })
+          
           //     scene.scale.set(2.5, 2.5, 2.5);
           // gltf.scene.scale.set(4.0, 4.0, 4.0);
           // gltf.scene.position.set(0,0,0); //y z x
@@ -309,6 +371,58 @@ export default class ThreeScene extends Component {
 
         
         })
+        mmi.addHandler('Plane001', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Plane001', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('BezierCurve', 'click', (object) => {
+          console.log('thang ngu nay');
+          console.log('mouselog: ', Math.abs(mouse.x)*20 );
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+          this.setState({
+            clickwire: true
+          })
+       
+
+        
+        })
+        mmi.addHandler('BezierCurve', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('BezierCurve', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        
 
       })
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
@@ -396,35 +510,161 @@ export default class ThreeScene extends Component {
       //   console.error(error);
       // }
       // );
-      
+      const loader6 = new GLTFLoader();
+      loader6.load("./wirecuff_no18.glb",  (gltf) => {
+        console.log('in wirecuff: ',gltf);
+        model3 = gltf.scene;
+        
+        // gltf.scene.position.set(-1,-2,8);
+        // gltf.scene.position.set(10,0,5);
+        gltf.scene.position.set(0,-2,-1);
 
-      let mixer2;
-      const loader5 = new GLTFLoader();
-      loader5.load("./canhtay.glb", function (gltf) {
-        console.log('in ra canh tay: ',gltf);
-        const model5 = gltf.scene;
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
-
-        // gltf.scene.position.set(4,0,2);
-        // gltf.scene.scale.set(3.8, 3.8, 3.8);
-        gltf.scene.position.set(0,0,7);
+        gltf.scene.rotation.y = 1.4;
         // gltf.scene.children[0].position.set(4,-5,2);
-        gltf.scene.scale.set(15.8,15.8,15.8);
-        gltf.scene.rotation.y = 1.78
+        gltf.scene.scale.set(4.8,4.8,4.8);
+        // gltf.scene.rotation.y = 1.8;
         // gltf.scene.children[0].rotation.y = 1.78; 
   // 
+
+        // scene.add( model3 );
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        // mixer = new THREE.AnimationMixer( model3 );
+        // const clips = gltf.animations;
         
 
+        // // Play a specific animation
+        // const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction' );
+        // // clip
+        // const action = mixer.clipAction(clip);
+        // // action.play();
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+      });
+
+    
+      const loader5 = new GLTFLoader();
+      loader5.load("./perhand.glb",  (gltf) => {
+        console.log('in ra canh tay: ',gltf);
+        const model5 = gltf.scene;
+        
+        gltf.scene.position.set(-1,-1,8);
+        // gltf.scene.rotation.y = 0.5;
+        // gltf.scene.children[0].position.set(4,-5,2);
+        gltf.scene.scale.set(20.8,20.8,20.8);
+        gltf.scene.rotation.y = 1.8;
+        // gltf.scene.children[0].rotation.y = 1.78; 
+  // 
+
         scene.add( model5 );
+        // Create an AnimationMixer, and get the list of AnimationClip instances
+        mixer = new THREE.AnimationMixer( model5 );
+        const clips = gltf.animations;
+        
+
+        // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
+        const action = mixer.clipAction(clip);
+        action.clampWhenFinished = true; //Capture the last status of animation
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        // action.weight = 0.5; //weight object
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
+        action.play();
+        // clips.forEach( function ( clip ) {
+        //   mixer.clipAction( clip ).play();
+        // } );
+        
+      
+        mmi.addHandler('Body001', 'click', (object) => {
+          console.log('Body001 is clicked!');
+          // model2.children[2].position.set(0,-5,12);
+          model2.children[2].position.set(0.8,0.05,0.75);
+          // model2.children[2].rotation.x = -1;
+          // model2.children[2].rotation.z = -0.5;
+
+
+
+          // model2.children[2].scale.set(5,5,5);
+          // scene.add(model2);
+
+          console.log('in mode2 thay doi: ', model2);
+          // gltf.scene.parent.background.set(0xffaa00);
+          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+          this.setState({
+            // movecuff: !this.state.movecuff
+            clickhandforcuff: true
+          })
+
+          if (this.state.clickhandforcuff === true) {
+            model2.position.set(0,-3,12);
+            model2.rotation.x = 1.5;
+           
+            mixer = new THREE.AnimationMixer( model2 );
+            const clips = model2animation;
+    
+            // // Play a specific animation
+            const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction');
+            
+            // clip
+            const action = mixer.clipAction(clip);
+            action.clampWhenFinished = true; //Capture the last status of animation
+            action.loop = THREE.LoopOnce; //go back the initial status
+            action.time = 1; // fhz ??
+            action.weight = 1; //weight object
+            action.zeroSlopeAtStart = true;
+            action.zeroSlopeAtEnd = true;
+            action.play();
+            
+            this.setState({
+             pullcuff: true,
+             movecuff: false
+            })
+
+          }
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+         
+
+      
+        });
+        mmi.addHandler('Body001', 'mouseenter',  (object) => {
+          console.log('the hand has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+        
+          // if (this.state.movehand === true){
+          //   console.log('da group vao')
+          //   model2.rotation.x = 1.78;
+          //   model2.position.set(-1,-2,12);
+          // } else {
+          //   console.log('chua co group')
+          // }
+
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+      
+          
+        });
+        mmi.addHandler('Body001', 'mouseleave', (object) => {
+          console.log('the hand hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        
       });
      
       const loader = new GLTFLoader();
       
-      loader.load("./huyetap34.glb", function (gltf) {
+      loader.load("./huyetap34.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
 
@@ -435,6 +675,7 @@ export default class ThreeScene extends Component {
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(0.4, 0.4, 0.4);
@@ -443,24 +684,26 @@ export default class ThreeScene extends Component {
        
 =======
         gltf.scene.position.set(0,2,-5);
+=======
+        gltf.scene.position.set(-4,1,-7);
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
         // gltf.scene.position.set(8,0,1);
-        gltf.scene.scale.set(1.0, 1.0, 1.0);
+        gltf.scene.scale.set(1.4, 1.4, 1.5);
         gltf.scene.rotation.z = -0.7;
-        gltf.scene.rotation.x = 0.0;
-        gltf.scene.rotation.y = 0;
+        gltf.scene.rotation.x = 0;
+        // gltf.scene.rotation.y = -0.05;
 
         scene.add( model );
+        
+        console.log('in ra huyetapnew: ',gltf);
+
         const root = model.children[0].children[1];
         // root.children[0].visible = true;
         const screen = root.children[0];
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
-        const imageArray2 = ['Artboard final.png'];
+      
         
-        const imageArray4 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
-        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png']
-
-        const imageArray3 = ['testture2.mp4'];
         const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
         ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
         // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
@@ -512,21 +755,91 @@ export default class ThreeScene extends Component {
         // ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
         ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
         ,'Artboard 173.png'];
-            // const map = new THREE.TextureLoader();
+        
+        const imageArray2 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
+        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
+        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
+        ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
+        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
+        ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
+        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
+        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
+        
+        ];
+
+        const imageArray2R = [
+        'Artboard final 2.png','Artboard final 2.png',
+        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
+        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
+        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
+        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
+        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
+        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
+        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        ];
+
+        const imageArray3 = [
+        'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+        ,'Artboard 1E.png'  
+        ];
+        const imageArray3_2 = [
+          'Artboard 1E.png',
+          'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
+          // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
+          ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
+          // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
+          ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
+            
+          ];
+        // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
         scene.add(model);
+
+        const imageArray2RR = imageArray2R.reverse()
+        scene.add(model);
+
+        const imageArray3RR = imageArray3_2.reverse()
+        scene.add(model);
         update();
+<<<<<<< HEAD
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
         const dcontrols = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
+=======
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
         
+        // [gltf.scene.children[0]]
+        const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
+
+          
 
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
         document.body.appendChild( renderer.domElement );
 
-        dcontrols.addEventListener( 'dragstart', function ( event ) {
+        dcontrols.addEventListener( 'dragstart', ( event ) => {
         // event.object.material.emissive.set( 0xaaaaaa );
           // gltf.scene.material.transparent = true;
           // gltf.scene.children[3].material.opacity = 0.5;
@@ -544,7 +857,7 @@ export default class ThreeScene extends Component {
 
         } );
 
-        dcontrols.addEventListener( 'dragend', function ( event ) {
+        dcontrols.addEventListener( 'dragend',  ( event ) => {
         // event.object.material.emissive.set( 0x000000 );
 <<<<<<< HEAD
 
@@ -558,6 +871,7 @@ export default class ThreeScene extends Component {
 =======
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
+
           if (mouse.x < -0.01 &&  mouse.y > 0.1) {
             
             // gltf.scene.position.set(0,4,5);
@@ -574,6 +888,7 @@ export default class ThreeScene extends Component {
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
+<<<<<<< HEAD
         mmi.addHandler('Vert001', 'click', function(object) {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -638,57 +953,157 @@ export default class ThreeScene extends Component {
             });
 =======
 >>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
+=======
+        mmi.addHandler('Vert001', 'click', (object) => {
+          console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
+          console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
+       
+        if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
           
-          for (let i = 0; i<imageArray.length; i++) {
-            console.log('runnnnnn image');            
-            setTimeout(() => {
-              
-              const map = new THREE.TextureLoader()
-                .load(imageArray[i])
-                // map.repeat.set(0.5,0.5); //scale image len
-                // map.rotation = Math.PI / 2;
-                map.center.set(0.5, 0.5);
-                map.rotation = THREE.Math.degToRad(90);
-                screen.traverse(child =>  { 
-                  if(child.isMesh) {
-                    // child.receiveShadow = true;   
-                    child.material.map = map;
-                    // child.visible = false;
-                    // child.castShadow = true;
-                }
-                // scene.add(model)
-              });
-            }, 250*i); //print the results with i times
-            }
-        
-            const z = imageArray.length -1
-            for (let j=0  ; j<imageArrayRR.length; j++) {
-              console.log('dang run image');
-             
+          console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
+          if (arrayArrow[arrayArrow.length -1] < 60){
+            for (let i =0; i<imageArray.length; i++) {
+              console.log('in iiiiiiiiiii: ',i)
+              console.log('runnnnnn image');            
               setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
-                // rotate( Math.PI / 2 );
-                  .load(imageArrayRR[j])
-            
+                  .load(imageArray[i])
+
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map.center.set(0.5, 0.5);
                   map.rotation = THREE.Math.degToRad(90);
-                  screen.traverse(child =>  {
-                    
+                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  screen.traverse(child =>  { 
                     if(child.isMesh) {
                       // child.receiveShadow = true;   
                       child.material.map = map;
                       // child.visible = false;
-                      // child.castShadow = true;    
+                      // child.castShadow = true;
                   }
                   // scene.add(model)
                 });
-              }, 500*j+ z*250); //print the results with i times
-              }
-   
+              }, 250*i); //print the results with i times
               
+              }
+          
+              const z = imageArray.length -1
+              for (let j = 0; j<imageArrayRR.length; j++) {
+                console.log('dang run image');
+               
+                setTimeout(() => {
+                  
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArrayRR[j])
+              
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+                }, 500*j+ z*250); //print the results with i times
+               
+                }
+                
+          } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
+            console.log('may chua on chut nao')
+            for (let k =0; k<imageArray2.length; k++) {
+              console.log('runnnnnn image2');            
+              setTimeout(() => {
+                
+                const map = new THREE.TextureLoader()
+                  .load(imageArray[k])
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map.center.set(0.5, 0.5);
+                  map.rotation = THREE.Math.degToRad(90);
+                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+                  // scene.add(model)
+                });
+              }, 200*k); //print the results with i times
+              }
+              
+              const z = imageArray.length -1
+              for (let k1 = 0; k1<imageArray2RR.length; k1++) {
+                console.log('dang run image2');
+               
+                setTimeout(() => {
+                  
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArray2RR[k1])
+              
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+                }, 500*k1+ z*150); //print the results with i times
+                }
+          } else {
+                for (let e = 0; e<imageArray3RR.length; e++) {
+                  console.log('hong be oi');
+                 
+                  setTimeout(() => {
+                    
+                    const map = new THREE.TextureLoader()
+                    // rotate( Math.PI / 2 );
+                      .load(imageArray3RR[e])
+                      // map.minFilter = THREE.LinearFilter;
+
+                      map.center.set(0.5, 0.5);
+                      map.rotation = THREE.Math.degToRad(90);
+                      screen.traverse(child =>  {
+                        
+                        if(child.isMesh) {
+                          // child.receiveShadow = true;   
+                          child.material.map = map;
+                          // child.visible = false;
+                          // child.castShadow = true;    
+                      }
+                      // scene.add(model)
+                    });
+                  }, 300*e); //print the results with i times
+                  }
+          }
+         
+          
+        }
+        // //lock the click function
+        // this.setState({
+        //   clickbpr_to_wireconnect: false,
+        //   clickhandforcuff: false
+        // })   
           
           console.log('bdpressure mesh is being clicked!');
          
@@ -699,7 +1114,14 @@ export default class ThreeScene extends Component {
 
         // // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        // clip
         const action = mixer.clipAction(clip);
+        // action.clampWhenFinished = true; //Capture the status of aniamtion
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        action.weight = 0.5; //weight object
+        action.zeroSlopeAtStart = true;
+        action.zeroSlopeAtEnd = true;
         action.play();
         
         
@@ -718,7 +1140,8 @@ export default class ThreeScene extends Component {
       //   });
         // just to test if the new features are conflicting with previously supported events
 			//		(everything seems to be OK)
-        mmi.addHandler('Vert001', 'dblclick', function(object) {
+        mmi.addHandler('Vert001', 'dblclick', (object) => {
+          
           console.log('bdpressure is double clicked!');
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
@@ -734,7 +1157,15 @@ export default class ThreeScene extends Component {
 
 
         });
-        mmi.addHandler('Vert001', 'contextmenu', function(object) {
+        mmi.addHandler('Vert001', 'contextmenu', (object) => {
+          this.setState({
+            clickbpr_to_wireconnect: true,
+            clickwire: false
+          })
+          console.log('onoff: ',this.state.onoff)
+          model2.children[2].visible = false;
+
+
           console.log('bdpressure is pressed with the right button!');
           // gltf.scene.parent.background.set(0xff0a0a);
           // gltf.scene.children[6].parent.parent.background.set(0xff0a0a);
@@ -743,8 +1174,8 @@ export default class ThreeScene extends Component {
 
 
         });
-        mmi.addHandler('Vert001', 'mouseenter', function(object) {
-          console.log('in ra khi da move');
+        mmi.addHandler('Vert001', 'mouseenter', (object) => {
+          console.log('in ra khi move');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
           object.material.color.r = 0.6;
@@ -753,7 +1184,7 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
-        mmi.addHandler('Vert001', 'mouseleave', function(object) {
+        mmi.addHandler('Vert001', 'mouseleave', (object) => {
           console.log('in ra khi da move');
           object.material.color.r = 0.801;
           object.material.color.g = 0.664;
@@ -762,24 +1193,24 @@ export default class ThreeScene extends Component {
           // gltf.scene.children.material.opacity = 0.5;
           
         });
+        mmi.addHandler('Vert001', 'mousedown', (object) => {
+          console.log('in ra khi da movedown');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Vert001', 'mouseup', (object) => {
+          console.log('in ra khi da mouseup');
+        
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
 			
         
       });
     
-      // function moveobject(event){
-      //   if (updatemove){
-      //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      //     for (let i=0; i< scene.children.length; i++){
-      //         scene.children[i].position.set(mouse.x,mouse.y,0);
-  
-      //       }
-
-      //   } else{
-      //     updatemove = false;
-      //   }
-      // }
-     // add a name to the mesh (needed for mmi to work, you can give the same name to multiple meshes)
 		
       
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -791,17 +1222,10 @@ export default class ThreeScene extends Component {
       // controls.target = loader2.posittion;
       // controls.enableDamping = true; //tao ra quan tinh
       
-      // if (this.state.clickRotation === true){
-      //   console.log('thang ngu nay')
-      //   controls.enableDamping = false;
-      // } 
-      // else {
-      //   controls.enableDamping = true;
-      //   console.log('thang ngu nay x2')
-      // }
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.001;
-      controls.zoomSpeed = 1.0;
+      
+      // controls.enableDamping = true;
+      // controls.dampingFactor = 0.001;
+      // controls.zoomSpeed = 1.0;
       controls.enableRotate = true;
    
     // controls.update();
@@ -837,40 +1261,21 @@ export default class ThreeScene extends Component {
           intersects[i].object.material.opacity = 0.5;
         }
       }
-      // function onClick( event ) {
-      //   // onClick = (event )=> {
-      //   this.setState({
-      //     clickRotation : !this.state.clickRotation
       
-      //   });
+      
+      // function updateCamera(){
+      //   const time = clock2.getElapsedTime();
+      //   const looptime = 20;
+      //   const t = ( time % looptime ) / looptime;
+      //   const t2 = ( (time + 0.1) % looptime) / looptime
         
-      //   event.preventDefault();
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+      //   const pos = tube.geometry.parameters.path.getPointAt( t );
+      //   const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
         
-      
-      //   raycaster.setFromCamera( mouse, camera );
-      
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
-      
-      //   if ( intersects.length > 0 ) {
-          
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
-      //     // scene.scale.set(2.5, 2.5, 2.5);
-      //     // // scene.position.set(scene.position.x+10)
-      //     // scene.rotation_Y=60;
-      //     // scene.rotation_X=60;
-      //     // scene.rotation_Z=60;
-      //     // scene.position.set(1,-5,-6);
-
-
-
-      
-      //   }
-      
+      //   camera.position.copy(pos);
+      //   camera.lookAt(pos2);
       // }
+<<<<<<< HEAD
       // function onClick ( event ) {
 
       //   // this.setState({
@@ -919,6 +1324,8 @@ export default class ThreeScene extends Component {
         camera.position.copy(pos);
         camera.lookAt(pos2);
       }
+=======
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       
       function update(){
         // requestAnimationFrame( update );
@@ -937,7 +1344,7 @@ export default class ThreeScene extends Component {
         // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
-        light.position.set( 
+          light.position.set( 
           camera.position.x + 10,
           camera.position.y + 10,
           camera.position.z + 10,
@@ -969,12 +1376,194 @@ export default class ThreeScene extends Component {
 
           }
 
+        // window.requestAnimationFrame(render)
+
+			// raycaster for my background
+            let arrayArrow = []
+            let arrayMouseX = []
+            let arrayMouseY = []
+
+           let onPointerMove = ( event ) => {
+
+            // calculate pointer position in normalized device coordinates
+            // (-1 to +1) for both components
+          
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+            // arrow to guide connecting to the blood pressure monitor
+            if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
+
+            
+              // this.setState({
+              //   pullcuff: false
+              // })
+              const dir = new THREE.Vector3( 0,0, -1 );
+             
+              dir.normalize();
+  
+              const origin = new THREE.Vector3( 0, 0, 3 );
+          
+              const length = 5;
+              
+              if (this.state.onoff === 0){
+                const hex = 0xffff00;
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                console.log('onoff: ', this.state.onoff)
+                scene.add(arrowHelper);
+                this.setState({
+                  onoff: 1
+                });
+              } else {
+                const hex = 0xe83b1e;
+                arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
+                console.log('onoff: ', this.state.onoff)
+                scene.add(arrowHelper);
+                this.setState({
+                  onoff: 0
+                });
+              }
+          };
+            if (this.state.clickbpr_to_wireconnect === true) {
+              scene.add(model3)
+            }
+            
+            if (this.state.pullcuff === true){
+              console.log('in ra animationCuff: ',this.state.animationCuff)
+
+              //create circle 1
+              const geometry = new THREE.CircleGeometry( 5, 32, Math.PI, Math.PI/3 );
+              const material = new THREE.MeshBasicMaterial( { color: 0xe83b1e } );
+              const circle = new THREE.Mesh( geometry, material );
+              circle.position.set(0,0.5,14);
+              circle.rotation.y = (Math.PI)*2;
+              circle.rotation.x = (Math.PI);
+              scene.add( circle );
+
+              //create circle 2
+              const geometry2 = new THREE.CircleGeometry( 5, 32, -Math.PI/3, Math.PI/3 ); // circle from -pi to pi (left to right), -pi/3 is start, pi/3 is length
+              const material2 = new THREE.MeshBasicMaterial( { color: 0x00FF00 } );
+              const circle2 = new THREE.Mesh( geometry2, material2 );
+              circle2.position.set(0,0.5,14);
+              circle2.rotation.y = (Math.PI)*2;
+              circle2.rotation.x = (Math.PI);
+
+              scene.add( circle2 );
+
+              //create circle 3
+              const geometry3 = new THREE.CircleGeometry( 5, 32, -Math.PI*2/3, Math.PI/3 );
+              const material3 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+              const circle3 = new THREE.Mesh( geometry3, material3 );
+              circle3.position.set(0,0.5,14);
+              circle3.rotation.y = (Math.PI)*2;
+              circle3.rotation.x = (Math.PI);
+        
+              scene.add( circle3 );
+              
+              //create vector 2
+              const dir2 = new THREE.Vector3 (1, 0, 0 );
+              dir2.normalize();
+              const hex = 0x191970;
+              const arrowHelper2 = new THREE.ArrowHelper( dir2, origin, length, hex  );
+              scene.add(arrowHelper2);
+              //create vector 1
+              
+  
+              const origin = new THREE.Vector3( 0,0.5,14 );
+          
+              const length = 5;
+              const headLengthzero = 1;
+              const headWidthzero = 1;
+              const p1 = {x: 1 ,y:0};
+              const p2 = {x: (mouse.x)*20, y: Math.abs((mouse.y))*20};
+              //compare angle between vector 2 and vector 1 to fill color 
+              // angle in degrees
+              angleDeg = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+            
+              console.log('in cos: ', angleDeg);
+              
+              if (angleDeg > 120){
+                
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0xFF0000;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero  );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
+                
+                
+
+              } else if (angleDeg <= 120 && angleDeg > 60){
+             
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0xFFFF00;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
+                
+
+              } else {
+                  const dir = new THREE.Vector3( (mouse.x)*20,Math.abs((mouse.y))*20, 0 );
+
+                  dir.normalize();
+                  const hex = 0x006400;
+                  arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+                  scene.add(arrowHelper);
+                  arrayArrow.push(angleDeg);
+                  // arrayMouseX.push((mouse.x)*20);
+                  // arrayMouseY.push((mouse.y)*20);
+              }
+              // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
+              //   console.log('arrayMouseX: ', arrayMouseX)
+              //   console.log('arrayMouseY: ', arrayMouseY)
+
+              //   const dir = new THREE.Vector3( arrayMouseX[arrayArrow.length - 1],arrayMouseY[arrayArrow.length - 1], 0 );
+              //   const origin = new THREE.Vector3( 0,0.5,14 );
+          
+              //   const length = 5;
+              //   const headLengthzero = 1;
+              //   const headWidthzero = 1;
+              //   dir.normalize();
+              //   const hex = 0x00FF00;
+              //   const arrowHelper3 = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
+              //   arrowHelper3.rotation.y = (Math.PI)*2;
+              //   arrowHelper3.rotation.x = (Math.PI);
+              //   scene.add(arrowHelper3);
+
+              // }
+     
+            }
+            
+
+           if (this.state.movecuff === true){
+             console.log('Da vao movecuff true true true');
+             model2.position.set(0.5,15*mouse.y,-mouse.x*15);
+            //  scene.add(model2)
+          
+           } 
+            
+           
+           
+          }
+        let onClick = (event) => {
+          console.log('da click 1234567');
+          //0.8, 0.05, 0.75
           
 
-          // window.requestAnimationFrame(render)
-			
-			
+          this.setState({
+            pullcuff: false,
+            
+          })
+        }
 			render();
+<<<<<<< HEAD
 <<<<<<< HEAD
       // const dcontrols = new DragControls( objects, camera, renderer.domElement );
       // document.body.appendChild( renderer.domElement );
@@ -1040,19 +1629,25 @@ export default class ThreeScene extends Component {
 
 >>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
       // window.addEventListener('click', onClick);
+=======
+   
+      window.addEventListener( 'mousemove', onPointerMove, false );
+      // window.addEventListener( 'resize', resize, false );
+
+      window.addEventListener('click', onClick);
+>>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       // window.addEventListener( 'mousemove', moveobject );
 
       
     }
+
 
     render() {
         
       return (
           <div>
           <canvas id="bg">
-            <button >
-
-            </button>
+         
           </canvas>
           
           </div>
