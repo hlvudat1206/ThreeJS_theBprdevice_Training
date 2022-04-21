@@ -151,7 +151,7 @@ export default class ThreeScene extends Component {
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
 
-        gltf.scene.position.set(-7,-12.5,-3);
+        gltf.scene.position.set(-7,-14,-3);
         gltf.scene.scale.set(15.8, 15.8, 15.8);
         gltf.scene.rotation.z = -0.1;
         scene.add( gltf.scene );
@@ -354,7 +354,7 @@ export default class ThreeScene extends Component {
         console.log('in ra canh tay: ',gltf);
         const model5 = gltf.scene;
         
-        gltf.scene.position.set(-1,-2,8);
+        gltf.scene.position.set(-1,-1,8);
         // gltf.scene.rotation.y = 0.5;
         // gltf.scene.children[0].position.set(4,-5,2);
         gltf.scene.scale.set(20.8,20.8,20.8);
@@ -386,7 +386,17 @@ export default class ThreeScene extends Component {
       
         mmi.addHandler('Body001', 'click', (object) => {
           console.log('Body001 is clicked!');
-          
+          // model2.children[2].position.set(0,-5,12);
+          model2.children[2].position.set(0.8,0.05,0.75);
+          // model2.children[2].rotation.x = -1;
+          // model2.children[2].rotation.z = -0.5;
+
+
+
+          // model2.children[2].scale.set(5,5,5);
+          // scene.add(model2);
+
+          console.log('in mode2 thay doi: ', model2);
           // gltf.scene.parent.background.set(0xffaa00);
           // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
           this.setState({
@@ -396,8 +406,8 @@ export default class ThreeScene extends Component {
 
           if (this.state.clickhandforcuff === true) {
             model2.position.set(0,-3,12);
-            model2.rotation.x = 1.78;
-
+            model2.rotation.x = 1.5;
+           
             mixer = new THREE.AnimationMixer( model2 );
             const clips = model2animation;
     
@@ -665,6 +675,7 @@ export default class ThreeScene extends Component {
                 
                 const map = new THREE.TextureLoader()
                   .load(imageArray[i])
+
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map.center.set(0.5, 0.5);
@@ -681,6 +692,7 @@ export default class ThreeScene extends Component {
                   // scene.add(model)
                 });
               }, 250*i); //print the results with i times
+              
               }
           
               const z = imageArray.length -1
@@ -708,6 +720,7 @@ export default class ThreeScene extends Component {
                     // scene.add(model)
                   });
                 }, 500*j+ z*250); //print the results with i times
+               
                 }
                 
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
@@ -771,6 +784,8 @@ export default class ThreeScene extends Component {
                     const map = new THREE.TextureLoader()
                     // rotate( Math.PI / 2 );
                       .load(imageArray3RR[e])
+                      // map.minFilter = THREE.LinearFilter;
+
                       map.center.set(0.5, 0.5);
                       map.rotation = THREE.Math.degToRad(90);
                       screen.traverse(child =>  {
@@ -1177,13 +1192,18 @@ export default class ThreeScene extends Component {
            if (this.state.movecuff === true){
              console.log('Da vao movecuff true true true');
              model2.position.set(0.5,15*mouse.y,-mouse.x*15);
+            //  scene.add(model2)
+          
            } 
             
            
            
           }
         let onClick = (event) => {
-          console.log('da click 1234567')
+          console.log('da click 1234567');
+          //0.8, 0.05, 0.75
+          
+
           this.setState({
             pullcuff: false,
             

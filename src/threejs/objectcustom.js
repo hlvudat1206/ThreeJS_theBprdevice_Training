@@ -18,8 +18,7 @@ export default class Objectcustom extends Component {
     }
     componentDidMount(){
          // create scene
- 
-      
+     
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x87CEFA
         );
@@ -184,7 +183,6 @@ export default class Objectcustom extends Component {
         //       // child.castShadow = true;
         //   }
         // })
-       
        
           
         console.log('bdpressure mesh is being clicked!');
