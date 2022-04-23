@@ -8,7 +8,7 @@ import { DragControls } from "./DragControls";
 import MouseMeshInteraction from "./mousemes_interact";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model5, model5_1,
-model2animation, renderer,binormal,normal, angleDeg, group;
+model2animation, renderer,binormal,normal, angleDeg, group, modelx;
 var clock2;
 
 export default class Objectcustom extends Component {
@@ -108,19 +108,141 @@ export default class Objectcustom extends Component {
         //   mixer.clipAction( clip ).play();
         // } );
       });
+      const loader2 = new GLTFLoader();
+      // file perbaodo8 is belong to baodo6.glb
+      loader2.load("./battery.glb",  (gltf) => {
+        console.log('print battery:', gltf);
+        // model = gltf.scene.children[2];
+        model2 = gltf.scene;
+        model2animation = gltf.animations;
+        gltf.scene.position.set(1.5,5,2);
+        gltf.scene.scale.set(.1, .1, .1);
+        // gltf.scene.rotation.y = 0.2;
+       
+        // gltf.scene.rotation.y = 0.0;
+        // console.log('print scale:', gltf.scene.scale);
+
+
+        scene.add( model2 );
+
+        
+        const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
+        document.body.appendChild( renderer.domElement );
+        dcontrols2.addEventListener( 'dragstart', ( event ) => {
+      
+            console.log('in x: ',mouse.x);
+            console.log('in y: ',mouse.y);
+          } );
+  
+        dcontrols2.addEventListener( 'dragend', ( event ) => {
+        // event.object.material.emissive.set( 0x000000 );
+          console.log('in x2: ',mouse.x);
+          console.log('in y2: ',mouse.y);
+          // if (mouse.x < -0.1 &&  mouse.y > 0.05) {
+            
+          //   gltf.scene.position.set(-1,-2,8);
+          //   // gltf.scene.rotation.y = 0.5;
+          //   gltf.scene.scale.set(2.8,2.8,2.8);
+          //   console.log('da move bao do');
+          // } else {
+    
+          //   console.log('da fail bao do');
+          // }
+          
+          
+
+        });
+        mmi.addHandler('Plane001', 'click', (object) => {
+          console.log('daydo mesh is being clicked!');
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+          this.setState({
+            movecuff: true
+          })
+          
+          //     scene.scale.set(2.5, 2.5, 2.5);
+          // gltf.scene.scale.set(4.0, 4.0, 4.0);
+          // gltf.scene.position.set(0,0,0); //y z x
+
+          // for (let i=0; i<gltf.scene.children.length; i++){
+          //   gltf.scene.children[i].rotation.z=150;
+  
+          // }
+          
+          // gltf.scene.rotation.z=30;
+
+        
+        })
+        mmi.addHandler('Plane001', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('Plane001', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('BezierCurve', 'click', (object) => {
+          console.log('thang ngu nay');
+          console.log('mouselog: ', Math.abs(mouse.x)*20 );
+          object.material.color.r = 0;
+          object.material.color.g = 10;
+          object.material.color.b = 0;
+          this.setState({
+            clickwire: true
+          })
+       
+
+        
+        })
+        mmi.addHandler('BezierCurve', 'mouseenter', (object) =>{
+          console.log('the cuff has been moved');
+          // gltf.scene.parent.background.set(1,0,1)
+          // object.material.color.set( 0x57554f);
+          object.material.color.r = 0.6;
+          object.material.color.g = 0.2;
+          object.material.color.b = 0.2;
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        mmi.addHandler('BezierCurve', 'mouseleave', (object) => {
+          console.log('the cuff hasnt been moved');
+          object.material.color.r = 0.801;
+          object.material.color.g = 0.664;
+          object.material.color.b = 0.234;
+          
+          // gltf.scene.children.material.opacity = 0.5;
+          
+        });
+        
+
+      })
       const loader = new GLTFLoader();
       
-      loader.load("./huyetapnew20_04.glb",  (gltf) => {
+      loader.load("./bprbatterytray4.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
-       
+        modelx = gltf.scene;
 
         // model.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-        gltf.scene.position.set(-4,0,-7);
+        // gltf.scene.position.set(-4,0,-7);
+        gltf.scene.position.set(0,0,0);
+
         // gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(1.4, 1.4, 1.5);
         gltf.scene.rotation.z = -0.7;
@@ -154,7 +276,27 @@ export default class Objectcustom extends Component {
         });
   
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
+      mmi.addHandler('Plane', 'click', (object) => {
+        console.log('test test test')
+        const mixer = new THREE.AnimationMixer( modelx );
+        const clips = gltf.animations;
+        
 
+        // // Play a specific animation
+        const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action' );
+        // clip
+        const action = mixer.clipAction(clip);
+        // action.clampWhenFinished = true; //Capture the status of aniamtion
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 2; // fhz ??
+        action.weight = 0.5; //weight object
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
+        action.play();
+        //  Play all animations
+      
+
+      })
         mmi.addHandler('Vert001', 'click', (object) => {
           // model.children[0].children[1] = model5_1;  
           // // gltf.scene.children[0].children[1].visible = false;
@@ -190,18 +332,17 @@ export default class Objectcustom extends Component {
           // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model );
         const clips = gltf.animations;
-        
-
+        // 'ArmatureAction.002'
         // // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
+        const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action');
         // clip
         const action = mixer.clipAction(clip);
         // action.clampWhenFinished = true; //Capture the status of aniamtion
         action.loop = THREE.LoopOnce; //go back the initial status
         action.time = 2; // fhz ??
         action.weight = 0.5; //weight object
-        action.zeroSlopeAtStart = true;
-        action.zeroSlopeAtEnd = true;
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
         action.play();
         
         
@@ -257,6 +398,7 @@ export default class Objectcustom extends Component {
           console.log('in ra khi move');
           // gltf.scene.parent.background.set(1,0,1)
           // object.material.color.set( 0x57554f);
+          
           object.material.color.r = 0.6;
           object.material.color.g = 0.2;
           object.material.color.b = 0.2;
@@ -300,7 +442,7 @@ export default class Objectcustom extends Component {
       // controls.enableDamping = true;
       // controls.dampingFactor = 0.001;
       controls.zoomSpeed = 1.0;
-      controls.enableRotate = false ;
+      controls.enableRotate = true ;
 
 
 
@@ -348,7 +490,7 @@ export default class Objectcustom extends Component {
         // camera.updateProjectionMatrix();
         // renderer.setSize( window.innerWidth*0.4, window.innerHeight*0.4 );
       }
-      function animate() {
+       function animate() {
         // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
@@ -356,7 +498,17 @@ export default class Objectcustom extends Component {
           camera.position.x + 10,
           camera.position.y + 10,
           camera.position.z + 10,
+          
         );
+        if (model ){ //check xem model co ton tai
+          model.rotation.y += 0.005;
+        
+        }
+        if (model2){
+          model2.rotation.y -= 0.005;
+        }
+
+     
         // dragObject();
         // controls.autoRotate = true;
         // controls.autoRotateSpeed = 5.0;
@@ -387,7 +539,6 @@ export default class Objectcustom extends Component {
   			requestAnimationFrame(render);
 				// update the mmi
 				mmi.update();
-        
 
 
 				renderer.render(scene, camera);

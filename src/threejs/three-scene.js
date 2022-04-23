@@ -92,7 +92,7 @@ export default class ThreeScene extends Component {
 // scene.add( cube );
      
       
-      window.addEventListener( 'resize', resize);
+      
       
       update();
 
@@ -982,9 +982,11 @@ export default class ThreeScene extends Component {
       }
       
       function resize(){
-        // camera.aspect = window.innerWidth / window.innerHeight;
-        // camera.updateProjectionMatrix();
-        // renderer.setSize( window.innerWidth*0.4, window.innerHeight*0.4 );
+
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
       }
 
       function animate() {
@@ -1213,7 +1215,7 @@ export default class ThreeScene extends Component {
    
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
-
+      window.addEventListener( 'resize', resize, false);
       window.addEventListener('click', onClick);
       // window.addEventListener( 'mousemove', moveobject );
 
