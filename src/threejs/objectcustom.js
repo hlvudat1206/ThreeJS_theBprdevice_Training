@@ -276,20 +276,20 @@ export default class Objectcustom extends Component {
         });
   
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-      mmi.addHandler('Plane', 'click', (object) => {
+      mmi.addHandler('Vert001', 'click', (object) => {
         console.log('test test test')
-        const mixer = new THREE.AnimationMixer( modelx );
+        mixer = new THREE.AnimationMixer( model );
         const clips = gltf.animations;
         
 
         // // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action' );
+        const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action');
         // clip
         const action = mixer.clipAction(clip);
         // action.clampWhenFinished = true; //Capture the status of aniamtion
         action.loop = THREE.LoopOnce; //go back the initial status
-        action.time = 2; // fhz ??
-        action.weight = 0.5; //weight object
+        action.time = 0.5; // fhz ??
+        action.weight = 2; //weight object
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
         action.play();
@@ -297,36 +297,13 @@ export default class Objectcustom extends Component {
       
 
       })
-        mmi.addHandler('Vert001', 'click', (object) => {
+        mmi.addHandler('Plane001', 'click', (object) => {
           // model.children[0].children[1] = model5_1;  
           // // gltf.scene.children[0].children[1].visible = false;
           // console.log('may huyet ap: ', gltf);
           // model.rotation.x = 1.8;
           // scene.add(model)
 
-
-          group = new THREE.Group();
-          group.add( model );
-          group.add( model5_1 );
-          group.position.set(0,0,0);
-          // group.rotation.x= 1.5;
-
-          console.log('in group: ', group)
-          scene.add( group );
-
-        //   model.traverse(child =>  { 
-        //     if(child.isMesh) {
-        //       // child.receiveShadow = true; 
-        //       gltf.scene.children[0].children[2] = model5_1;  
-        //       console.log('may huyet ap: ', gltf);
-        //       scene.add(model5_1)
-        //       // child.material.map = map;
-        //       // child.visible = false;
-        //       // child.castShadow = true;
-        //   }
-        // })
-       
-          
         console.log('bdpressure mesh is being clicked!');
          
           // Create an AnimationMixer, and get the list of AnimationClip instances
@@ -334,13 +311,13 @@ export default class Objectcustom extends Component {
         const clips = gltf.animations;
         // 'ArmatureAction.002'
         // // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action');
+        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002');
         // clip
         const action = mixer.clipAction(clip);
         // action.clampWhenFinished = true; //Capture the status of aniamtion
         action.loop = THREE.LoopOnce; //go back the initial status
-        action.time = 2; // fhz ??
-        action.weight = 0.5; //weight object
+        action.time = 0.5; // fhz ??
+        action.weight = 2; //weight object
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
         action.play();
