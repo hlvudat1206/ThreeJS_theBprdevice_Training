@@ -73,6 +73,7 @@ export default class ThreeScene extends Component {
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
       clock2 = new THREE.Clock();
+      const mmi = new MouseMeshInteraction(scene, camera);
 
       //create sin spline
       // const curve = new CustomSinCurve(2);
@@ -86,13 +87,18 @@ export default class ThreeScene extends Component {
 
       
       
-//       const geometry = new THREE.BoxGeometry();
-// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-// const cube = new THREE.Mesh( geometry, material );
-// scene.add( cube );
+      const geometry = new THREE.BoxGeometry();
+      const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+      const cube = new THREE.Mesh( geometry, material );
+      cube.name='cube';
+      cube.position.set(0,5,12)
+      scene.add( cube );
+
+      mmi.addHandler('cube', 'click', (object) => {
+        console.log('da click cubeeee');
+        window.location = 'home'
      
-      
-      
+      });
       
       update();
 
@@ -129,7 +135,6 @@ export default class ThreeScene extends Component {
     
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-			const mmi = new MouseMeshInteraction(scene, camera);
 			
 			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
 			
@@ -998,6 +1003,9 @@ export default class ThreeScene extends Component {
           camera.position.y + 10,
           camera.position.z + 10,
         );
+        if (cube){
+          cube.rotation.y += 0.05;
+        }
         // dragObject();
         // controls.autoRotate = false;
         // controls.autoRotateSpeed = 0.0;

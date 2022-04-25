@@ -73,6 +73,20 @@ export default class Objectcustom extends Component {
       const mmi = new MouseMeshInteraction(scene, camera);
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
+
+
+      const geometry = new THREE.BoxGeometry();
+      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      const cube = new THREE.Mesh( geometry, material );
+      cube.position.set(0,5,-12);
+      cube.name='cube';
+      scene.add( cube );
+      mmi.addHandler('cube', 'click', (object) => {
+        console.log('da click cubeeee');
+        window.location = 'training'
+     
+      });
+    
       
       const loader5 = new GLTFLoader();
       loader5.load("./perhand.glb",  (gltf) => {
@@ -257,23 +271,7 @@ export default class Objectcustom extends Component {
 
         document.body.appendChild( renderer.domElement );
 
-        dcontrols.addEventListener( 'dragstart', ( event ) => {
-        // event.object.material.emissive.set( 0xaaaaaa );
-          // gltf.scene.material.transparent = true;
-          // gltf.scene.children[3].material.opacity = 0.5;
-          // gltf.scene.children.material.opacity = 0.5;
-          console.log('in x: ',mouse.x);
-          console.log('in y: ',mouse.y);
-        
-
-
-        } );
-
-        dcontrols.addEventListener( 'dragend',  ( event ) => {
-        // // event.object.material.emissive.set( 0x000000 );
-        //   console.log('in x2: ',mouse.x);
-        //   console.log('in y2: ',mouse.y);
-        });
+       
   
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
       mmi.addHandler('Vert001', 'click', (object) => {
@@ -484,7 +482,9 @@ export default class Objectcustom extends Component {
         if (model2){
           model2.rotation.y -= 0.005;
         }
-
+        if (cube){
+          cube.rotation.y += 0.05;
+        }
      
         // dragObject();
         // controls.autoRotate = true;
