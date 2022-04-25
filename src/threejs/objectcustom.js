@@ -8,12 +8,16 @@ import { DragControls } from "./DragControls";
 import MouseMeshInteraction from "./mousemes_interact";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model5, model5_1,
-model2animation, renderer,binormal,normal, angleDeg, group, modelx;
+model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice;
 var clock2;
 
 export default class Objectcustom extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+          deviceAnimation: false,
+          
+        }
         
     }
     componentDidMount(){
@@ -136,7 +140,10 @@ export default class Objectcustom extends Component {
         // gltf.scene.rotation.y = 0.0;
         // console.log('print scale:', gltf.scene.scale);
 
-
+        model2.name = 'battery';
+        // const group = new THREE.Group();
+        // group.add( cubeA );
+        // group.add( cubeB );
         scene.add( model2 );
 
         
@@ -162,83 +169,41 @@ export default class Objectcustom extends Component {
     
           //   console.log('da fail bao do');
           // }
-          
-          
-
-        });
-        mmi.addHandler('Plane001', 'click', (object) => {
-          console.log('daydo mesh is being clicked!');
-          object.material.color.r = 0;
-          object.material.color.g = 10;
-          object.material.color.b = 0;
-          this.setState({
-            movecuff: true
-          })
-          
-          //     scene.scale.set(2.5, 2.5, 2.5);
-          // gltf.scene.scale.set(4.0, 4.0, 4.0);
-          // gltf.scene.position.set(0,0,0); //y z x
-
-          // for (let i=0; i<gltf.scene.children.length; i++){
-          //   gltf.scene.children[i].rotation.z=150;
-  
-          // }
-          
-          // gltf.scene.rotation.z=30;
-
+        mmi.addHandler('Battery0', 'click',  (object) => {
+          console.log('da click battery');
+          // model.rotation.y= Math.PI;
+           
+            for (let z = 0; z <= 2.5; z = z + 0.1){
+              console.log('in z ne:', z);
+              setTimeout(() => {
+              model.rotation.z= z;
+              
+              },50*z)
+              
+            }
         
-        })
-        mmi.addHandler('Plane001', 'mouseenter', (object) =>{
-          console.log('the cuff has been moved');
-          // gltf.scene.parent.background.set(1,0,1)
-          // object.material.color.set( 0x57554f);
-          object.material.color.r = 0.6;
-          object.material.color.g = 0.2;
-          object.material.color.b = 0.2;
-          // gltf.scene.children.material.opacity = 0.5;
+            mixer = new THREE.AnimationMixer( model );
           
-        });
-        mmi.addHandler('Plane001', 'mouseleave', (object) => {
-          console.log('the cuff hasnt been moved');
-          object.material.color.r = 0.801;
-          object.material.color.g = 0.664;
-          object.material.color.b = 0.234;
+            const action = mixer.clipAction(clipanimationDevice);
+            // // action.clampWhenFinished = true; //Capture the status of aniamtion
+            action.loop = THREE.LoopOnce; //go back the initial status
+            action.time = 0.5; // fhz ??
+            action.weight = 2; //weight object
+            // // action.zeroSlopeAtStart = true;
+            // // action.zeroSlopeAtEnd = true;
+            action.play();
+            
           
-          // gltf.scene.children.material.opacity = 0.5;
           
-        });
-        mmi.addHandler('BezierCurve', 'click', (object) => {
-          console.log('thang ngu nay');
-          console.log('mouselog: ', Math.abs(mouse.x)*20 );
-          object.material.color.r = 0;
-          object.material.color.g = 10;
-          object.material.color.b = 0;
-          this.setState({
-            clickwire: true
-          })
-       
-
         
-        })
-        mmi.addHandler('BezierCurve', 'mouseenter', (object) =>{
-          console.log('the cuff has been moved');
-          // gltf.scene.parent.background.set(1,0,1)
-          // object.material.color.set( 0x57554f);
-          object.material.color.r = 0.6;
-          object.material.color.g = 0.2;
-          object.material.color.b = 0.2;
-          // gltf.scene.children.material.opacity = 0.5;
+
+
+
+        })  
           
+
         });
-        mmi.addHandler('BezierCurve', 'mouseleave', (object) => {
-          console.log('the cuff hasnt been moved');
-          object.material.color.r = 0.801;
-          object.material.color.g = 0.664;
-          object.material.color.b = 0.234;
-          
-          // gltf.scene.children.material.opacity = 0.5;
-          
-        });
+        
         
 
       })
@@ -247,21 +212,34 @@ export default class Objectcustom extends Component {
       loader.load("./bprbatterytray4.glb",  (gltf) => {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
-        modelx = gltf.scene;
-
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
-        // gltf.scene.position.set(-4,0,-7);
+        clipsanimationDevice = gltf.animations;
+        console.log('in ra update')
         gltf.scene.position.set(0,0,0);
 
         // gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(1.4, 1.4, 1.5);
         gltf.scene.rotation.z = -0.7;
         gltf.scene.rotation.x = 0;
+       
+         
+        //animation
+        mixer = new THREE.AnimationMixer( model );
+        // const clips = gltf.animations;
+        
+        clipanimationDevice = THREE.AnimationClip.findByName( clipsanimationDevice,'Armature.001Action');
+        // // Play a specific animation
+        // const clip = THREE.AnimationClip.findByName( clipsanimationDevice,'Armature.001Action');
+        // clip
+        const action = mixer.clipAction(clipanimationDevice);
+        // action.clampWhenFinished = true; //Capture the status of aniamtion
+        action.loop = THREE.LoopOnce; //go back the initial status
+        action.time = 0.5; // fhz ??
+        action.weight = 2; //weight object
+        // action.zeroSlopeAtStart = true;
+        // action.zeroSlopeAtEnd = true;
+        action.play();
 
+        ///
         scene.add( model );
         
         console.log('in ra huyetapnew: ',gltf);
@@ -279,10 +257,9 @@ export default class Objectcustom extends Component {
         mixer = new THREE.AnimationMixer( model );
         const clips = gltf.animations;
         
-
         // // Play a specific animation
         const clip = THREE.AnimationClip.findByName( clips,'Armature.001Action');
-        // clip
+        // clip 
         const action = mixer.clipAction(clip);
         // action.clampWhenFinished = true; //Capture the status of aniamtion
         action.loop = THREE.LoopOnce; //go back the initial status
@@ -291,8 +268,9 @@ export default class Objectcustom extends Component {
         // action.zeroSlopeAtStart = true;
         // action.zeroSlopeAtEnd = true;
         action.play();
+    
         //  Play all animations
-      
+        
 
       })
         mmi.addHandler('Plane001', 'click', (object) => {
@@ -475,12 +453,13 @@ export default class Objectcustom extends Component {
           camera.position.z + 10,
           
         );
+    
         if (model ){ //check xem model co ton tai
-          model.rotation.y += 0.005;
+          model.rotation.y += 0;
         
         }
         if (model2){
-          model2.rotation.y -= 0.005;
+          model2.rotation.y -= 0.0;
         }
         if (cube){
           cube.rotation.y += 0.05;
@@ -516,7 +495,7 @@ export default class Objectcustom extends Component {
   			requestAnimationFrame(render);
 				// update the mmi
 				mmi.update();
-
+    
 
 				renderer.render(scene, camera);
 
