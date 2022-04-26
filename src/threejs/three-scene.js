@@ -96,9 +96,8 @@ export default class ThreeScene extends Component {
 
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        // window.location = 'home'
-        console.log('time 1: ', time1);
-        console.log('time 2: ', time2);
+        window.location = 'home'
+     
      
       });
       
@@ -635,15 +634,6 @@ export default class ThreeScene extends Component {
         document.body.appendChild( renderer.domElement );
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
-        // event.object.material.emissive.set( 0xaaaaaa );
-          // gltf.scene.material.transparent = true;
-          // gltf.scene.children[3].material.opacity = 0.5;
-          // gltf.scene.children.material.opacity = 0.5;
-          console.log('in x: ',mouse.x);
-          console.log('in y: ',mouse.y);
-          console.log('do dai array: ',imageArray.length)
-        
-
 
         } );
 
@@ -706,6 +696,8 @@ export default class ThreeScene extends Component {
 
 
               const z = imageArray.length -1
+              // console.log('in ra z: ',z);
+              //the value of z is 71
               for (let j = 0; j<imageArrayRR.length; j++) {
                 // console.log('dang run image');
                
@@ -763,7 +755,7 @@ export default class ThreeScene extends Component {
               }, 200*k); //print the results with i times
               }
               
-              const z = imageArray.length -1
+              const z = imageArray2.length -1
               for (let k1 = 0; k1<imageArray2RR.length; k1++) {
                 console.log('dang run image2');
                
@@ -822,13 +814,9 @@ export default class ThreeScene extends Component {
          
           
         }
-        // //lock the click function
-        // this.setState({
-        //   clickbpr_to_wireconnect: false,
-        //   clickhandforcuff: false
-        // })   
+  
           
-          console.log('bdpressure mesh is being clicked!');
+        console.log('bdpressure mesh is being clicked!');
          
           // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model );

@@ -174,24 +174,23 @@ export default class Objectcustom extends Component {
           // model.rotation.y= Math.PI;
            
             for (let z = 0; z <= 2.5; z = z + 0.1){
-              console.log('in z ne:', z);
+              // console.log('in z ne:', z);
               setTimeout(() => {
-              model.rotation.z= z;
-              
+              model.rotation.z= z;     
               },50*z)
-              
             }
-        
+            setTimeout(() =>{
             mixer = new THREE.AnimationMixer( model );
           
             const action = mixer.clipAction(clipanimationDevice);
             // // action.clampWhenFinished = true; //Capture the status of aniamtion
             action.loop = THREE.LoopOnce; //go back the initial status
             action.time = 0.5; // fhz ??
-            action.weight = 2; //weight object
+            action.weight = 5; //weight object
             // // action.zeroSlopeAtStart = true;
             // // action.zeroSlopeAtEnd = true;
             action.play();
+            },250*2.5)
             
           
           
