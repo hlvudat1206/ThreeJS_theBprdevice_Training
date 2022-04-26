@@ -14,7 +14,7 @@ import { MeshToonMaterial } from "three";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5;
+model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5, map2;
 var clock2;
 let arrowHelper;
 
@@ -665,54 +665,55 @@ export default class ThreeScene extends Component {
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           if (arrayArrow[arrayArrow.length -1] < 60){
-            function sleep(ms) {
-              return new Promise(
-                resolve => setTimeout(resolve, ms)
-              );
+            const z = imageArray.length -1
+            const sleep = ms => {
+              return new Promise(resolve => setTimeout(resolve, ms))
             }
+
+            const getNumArray = index => {
+              return sleep(500).then(v => index)
+            }
+            const getNumArray2 = index => {
+              return sleep(500).then(v => index)
+            }
+            const startscreen = async _ => {
+              console.log('Start')
             
-            for (let i =0; i<imageArray.length; i++) {
-              // console.log('in iiiiiiiiiii: ',i)
-              // console.log('runnnnnn image');            
-              time1 = setTimeout(() => {
+              for (let i =0; i<imageArray.length; i++) {
                 
-                const map = new THREE.TextureLoader()
-                  .load(imageArray[i])
+                const returnI = await getNumArray(i)
+                console.log(returnI)
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray[returnI])
 
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
-                  map.center.set(0.5, 0.5);
-                  map.rotation = THREE.Math.degToRad(90);
-                  // console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                  // console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
                   screen.traverse(child =>  { 
                     if(child.isMesh) {
                       // child.receiveShadow = true;   
-                      child.material.map = map;
+                      child.material.map = map2;
                       // child.visible = false;
                       // child.castShadow = true;
                   }
-                  // scene.add(model)
+         
                 });
-              }, 250*i); //print the results with i times
-            }
-          
-        
-              // const z = imageArray.length -1
-              // console.log('in ra z: ',z);
-              //the value of z is 71
+              }
             
-            async function imageArray2(){
-              const z = imageArray.length -1
-              
-              for (let j = 0; j<imageArrayRR.length; j++) {
-                // console.log('dang run image');
-               
-                time2 = setTimeout(() => {
-                  
+              console.log('End')
+            }
+            startscreen();
+
+            const endscreen = async _ => {
+              console.log('Start')
+            
+              for (let i = 0; i<imageArrayRR.length; i++) {
+                  const returnI = await getNumArray2(i)
+                  console.log(returnI)
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
-                    .load(imageArrayRR[j])
+                    .load(imageArrayRR[returnI])
               
                     // map.repeat.set(0.5,0.5); //scale image len
                     // map.rotation = Math.PI / 2;
@@ -728,15 +729,15 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*j); //print the results with i times
-              }
-              await sleep(250*z);
+            
+              console.log('End')
             }
-            imageArray2();
-                clearTimeout(time1);
-                clearTimeout(time2);
-         
-
+          }
+          
+          endscreen();
+            
+            
+            
               
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
