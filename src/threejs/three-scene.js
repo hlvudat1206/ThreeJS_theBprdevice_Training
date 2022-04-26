@@ -14,7 +14,7 @@ import { MeshToonMaterial } from "three";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg;
+model2animation, renderer,binormal,normal, angleDeg, time1, time2;
 var clock2;
 let arrowHelper;
 
@@ -52,7 +52,7 @@ export default class ThreeScene extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
- 
+      
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -96,7 +96,9 @@ export default class ThreeScene extends Component {
 
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        window.location = 'home'
+        // window.location = 'home'
+        console.log('time 1: ', time1);
+        console.log('time 2: ', time2);
      
       });
       
@@ -671,12 +673,12 @@ export default class ThreeScene extends Component {
        
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
           
-          console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
+          // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           if (arrayArrow[arrayArrow.length -1] < 60){
             for (let i =0; i<imageArray.length; i++) {
-              console.log('in iiiiiiiiiii: ',i)
-              console.log('runnnnnn image');            
-              setTimeout(() => {
+              // console.log('in iiiiiiiiiii: ',i)
+              // console.log('runnnnnn image');            
+              time1 = setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
                   .load(imageArray[i])
@@ -685,8 +687,8 @@ export default class ThreeScene extends Component {
                   // map.rotation = Math.PI / 2;
                   map.center.set(0.5, 0.5);
                   map.rotation = THREE.Math.degToRad(90);
-                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
+                  // console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
+                  // console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
                   screen.traverse(child =>  { 
                     if(child.isMesh) {
                       // child.receiveShadow = true;   
@@ -698,13 +700,14 @@ export default class ThreeScene extends Component {
                 });
               }, 250*i); //print the results with i times
               
+
               }
           
               const z = imageArray.length -1
               for (let j = 0; j<imageArrayRR.length; j++) {
-                console.log('dang run image');
+                // console.log('dang run image');
                
-                setTimeout(() => {
+                time2 = setTimeout(() => {
                   
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
@@ -727,7 +730,9 @@ export default class ThreeScene extends Component {
                 }, 500*j+ z*250); //print the results with i times
                
                 }
-                
+                // clearTimeout(time1);
+                // clearTimeout(time2);
+
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
             for (let k =0; k<imageArray2.length; k++) {
