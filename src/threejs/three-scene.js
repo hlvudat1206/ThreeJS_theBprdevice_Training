@@ -665,9 +665,12 @@ export default class ThreeScene extends Component {
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           if (arrayArrow[arrayArrow.length -1] < 60){
-        
-
-           
+            function sleep(ms) {
+              return new Promise(
+                resolve => setTimeout(resolve, ms)
+              );
+            }
+            
             for (let i =0; i<imageArray.length; i++) {
               // console.log('in iiiiiiiiiii: ',i)
               // console.log('runnnnnn image');            
@@ -693,11 +696,15 @@ export default class ThreeScene extends Component {
                 });
               }, 250*i); //print the results with i times
             }
-
-
-              const z = imageArray.length -1
+          
+        
+              // const z = imageArray.length -1
               // console.log('in ra z: ',z);
               //the value of z is 71
+            
+            async function imageArray2(){
+              const z = imageArray.length -1
+              
               for (let j = 0; j<imageArrayRR.length; j++) {
                 // console.log('dang run image');
                
@@ -721,9 +728,11 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*j + 250*z); //print the results with i times
+                }, 500*j); //print the results with i times
               }
-        
+              await sleep(250*z);
+            }
+            imageArray2();
                 clearTimeout(time1);
                 clearTimeout(time2);
          
