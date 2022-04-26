@@ -14,7 +14,7 @@ import { MeshToonMaterial } from "three";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg, time1, time2;
+model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5;
 var clock2;
 let arrowHelper;
 
@@ -675,6 +675,9 @@ export default class ThreeScene extends Component {
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           if (arrayArrow[arrayArrow.length -1] < 60){
+        
+
+           
             for (let i =0; i<imageArray.length; i++) {
               // console.log('in iiiiiiiiiii: ',i)
               // console.log('runnnnnn image');            
@@ -699,10 +702,9 @@ export default class ThreeScene extends Component {
                   // scene.add(model)
                 });
               }, 250*i); //print the results with i times
-              
+            }
 
-              }
-          
+
               const z = imageArray.length -1
               for (let j = 0; j<imageArrayRR.length; j++) {
                 // console.log('dang run image');
@@ -727,17 +729,19 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*j+ z*250); //print the results with i times
-               
-                }
-                // clearTimeout(time1);
-                // clearTimeout(time2);
+                }, 500*j + 250*z); //print the results with i times
+              }
+        
+                clearTimeout(time1);
+                clearTimeout(time2);
+         
 
+              
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
             for (let k =0; k<imageArray2.length; k++) {
               console.log('runnnnnn image2');            
-              setTimeout(() => {
+              time3 = setTimeout(() => {
                 
                 const map = new THREE.TextureLoader()
                   .load(imageArray[k])
@@ -763,7 +767,7 @@ export default class ThreeScene extends Component {
               for (let k1 = 0; k1<imageArray2RR.length; k1++) {
                 console.log('dang run image2');
                
-                setTimeout(() => {
+                time4 = setTimeout(() => {
                   
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
@@ -785,11 +789,13 @@ export default class ThreeScene extends Component {
                   });
                 }, 500*k1+ z*150); //print the results with i times
                 }
+                clearTimeout(time3);
+                clearTimeout(time4);
           } else {
                 for (let e = 0; e<imageArray3RR.length; e++) {
                   console.log('hong be oi');
                  
-                  setTimeout(() => {
+                  time5 = setTimeout(() => {
                     
                     const map = new THREE.TextureLoader()
                     // rotate( Math.PI / 2 );
@@ -810,6 +816,8 @@ export default class ThreeScene extends Component {
                     });
                   }, 300*e); //print the results with i times
                   }
+                  clearTimeout(time5);
+           
           }
          
           
