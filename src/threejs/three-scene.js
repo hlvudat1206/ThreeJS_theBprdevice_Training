@@ -14,7 +14,8 @@ import { MeshToonMaterial } from "three";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5, map2;
+model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5, map2, returnI
+, returnI3, returnI5;
 var clock2;
 let arrowHelper;
 
@@ -664,8 +665,7 @@ export default class ThreeScene extends Component {
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
-          if (arrayArrow[arrayArrow.length -1] < 60){
-            const z = imageArray.length -1
+          const z = imageArray.length -1
             const sleep = ms => {
               return new Promise(resolve => setTimeout(resolve, ms))
             }
@@ -676,16 +676,50 @@ export default class ThreeScene extends Component {
             const getNumArray2 = index => {
               return sleep(500).then(v => index)
             }
+          if (arrayArrow[arrayArrow.length -1] < 60){
+            
+
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI === imageArray.length -1){
+              for (let i = 0; i<imageArrayRR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+                 
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArrayRR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+            
+                console.log('End')
+                  }
+            }
+          }
             const startscreen = async _ => {
               console.log('Start')
             
               for (let i =0; i<imageArray.length; i++) {
                 
-                const returnI = await getNumArray(i)
-                console.log(returnI)
+                returnI = await getNumArray(i)
+                console.log('in returnI: ',returnI)
                 map2 = new THREE.TextureLoader()
                   .load(imageArray[returnI])
-
+                  map2.minFilter = THREE.LinearFilter;
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map2.center.set(0.5, 0.5);
@@ -699,82 +733,36 @@ export default class ThreeScene extends Component {
                   }
          
                 });
+                endscreen();
+
               }
-            
+              
               console.log('End')
             }
             startscreen();
 
-            const endscreen = async _ => {
-              console.log('Start')
             
-              for (let i = 0; i<imageArrayRR.length; i++) {
-                  const returnI = await getNumArray2(i)
-                  console.log(returnI)
-                  const map = new THREE.TextureLoader()
-                  // rotate( Math.PI / 2 );
-                    .load(imageArrayRR[returnI])
-              
-                    // map.repeat.set(0.5,0.5); //scale image len
-                    // map.rotation = Math.PI / 2;
-                    map.center.set(0.5, 0.5);
-                    map.rotation = THREE.Math.degToRad(90);
-                    screen.traverse(child =>  {
-                      
-                      if(child.isMesh) {
-                        // child.receiveShadow = true;   
-                        child.material.map = map;
-                        // child.visible = false;
-                        // child.castShadow = true;    
-                    }
-                    // scene.add(model)
-                  });
-            
-              console.log('End')
-            }
-          }
           
-          endscreen();
             
             
             
               
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
-            for (let k =0; k<imageArray2.length; k++) {
-              console.log('runnnnnn image2');            
-              time3 = setTimeout(() => {
-                
-                const map = new THREE.TextureLoader()
-                  .load(imageArray[k])
-                  // map.repeat.set(0.5,0.5); //scale image len
-                  // map.rotation = Math.PI / 2;
-                  map.center.set(0.5, 0.5);
-                  map.rotation = THREE.Math.degToRad(90);
-                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
-                  screen.traverse(child =>  { 
-                    if(child.isMesh) {
-                      // child.receiveShadow = true;   
-                      child.material.map = map;
-                      // child.visible = false;
-                      // child.castShadow = true;
-                  }
-                  // scene.add(model)
-                });
-              }, 200*k); //print the results with i times
-              }
-              
-              const z = imageArray2.length -1
-              for (let k1 = 0; k1<imageArray2RR.length; k1++) {
-                console.log('dang run image2');
-               
-                time4 = setTimeout(() => {
-                  
+            
+
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI3 === imageArray2.length -1){
+              for (let i = 0; i<imageArray2RR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+                 
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
-                    .load(imageArray2RR[k1])
-              
+                    .load(imageArray2RR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
                     // map.repeat.set(0.5,0.5); //scale image len
                     // map.rotation = Math.PI / 2;
                     map.center.set(0.5, 0.5);
@@ -789,43 +777,115 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*k1+ z*150); //print the results with i times
-                }
-                clearTimeout(time3);
-                clearTimeout(time4);
-          } else {
-                for (let e = 0; e<imageArray3RR.length; e++) {
-                  console.log('hong be oi');
-                 
-                  time5 = setTimeout(() => {
-                    
-                    const map = new THREE.TextureLoader()
-                    // rotate( Math.PI / 2 );
-                      .load(imageArray3RR[e])
-                      // map.minFilter = THREE.LinearFilter;
-
-                      map.center.set(0.5, 0.5);
-                      map.rotation = THREE.Math.degToRad(90);
-                      screen.traverse(child =>  {
-                        
-                        if(child.isMesh) {
-                          // child.receiveShadow = true;   
-                          child.material.map = map;
-                          // child.visible = false;
-                          // child.castShadow = true;    
-                      }
-                      // scene.add(model)
-                    });
-                  }, 300*e); //print the results with i times
+            
+                console.log('End')
                   }
-                  clearTimeout(time5);
+            }
+          }
+            const startscreen = async _ => {
+              console.log('Start')
+            
+              for (let i =0; i<imageArray2.length; i++) {
+                
+                returnI3 = await getNumArray(i)
+                console.log('in returnI: ',returnI3)
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray2[returnI3])
+                  map2.minFilter = THREE.LinearFilter;
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map2;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+         
+                });
+                endscreen();
+
+              }
+              
+              console.log('End')
+            }
+            startscreen();
+
+               
+          } else {
+            
+
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI5 === imageArray3.length -1){
+              for (let i = 0; i<imageArray3RR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+                 
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArray3RR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+            
+                console.log('End')
+                  }
+            }
+          }
+            const startscreen = async _ => {
+              console.log('Start')
+            
+              for (let i =0; i<imageArray3.length; i++) {
+                
+                returnI5 = await getNumArray(i)
+                console.log('in returnI: ',returnI5)
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray3[returnI5])
+                  map2.minFilter = THREE.LinearFilter;
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map2;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+         
+                });
+                endscreen();
+
+              }
+              
+              console.log('End')
+            }
+            startscreen();
+
+                
            
           }
          
           
         }
-  
-          
+   
         console.log('bdpressure mesh is being clicked!');
          
           // Create an AnimationMixer, and get the list of AnimationClip instances
