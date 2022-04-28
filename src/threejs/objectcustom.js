@@ -128,7 +128,8 @@ export default class Objectcustom extends Component {
       });
       const loader2x = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
-      loader2x.load("./battery.glb",  (gltf) => {
+      const arrayObject = ['./battery.glb','battery2.glb','battery3.glb']
+      loader2x.load(arrayObject[1],  (gltf) => {
         model2x = gltf.scene;
         
         gltf.scene.scale.set(.05, .05, .05);
@@ -172,14 +173,41 @@ export default class Objectcustom extends Component {
         mmi.addHandler('Battery0', 'click',  (object) => {
           console.log('da click battery');
           // model.rotation.y= MathPI;
-            model2x.position.set(2,0.16,0);
-            model.add(model2x)
-            console.log('in position new battery: ',model2x.position)
-            console.log('in huyet ap grouped: ',model)
+            
             // scene.add(model2x);
             
-            
+            for (let z = 0; z <= 2.5; z = z + 0.1){
+              // console.log('in z ne:', z);
+              setTimeout(() => {
+              model.rotation.z= z;     
+              },50*z)
+            }
+            setTimeout(() =>{
+            mixer = new THREE.AnimationMixer( model );
+          
+            const action = mixer.clipAction(clipanimationDevice);
+            // // action.clampWhenFinished = true; //Capture the status of aniamtion
+            action.loop = THREE.LoopOnce; //go back the initial status
+            action.time = 0.5; // fhz ??
+            action.weight = 5; //weight object
+            // // action.zeroSlopeAtStart = true;
+            // // action.zeroSlopeAtEnd = true;
+            action.play();
 
+            
+            },300*2.5)
+             //rotate in itself
+            for (let rot=0; rot <=3.14; rot = rot + 0.05){
+            setTimeout (() => {
+              
+              //at -1 of y position, y: -3.14 ==> 0.16
+              model2x.position.set(2,-3.10 + rot + 0.16,0);
+              model2x.rotation.set(rot,rot,rot)
+              model.add(model2x)
+              console.log('in position new battery: ',model2x.position)
+              console.log('in huyet ap grouped: ',model)
+            },400*2.5) 
+          }
         })  
           
 
