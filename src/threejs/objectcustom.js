@@ -7,8 +7,8 @@ import { DragControls } from "./DragControls";
 
 import MouseMeshInteraction from "./mousemes_interact";
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model5, model5_1,
-model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice;
+let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
+model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ;
 var clock2;
 
 export default class Objectcustom extends Component {
@@ -126,12 +126,21 @@ export default class Objectcustom extends Component {
         //   mixer.clipAction( clip ).play();
         // } );
       });
+      const loader2x = new GLTFLoader();
+      // file perbaodo8 is belong to baodo6.glb
+      loader2x.load("./battery.glb",  (gltf) => {
+        model2x = gltf.scene;
+        
+        gltf.scene.scale.set(.05, .05, .05);
+
+      })
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
       loader2.load("./battery.glb",  (gltf) => {
         console.log('print battery:', gltf);
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
+        
         model2animation = gltf.animations;
         gltf.scene.position.set(1.5,5,2);
         gltf.scene.scale.set(.1, .1, .1);
@@ -159,44 +168,49 @@ export default class Objectcustom extends Component {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
-          // if (mouse.x < -0.1 &&  mouse.y > 0.05) {
-            
-          //   gltf.scene.position.set(-1,-2,8);
-          //   // gltf.scene.rotation.y = 0.5;
-          //   gltf.scene.scale.set(2.8,2.8,2.8);
-          //   console.log('da move bao do');
-          // } else {
-    
-          //   console.log('da fail bao do');
-          // }
+          
         mmi.addHandler('Battery0', 'click',  (object) => {
           console.log('da click battery');
-          // model.rotation.y= Math.PI;
-           
-            for (let z = 0; z <= 2.5; z = z + 0.1){
-              // console.log('in z ne:', z);
-              setTimeout(() => {
-              model.rotation.z= z;     
-              },50*z)
+          // model.rotation.y= MathPI;
+            model2x.position.set(2,0.16,0);
+            model.add(model2x)
+            console.log('in position new battery: ',model2x.position)
+            console.log('in huyet ap grouped: ',model)
+            // scene.add(model2x);
+            const sleep = ms => {
+              return new Promise(resolve => setTimeout(resolve, ms))
             }
-            setTimeout(() =>{
-            mixer = new THREE.AnimationMixer( model );
+            const getZ = index => {
+              return sleep(50).then(v => index)
+            }
+            const rotateBpr = async _ => {
+              for (let z = 0; z <= 2.5 ; z = z + 0.5) {
+                
+                const returnZ = await getZ(z)
+                console.log('in returnZ: ',returnZ)
+                model.rotation.z= returnZ;
+                
+                
+               
+              }
+            }
+            rotateBpr();
+            const aniBpr = async _ => {
+              if (returnZ = 2.5){
+              mixer = new THREE.AnimationMixer( model );
           
-            const action = mixer.clipAction(clipanimationDevice);
-            // // action.clampWhenFinished = true; //Capture the status of aniamtion
-            action.loop = THREE.LoopOnce; //go back the initial status
-            action.time = 0.5; // fhz ??
-            action.weight = 5; //weight object
-            // // action.zeroSlopeAtStart = true;
-            // // action.zeroSlopeAtEnd = true;
-            action.play();
-            },250*2.5)
+              const action = mixer.clipAction(clipanimationDevice);
+              // // action.clampWhenFinished = true; //Capture the status of aniamtion
+              action.loop = THREE.LoopOnce; //go back the initial status
+              action.time = 0.5; // fhz ??
+              action.weight = 2; //weight object
+              // // action.zeroSlopeAtStart = true;
+              // // action.zeroSlopeAtEnd = true;
+              action.play();
+              }
+            }
+            aniBpr();
             
-          
-          
-        
-
-
 
         })  
           
@@ -438,9 +452,9 @@ export default class Objectcustom extends Component {
       }
       
       function resize(){
-        // camera.aspect = window.innerWidth / window.innerHeight;
-        // camera.updateProjectionMatrix();
-        // renderer.setSize( window.innerWidth*0.4, window.innerHeight*0.4 );
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
       }
        function animate() {
         // requestAnimationFrame(animate);
@@ -503,6 +517,7 @@ export default class Objectcustom extends Component {
           }
           render();
       window.addEventListener('click', onClick);
+      window.addEventListener( 'resize', resize, false);
 
     }
   render() {

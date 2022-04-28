@@ -6,15 +6,14 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import CustomSinCurve from "./sinline";
-import { Texture } from "three";
-import { MeshToonMaterial } from "three";
+
 
 
 
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg, time1, time2, time3, time4, time5, map2, returnI
+model2animation, angleDeg, map2, returnI
 , returnI3, returnI5;
 var clock2;
 let arrowHelper;
@@ -676,9 +675,7 @@ export default class ThreeScene extends Component {
             const getNumArray2 = index => {
               return sleep(500).then(v => index)
             }
-          if (arrayArrow[arrayArrow.length -1] < 60){
-            
-
+          if (arrayArrow[arrayArrow.length -1] < 60){          
             const endscreen = async _ => {
               console.log('Start')
               if (returnI === imageArray.length -1){
