@@ -177,39 +177,7 @@ export default class Objectcustom extends Component {
             console.log('in position new battery: ',model2x.position)
             console.log('in huyet ap grouped: ',model)
             // scene.add(model2x);
-            const sleep = ms => {
-              return new Promise(resolve => setTimeout(resolve, ms))
-            }
-            const getZ = index => {
-              return sleep(50).then(v => index)
-            }
-            const rotateBpr = async _ => {
-              for (let z = 0; z <= 2.5 ; z = z + 0.5) {
-                
-                const returnZ = await getZ(z)
-                console.log('in returnZ: ',returnZ)
-                model.rotation.z= returnZ;
-                
-                
-               
-              }
-            }
-            rotateBpr();
-            const aniBpr = async _ => {
-              if (returnZ = 2.5){
-              mixer = new THREE.AnimationMixer( model );
-          
-              const action = mixer.clipAction(clipanimationDevice);
-              // // action.clampWhenFinished = true; //Capture the status of aniamtion
-              action.loop = THREE.LoopOnce; //go back the initial status
-              action.time = 0.5; // fhz ??
-              action.weight = 2; //weight object
-              // // action.zeroSlopeAtStart = true;
-              // // action.zeroSlopeAtEnd = true;
-              action.play();
-              }
-            }
-            aniBpr();
+            
             
 
         })  
