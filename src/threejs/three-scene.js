@@ -611,7 +611,6 @@ export default class ThreeScene extends Component {
           ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
             
           ];
-        const imageBackgound = ['backgroundtest.png'];
         // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
