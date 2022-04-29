@@ -611,6 +611,7 @@ export default class ThreeScene extends Component {
           ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
             
           ];
+        const imageBackgound = ['backgroundtest.png'];
         // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
@@ -682,8 +683,9 @@ export default class ThreeScene extends Component {
               for (let i = 0; i<imageArrayRR.length; i++) {
                   const returnI2 = await getNumArray2(i)
                   console.log(returnI2)
-                 
+
                   const map = new THREE.TextureLoader()
+
                   // rotate( Math.PI / 2 );
                     .load(imageArrayRR[returnI2])
                     map.minFilter = THREE.LinearFilter;
@@ -695,10 +697,13 @@ export default class ThreeScene extends Component {
                     screen.traverse(child =>  {
                       
                       if(child.isMesh) {
-                        // child.receiveShadow = true;   
+                        // child.receiveShadow = true;
+                        // child.material.map = mapx;   
                         child.material.map = map;
                         // child.visible = false;
-                        // child.castShadow = true;    
+                        // child.castShadow = true; 
+                      
+
                     }
                     // scene.add(model)
                   });
@@ -714,6 +719,7 @@ export default class ThreeScene extends Component {
                 
                 returnI = await getNumArray(i)
                 console.log('in returnI: ',returnI)
+               
                 map2 = new THREE.TextureLoader()
                   .load(imageArray[returnI])
                   map2.minFilter = THREE.LinearFilter;
@@ -723,10 +729,14 @@ export default class ThreeScene extends Component {
                   map2.rotation = THREE.Math.degToRad(90);
                   screen.traverse(child =>  { 
                     if(child.isMesh) {
-                      // child.receiveShadow = true;   
+                      // child.receiveShadow = true;  
+                      // child.material.map = mapx;
+ 
                       child.material.map = map2;
                       // child.visible = false;
                       // child.castShadow = true;
+                      
+
                   }
          
                 });
