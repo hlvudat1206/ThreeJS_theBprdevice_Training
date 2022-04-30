@@ -126,11 +126,11 @@ export default class Objectcustom extends Component {
         //   mixer.clipAction( clip ).play();
         // } );
       });
-      
+
       const loader2x = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
       const arrayObject = ['./battery.glb','battery2.glb','battery3.glb']
-      loader2x.load(arrayObject[1],  (gltf) => {
+      loader2x.load(arrayObject[0],  (gltf) => {
         model2x = gltf.scene;
         
         gltf.scene.scale.set(.05, .05, .05);
