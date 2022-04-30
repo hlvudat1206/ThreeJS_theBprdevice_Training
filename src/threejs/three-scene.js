@@ -11,15 +11,15 @@ import { PerspectiveCamera } from "three";
 let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2;
 =======
 import CustomSinCurve from "./sinline";
-import { Texture } from "three";
-import { MeshToonMaterial } from "three";
+
 
 
 
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
-model2animation, renderer,binormal,normal, angleDeg;
+model2animation, angleDeg, map2, returnI
+, returnI3, returnI5;
 var clock2;
 let arrowHelper;
 
@@ -85,6 +85,7 @@ export default class ThreeScene extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
+<<<<<<< HEAD
  
 <<<<<<< HEAD
   
@@ -93,6 +94,9 @@ export default class ThreeScene extends Component {
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 =======
 >>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
+=======
+      
+>>>>>>> 6f0a30611c343fdbbb2449e1cd7ccadee137d2f9
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -146,6 +150,7 @@ export default class ThreeScene extends Component {
 =======
 >>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       clock2 = new THREE.Clock();
+      const mmi = new MouseMeshInteraction(scene, camera);
 
       //create sin spline
       // const curve = new CustomSinCurve(2);
@@ -159,13 +164,19 @@ export default class ThreeScene extends Component {
 
       
       
-//       const geometry = new THREE.BoxGeometry();
-// const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-// const cube = new THREE.Mesh( geometry, material );
-// scene.add( cube );
+      const geometry = new THREE.BoxGeometry();
+      const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+      const cube = new THREE.Mesh( geometry, material );
+      cube.name='cube';
+      cube.position.set(0,5,12)
+      scene.add( cube );
+
+      mmi.addHandler('cube', 'click', (object) => {
+        console.log('da click cubeeee');
+        window.location = 'home'
      
-      
-      window.addEventListener( 'resize', resize);
+     
+      });
       
       update();
 <<<<<<< HEAD
@@ -219,7 +230,6 @@ export default class ThreeScene extends Component {
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-			const mmi = new MouseMeshInteraction(scene, camera);
 			
 			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
 			
@@ -840,6 +850,7 @@ export default class ThreeScene extends Component {
         document.body.appendChild( renderer.domElement );
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
+<<<<<<< HEAD
         // event.object.material.emissive.set( 0xaaaaaa );
           // gltf.scene.material.transparent = true;
           // gltf.scene.children[3].material.opacity = 0.5;
@@ -854,6 +865,8 @@ export default class ThreeScene extends Component {
         
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
+=======
+>>>>>>> 6f0a30611c343fdbbb2449e1cd7ccadee137d2f9
 
         } );
 
@@ -961,45 +974,32 @@ export default class ThreeScene extends Component {
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
 >>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
           
-          console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
-          if (arrayArrow[arrayArrow.length -1] < 60){
-            for (let i =0; i<imageArray.length; i++) {
-              console.log('in iiiiiiiiiii: ',i)
-              console.log('runnnnnn image');            
-              setTimeout(() => {
-                
-                const map = new THREE.TextureLoader()
-                  .load(imageArray[i])
+          // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
+          const z = imageArray.length -1
+            const sleep = ms => {
+              return new Promise(resolve => setTimeout(resolve, ms))
+            }
 
-                  // map.repeat.set(0.5,0.5); //scale image len
-                  // map.rotation = Math.PI / 2;
-                  map.center.set(0.5, 0.5);
-                  map.rotation = THREE.Math.degToRad(90);
-                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
-                  screen.traverse(child =>  { 
-                    if(child.isMesh) {
-                      // child.receiveShadow = true;   
-                      child.material.map = map;
-                      // child.visible = false;
-                      // child.castShadow = true;
-                  }
-                  // scene.add(model)
-                });
-              }, 250*i); //print the results with i times
-              
-              }
-          
-              const z = imageArray.length -1
-              for (let j = 0; j<imageArrayRR.length; j++) {
-                console.log('dang run image');
-               
-                setTimeout(() => {
-                  
+            const getNumArray = index => {
+              return sleep(300).then(v => index)
+            }
+            const getNumArray2 = index => {
+              return sleep(400).then(v => index)
+            }
+          if (arrayArrow[arrayArrow.length -1] < 60){          
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI === imageArray.length -1){
+              for (let i = 0; i<imageArrayRR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+
                   const map = new THREE.TextureLoader()
+
                   // rotate( Math.PI / 2 );
-                    .load(imageArrayRR[j])
-              
+                    .load(imageArrayRR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
                     // map.repeat.set(0.5,0.5); //scale image len
                     // map.rotation = Math.PI / 2;
                     map.center.set(0.5, 0.5);
@@ -1007,53 +1007,79 @@ export default class ThreeScene extends Component {
                     screen.traverse(child =>  {
                       
                       if(child.isMesh) {
-                        // child.receiveShadow = true;   
+                        // child.receiveShadow = true;
+                        // child.material.map = mapx;   
                         child.material.map = map;
                         // child.visible = false;
-                        // child.castShadow = true;    
+                        // child.castShadow = true; 
+                      
+
                     }
                     // scene.add(model)
                   });
-                }, 500*j+ z*250); //print the results with i times
-               
-                }
+            
+                console.log('End')
+                  }
+            }
+          }
+            const startscreen = async _ => {
+              console.log('Start')
+            
+              for (let i =0; i<imageArray.length; i++) {
                 
+                returnI = await getNumArray(i)
+                console.log('in returnI: ',returnI)
+               
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray[returnI])
+                  map2.minFilter = THREE.LinearFilter;
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;  
+                      // child.material.map = mapx;
+ 
+                      child.material.map = map2;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                      
+
+                  }
+         
+                });
+                endscreen();
+
+              }
+              
+              console.log('End')
+            }
+            startscreen();
+
+            
+          
+            
+            
+            
+              
           } else if (arrayArrow[arrayArrow.length -1] >= 60 && arrayArrow[arrayArrow.length -1] < 120){
             console.log('may chua on chut nao')
-            for (let k =0; k<imageArray2.length; k++) {
-              console.log('runnnnnn image2');            
-              setTimeout(() => {
-                
-                const map = new THREE.TextureLoader()
-                  .load(imageArray[k])
-                  // map.repeat.set(0.5,0.5); //scale image len
-                  // map.rotation = Math.PI / 2;
-                  map.center.set(0.5, 0.5);
-                  map.rotation = THREE.Math.degToRad(90);
-                  console.log('in clickbpr_to_wireconnect 2:', this.state.clickbpr_to_wireconnect)
-                  console.log('in clickhandforcuff 2: ', this.state.clickhandforcuff)
-                  screen.traverse(child =>  { 
-                    if(child.isMesh) {
-                      // child.receiveShadow = true;   
-                      child.material.map = map;
-                      // child.visible = false;
-                      // child.castShadow = true;
-                  }
-                  // scene.add(model)
-                });
-              }, 200*k); //print the results with i times
-              }
-              
-              const z = imageArray.length -1
-              for (let k1 = 0; k1<imageArray2RR.length; k1++) {
-                console.log('dang run image2');
-               
-                setTimeout(() => {
-                  
+            
+
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI3 === imageArray2.length -1){
+              for (let i = 0; i<imageArray2RR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+                 
                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
-                    .load(imageArray2RR[k1])
-              
+                    .load(imageArray2RR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
                     // map.repeat.set(0.5,0.5); //scale image len
                     // map.rotation = Math.PI / 2;
                     map.center.set(0.5, 0.5);
@@ -1068,44 +1094,116 @@ export default class ThreeScene extends Component {
                     }
                     // scene.add(model)
                   });
-                }, 500*k1+ z*150); //print the results with i times
-                }
-          } else {
-                for (let e = 0; e<imageArray3RR.length; e++) {
-                  console.log('hong be oi');
-                 
-                  setTimeout(() => {
-                    
-                    const map = new THREE.TextureLoader()
-                    // rotate( Math.PI / 2 );
-                      .load(imageArray3RR[e])
-                      // map.minFilter = THREE.LinearFilter;
-
-                      map.center.set(0.5, 0.5);
-                      map.rotation = THREE.Math.degToRad(90);
-                      screen.traverse(child =>  {
-                        
-                        if(child.isMesh) {
-                          // child.receiveShadow = true;   
-                          child.material.map = map;
-                          // child.visible = false;
-                          // child.castShadow = true;    
-                      }
-                      // scene.add(model)
-                    });
-                  }, 300*e); //print the results with i times
+            
+                console.log('End')
                   }
+            }
+          }
+            const startscreen = async _ => {
+              console.log('Start')
+            
+              for (let i =0; i<imageArray2.length; i++) {
+                
+                returnI3 = await getNumArray(i)
+                console.log('in returnI: ',returnI3)
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray2[returnI3])
+                  map2.minFilter = THREE.LinearFilter;
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map2;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+         
+                });
+                endscreen();
+
+              }
+              
+              console.log('End')
+            }
+            startscreen();
+
+               
+          } else {
+            
+
+            const endscreen = async _ => {
+              console.log('Start')
+              if (returnI5 === imageArray3.length -1){
+              for (let i = 0; i<imageArray3RR.length; i++) {
+                  const returnI2 = await getNumArray2(i)
+                  console.log(returnI2)
+                 
+                  const map = new THREE.TextureLoader()
+                  // rotate( Math.PI / 2 );
+                    .load(imageArray3RR[returnI2])
+                    map.minFilter = THREE.LinearFilter;
+
+                    // map.repeat.set(0.5,0.5); //scale image len
+                    // map.rotation = Math.PI / 2;
+                    map.center.set(0.5, 0.5);
+                    map.rotation = THREE.Math.degToRad(90);
+                    screen.traverse(child =>  {
+                      
+                      if(child.isMesh) {
+                        // child.receiveShadow = true;   
+                        child.material.map = map;
+                        // child.visible = false;
+                        // child.castShadow = true;    
+                    }
+                    // scene.add(model)
+                  });
+            
+                console.log('End')
+                  }
+            }
+          }
+            const startscreen = async _ => {
+              console.log('Start')
+            
+              for (let i =0; i<imageArray3.length; i++) {
+                
+                returnI5 = await getNumArray(i)
+                console.log('in returnI: ',returnI5)
+                map2 = new THREE.TextureLoader()
+                  .load(imageArray3[returnI5])
+                  map2.minFilter = THREE.LinearFilter;
+                  // map.repeat.set(0.5,0.5); //scale image len
+                  // map.rotation = Math.PI / 2;
+                  map2.center.set(0.5, 0.5);
+                  map2.rotation = THREE.Math.degToRad(90);
+                  screen.traverse(child =>  { 
+                    if(child.isMesh) {
+                      // child.receiveShadow = true;   
+                      child.material.map = map2;
+                      // child.visible = false;
+                      // child.castShadow = true;
+                  }
+         
+                });
+                endscreen();
+
+              }
+              
+              console.log('End')
+            }
+            startscreen();
+
+                
+           
           }
          
           
         }
-        // //lock the click function
-        // this.setState({
-        //   clickbpr_to_wireconnect: false,
-        //   clickhandforcuff: false
-        // })   
-          
-          console.log('bdpressure mesh is being clicked!');
+   
+        console.log('bdpressure mesh is being clicked!');
          
           // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model );
@@ -1334,9 +1432,11 @@ export default class ThreeScene extends Component {
       }
       
       function resize(){
-        // camera.aspect = window.innerWidth / window.innerHeight;
-        // camera.updateProjectionMatrix();
-        // renderer.setSize( window.innerWidth*0.4, window.innerHeight*0.4 );
+
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
       }
 
 >>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
@@ -1349,6 +1449,9 @@ export default class ThreeScene extends Component {
           camera.position.y + 10,
           camera.position.z + 10,
         );
+        if (cube){
+          cube.rotation.y += 0.05;
+        }
         // dragObject();
         // controls.autoRotate = false;
         // controls.autoRotateSpeed = 0.0;
@@ -1633,7 +1736,7 @@ export default class ThreeScene extends Component {
    
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
-
+      window.addEventListener( 'resize', resize, false);
       window.addEventListener('click', onClick);
 >>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       // window.addEventListener( 'mousemove', moveobject );
