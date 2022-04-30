@@ -670,10 +670,10 @@ export default class ThreeScene extends Component {
             }
 
             const getNumArray = index => {
-              return sleep(100).then(v => index)
+              return sleep(300).then(v => index)
             }
             const getNumArray2 = index => {
-              return sleep(200).then(v => index)
+              return sleep(400).then(v => index)
             }
           if (arrayArrow[arrayArrow.length -1] < 60){          
             const endscreen = async _ => {
