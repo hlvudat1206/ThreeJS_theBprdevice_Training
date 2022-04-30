@@ -5,11 +5,6 @@ import MouseMeshInteraction from "./mousemes_interact";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
-<<<<<<< HEAD
-import { PerspectiveCamera } from "three";
-
-let mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, renderer, mixer2;
-=======
 import CustomSinCurve from "./sinline";
 
 
@@ -23,7 +18,6 @@ model2animation, angleDeg, map2, returnI
 var clock2;
 let arrowHelper;
 
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 export default class ThreeScene extends Component {
     constructor(props) {
       super(props);
