@@ -9,6 +9,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Instance_ray from '../threejs/instance_ray';
 
 export default class Directurl extends Component {
     constructor(props) {
@@ -29,6 +30,10 @@ export default class Directurl extends Component {
           <Route path="/objectcustom">
             <Objectcustom />
           </Route>
+          <Route path="/test">
+            <Instance_ray />
+          </Route>
+         
           </div>
       </Router>
     )

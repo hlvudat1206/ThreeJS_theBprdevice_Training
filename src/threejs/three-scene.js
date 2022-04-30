@@ -5,6 +5,8 @@ import MouseMeshInteraction from "./mousemes_interact";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
+import Stats from 'three/examples/jsm/libs/stats.module'
+
 import CustomSinCurve from "./sinline";
 
 
@@ -12,7 +14,7 @@ import CustomSinCurve from "./sinline";
 
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+let scene, camera, mouse, stats, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
 model2animation, angleDeg, map2, returnI
 , returnI3, returnI5;
 var clock2;
@@ -51,7 +53,8 @@ export default class ThreeScene extends Component {
       camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
-    
+      stats = new Stats();
+      document.body.appendChild( stats.dom );
       
         // create rendering
 
@@ -823,37 +826,6 @@ export default class ThreeScene extends Component {
           } else {
             
 
-            const endscreen = async _ => {
-              console.log('Start')
-              if (returnI5 === imageArray3.length -1){
-              for (let i = 0; i<imageArray3RR.length; i++) {
-                  const returnI2 = await getNumArray2(i)
-                  console.log(returnI2)
-                 
-                  const map = new THREE.TextureLoader()
-                  // rotate( Math.PI / 2 );
-                    .load(imageArray3RR[returnI2])
-                    map.minFilter = THREE.LinearFilter;
-
-                    // map.repeat.set(0.5,0.5); //scale image len
-                    // map.rotation = Math.PI / 2;
-                    map.center.set(0.5, 0.5);
-                    map.rotation = THREE.Math.degToRad(90);
-                    screen.traverse(child =>  {
-                      
-                      if(child.isMesh) {
-                        // child.receiveShadow = true;   
-                        child.material.map = map;
-                        // child.visible = false;
-                        // child.castShadow = true;    
-                    }
-                    // scene.add(model)
-                  });
-            
-                console.log('End')
-                  }
-            }
-          }
             const startscreen = async _ => {
               console.log('Start')
             
@@ -877,7 +849,6 @@ export default class ThreeScene extends Component {
                   }
          
                 });
-                endscreen();
 
               }
               
@@ -1091,6 +1062,7 @@ export default class ThreeScene extends Component {
         resetMaterials();
         // controls.update();
         // onMouseMove();
+        stats.update();
         renderer.render(scene, camera);
   
       }

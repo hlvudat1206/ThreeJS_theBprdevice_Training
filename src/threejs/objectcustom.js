@@ -7,9 +7,11 @@ import { DragControls } from "./DragControls";
 
 import MouseMeshInteraction from "./mousemes_interact";
 
+
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ;
 var clock2;
+
 
 export default class Objectcustom extends Component {
     constructor(props, context) {
@@ -73,6 +75,11 @@ export default class Objectcustom extends Component {
       light.shadow.bias = -0.0001;
       light.shadow.mapSize.width = 1024*4;
       light.shadow.mapSize.height = 1024*4;
+    
+   
+
+    
+    ///
 
       const mmi = new MouseMeshInteraction(scene, camera);
       raycaster = new THREE.Raycaster();
@@ -91,7 +98,7 @@ export default class Objectcustom extends Component {
      
       });
     
-      
+     
       const loader5 = new GLTFLoader();
       loader5.load("./perhand.glb",  (gltf) => {
         console.log('in ra canh tay: ',gltf);
@@ -136,6 +143,7 @@ export default class Objectcustom extends Component {
         gltf.scene.scale.set(.05, .05, .05);
 
       })
+      
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
       loader2.load("./battery.glb",  (gltf) => {
@@ -447,6 +455,7 @@ export default class Objectcustom extends Component {
         // updateCamera();
         // renderer.render( scene, camera );  
       }
+      
       
       function resize(){
         renderer.setSize(window.innerWidth, window.innerHeight);
