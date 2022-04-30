@@ -37,40 +37,13 @@ export default class ThreeScene extends Component {
     componentDidMount(){
 
         // create scene
-<<<<<<< HEAD
-      let updatemove = false;
-<<<<<<< HEAD
-      const scene = new THREE.Scene();
-=======
-=======
  
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       
       scene = new THREE.Scene();
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
       scene.background = new THREE.Color(0x4caca5
         );
 
         // create camera
-<<<<<<< HEAD
-<<<<<<< HEAD
-      const camera = new THREE.PerspectiveCamera(
-        105,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-      );
-    
-=======
-      // camera = new THREE.PerspectiveCamera(
-      //   105,
-      //   window.innerWidth / window.innerHeight,
-      //   0.1,
-      //   1000
-      // );
-   
-=======
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -79,18 +52,7 @@ export default class ThreeScene extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
-<<<<<<< HEAD
- 
-<<<<<<< HEAD
-  
- 
-
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-=======
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
-=======
       
->>>>>>> 6f0a30611c343fdbbb2449e1cd7ccadee137d2f9
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -110,39 +72,6 @@ export default class ThreeScene extends Component {
       
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      // //create cube
-      const geometry = new THREE.BoxGeometry();
-      const material = new THREE.MeshBasicMaterial( { 
-          color: 0xff0000  ,
-          wireframe: false});
-      let cube = new THREE.Mesh( geometry, material );
-      // cube.position.set(2,2,5); //x z y 
-      console.log('cube', cube);
-      scene.add( cube );
-       camera.position.z = 5;
-=======
-
-      
-      // //create cube
-      // const geometry2 = new THREE.BoxGeometry();
-      // const material2 = new THREE.MeshBasicMaterial( { 
-      //     color: 0xff0000  ,
-      //     wireframe: false});
-      // let cube = new THREE.Mesh( geometry2, material2 );
-      // // cube.position.set(2,2,5); //x z y 
-      // console.log('cube', cube);
-      // scene.add( cube );
-      
-      // create path
-      // const assetPath = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/2666677/";
-=======
->>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
-  
-=======
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       clock2 = new THREE.Clock();
       const mmi = new MouseMeshInteraction(scene, camera);
 
@@ -173,16 +102,8 @@ export default class ThreeScene extends Component {
       });
       
       update();
-<<<<<<< HEAD
-      
-      
-      
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-      
-=======
 
   
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
       hemiLight.position.set(0, 20, 0);
@@ -191,11 +112,7 @@ export default class ThreeScene extends Component {
       light = new THREE.SpotLight(0xffa95c,4); //The sun
       light.position.set(-50,50,50);
       light.castShadow = true;
-<<<<<<< HEAD
-      scene.add( light );
-=======
       scene.add( light ); 
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
       light.shadow.bias = -0.0001;
       light.shadow.mapSize.width = 1024*4;
@@ -216,12 +133,7 @@ export default class ThreeScene extends Component {
 			//////////////
 			const gray_color = new THREE.Color(0x57554f);
 			const yellow_color = new THREE.Color(0xe0c53a);
-<<<<<<< HEAD
-     
-      /////////////////
-=======
     
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
 			
@@ -231,69 +143,11 @@ export default class ThreeScene extends Component {
       mouse = new THREE.Vector2();
      
       raycaster = new THREE.Raycaster();
-<<<<<<< HEAD
-      // const _mixers = [];
-      //import glb file
-      // const loader4 = new GLTFLoader();
-      // loader4.load("./labcustom.glb", function (gltf) {
-      //   console.log('in ra:', gltf);
-      //   console.log('in ra children22: ',gltf.scene.children[0]);
-      //   model = gltf.scene.children[0];
-      //   // model.traverse(n => { if ( n.isMesh ) {
-      //   //   n.castShadow = true; 
-      //   //   n.receiveShadow = true;
-      //   //   if(n.material.map) n.material.map.anisotropy = 16; 
-      //   // }});
-
-      //   gltf.scene.position.set(0,0,0);
-      //   gltf.scene.scale.set(2.8, 2.8, 2.8);
-
-      //   scene.add( gltf.scene );
-
-      // })
-
-<<<<<<< HEAD
-      // const loader2 = new GLTFLoader();
-      // loader2.load("./baodo4.glb", function (gltf) {
-      //   console.log('in ra:', gltf);
-      //   console.log('in ra children22: ',gltf.scene.children[0]);
-      //   model = gltf.scene.children[0];
-      //   // model.traverse(n => { if ( n.isMesh ) {
-      //   //   n.castShadow = true; 
-      //   //   n.receiveShadow = true;
-      //   //   if(n.material.map) n.material.map.anisotropy = 16; 
-      //   // }});
-
-      //   gltf.scene.position.set(2,2.2,2);
-      //   gltf.scene.scale.set(0.9, 0.9, 0.9);
-      
-      //   scene.add( gltf.scene );
-      //   mmi.addHandler('nham', 'click', function(object) {
-      //     console.log('daydo mesh is being clicked!');
-      //     // object.rotation._x = 60;
-      //     //     scene.scale.set(2.5, 2.5, 2.5);
-      //     gltf.scene.scale.set(4.0, 4.0, 4.0);
-      //     gltf.scene.position.set(0,0,0); //y z x
-
-      //     // for (let i=0; i<gltf.scene.children.length; i++){
-      //     //   gltf.scene.children[i].rotation.z=150;
-  
-      //     // }
-          
-      //     gltf.scene.rotation.z=30;
-      //   })
-
-      // })
-=======
-      const loader2 = new GLTFLoader();
-      loader2.load("./baodo4.glb", function (gltf) {
-=======
       const _mixers = [];
       // import glb file
       const loader4 = new GLTFLoader();
       //labcustom.glb
       loader4.load("./room103.glb", function (gltf) {
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         const model6 = gltf.scene.children[0];
@@ -429,17 +283,13 @@ export default class ThreeScene extends Component {
         
 
       })
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
       
       // let mixer;
       // const loader3 = new GLTFLoader();
       // loader3.load("./boyring6.glb", function (gltf) {
       //   console.log('in ra boyboy: ',gltf);
-<<<<<<< HEAD
-=======
       //   console.log('in boy x: ',mouse.x);
       //   console.log('in boy y: ',mouse.y);
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
       //   model2 = gltf.scene;
       //   // model2.traverse(n => { if ( n.isMesh ) {
       //   //   n.castShadow = true; 
@@ -447,15 +297,10 @@ export default class ThreeScene extends Component {
       //   //   if(n.material.map) n.material.map.anisotropy = 16; 
       //   // }});
 
-<<<<<<< HEAD
-      //   gltf.scene.position.set(4,0,2);
-      //   gltf.scene.scale.set(1.8, 1.8, 1.8);
-=======
       //   // gltf.scene.position.set(4,-2,3);
       //   gltf.scene.position.set(3,-12,6);
       //   gltf.scene.rotation.y = 90;
       //   gltf.scene.scale.set(10.5,10.5,10.5);
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
       //   scene.add( model2 );
 
@@ -468,43 +313,6 @@ export default class ThreeScene extends Component {
       //   const clip = THREE.AnimationClip.findByName( clips, 'RigAction' );
       //   const action = mixer.clipAction(clip);
       //   // action.play();
-<<<<<<< HEAD
-
-      //   // Play all animations
-      //   clips.forEach( function ( clip ) {
-      //   mixer.clipAction( clip ).play();
-      //   } );
-      // },undefined,function(error){
-      //   console.error(error);
-      // });
-
-      // let mixer2;
-      const loader5 = new GLTFLoader();
-      loader5.load("./canhtay.glb", function (gltf) {
-        console.log('in ra canh tay: ',gltf);
-        const model5 = gltf.scene;
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
-
-        // gltf.scene.position.set(4,0,2);
-        // gltf.scene.scale.set(3.8, 3.8, 3.8);
-        gltf.scene.children[0].position.set(4,0,2);
-        gltf.scene.children[0].scale.set(3.8,3.8,3.8);
-        gltf.scene.children[0].rotation.z = 60;
-        // gltf.scene.children[0].rotation.x = 60;
-        
-
-        scene.add( model5 );
-      });
-
-      const loader = new GLTFLoader();
-      loader.load("./huyetap27.glb", function (gltf) {
-        console.log('in ra huyetap: ',gltf);
-        model = gltf.scene;
-=======
       
       //   // Play all animations
       //   // clips.forEach( function ( clip ) {
@@ -672,25 +480,12 @@ export default class ThreeScene extends Component {
         console.log('in ra huyetap: ',gltf);
         model = gltf.scene;
 
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
         // model.traverse(n => { if ( n.isMesh ) {
         //   n.castShadow = true; 
         //   n.receiveShadow = true;
         //   if(n.material.map) n.material.map.anisotropy = 16; 
         // }});
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        gltf.scene.position.set(8,0,1);
-        gltf.scene.scale.set(0.4, 0.4, 0.4);
-
-        scene.add( model );
-       
-=======
-        gltf.scene.position.set(0,2,-5);
-=======
         gltf.scene.position.set(-4,1,-7);
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
         // gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(1.4, 1.4, 1.5);
@@ -827,11 +622,6 @@ export default class ThreeScene extends Component {
         const imageArray3RR = imageArray3_2.reverse()
         scene.add(model);
         update();
-<<<<<<< HEAD
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-        const dcontrols = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
-=======
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
 
         
         // [gltf.scene.children[0]]
@@ -844,38 +634,11 @@ export default class ThreeScene extends Component {
         document.body.appendChild( renderer.domElement );
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
-<<<<<<< HEAD
-        // event.object.material.emissive.set( 0xaaaaaa );
-          // gltf.scene.material.transparent = true;
-          // gltf.scene.children[3].material.opacity = 0.5;
-          // gltf.scene.children.material.opacity = 0.5;
-<<<<<<< HEAD
-
-          console.log('huyet ap 2: ',gltf);
-=======
-          console.log('in x: ',mouse.x);
-          console.log('in y: ',mouse.y);
-          console.log('do dai array: ',imageArray.length)
-        
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-
-=======
->>>>>>> 6f0a30611c343fdbbb2449e1cd7ccadee137d2f9
 
         } );
 
         dcontrols.addEventListener( 'dragend',  ( event ) => {
         // event.object.material.emissive.set( 0x000000 );
-<<<<<<< HEAD
-
-        });
-
-        // gltf.scene.children[0].children[1].type = 'Mesh';      
-
-
-        // gltf.scene.children[0].children[1].name = 'Cube';      
-        // const intersects = raycaster.intersectObjects( scene.children);
-=======
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
 
@@ -890,83 +653,15 @@ export default class ThreeScene extends Component {
           }
 
         });
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
         
         
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
         
-<<<<<<< HEAD
-        mmi.addHandler('Vert001', 'click', function(object) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-          camera.position.set(0, 5, 0);
-
-        // camera.position.set(10, 3, 0);
-          console.log('bdpressure mesh is being clicked!');
-          gltf.scene.rotation.x=50;
-
-          // console.log(this.mouse.x)
-          // console.log(this.mouse.y)
-
-          // object.rotation._x = 60;
-          //     scene.scale.set(2.5, 2.5, 2.5);
-          // gltf.scene.scale.set(1.0, 1.0, 1.0);
-          // gltf.scene.position.set(1,2,2);
-          // for (let i=0; i<gltf.scene.children.length; i++){
-          //   gltf.scene.children[i].position.set(4,4,4);
-
-          // }
-          
-        
-          // gltf.scene.rotation.z=30;
-          
-          // object.rotation._onChangeCallback=true
-          // object.rotation._x = 60;
-          // object.rotation._y = 60;
-          // object.rotation._z = 60;
-          // console.log('in xoay: ',object.rotation)
-          // Create an AnimationMixer, and get the list of AnimationClip instances
-        mixer = new THREE.AnimationMixer( model );
-        const clips = gltf.animations;
-
-
-        // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips, 'ArmatureAction.002' );
-        // const action = mixer.clipAction(clip);
-        // action.play();
-
-        // Play all animations
-        clips.forEach( function ( clip ) {
-        mixer.clipAction( clip ).play();
-        } );
-
-=======
-          const map2 = new THREE.TextureLoader()
-       
-            .load(imageArray2[0]);
-            // map.rotation = Math.PI / 2;
-            
-            map2.center.set(0.5, 0.5);
-            map2.rotation = THREE.Math.degToRad(90);
-            screen.traverse(child =>  {
-              if(child.isMesh) {
-                child.material.map = map2; 
-                child.castShadow = true;
-                child.receiveShadow = true;
-                
-            }
-              
-              scene.add(model)
-            });
-=======
->>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
-=======
         mmi.addHandler('Vert001', 'click', (object) => {
           console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
           console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
        
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           const z = imageArray.length -1
@@ -1222,7 +917,6 @@ export default class ThreeScene extends Component {
         // mixer.clipAction( clip ).play();
         // } );
         
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
         })
         
           
@@ -1306,10 +1000,6 @@ export default class ThreeScene extends Component {
 		
       
     const controls = new OrbitControls(camera, renderer.domElement);
-<<<<<<< HEAD
-
-    controls.update();
-=======
       controls.enable = false;
       // controls.target = loader2.posittion;
       // controls.enableDamping = true; //tao ra quan tinh
@@ -1321,7 +1011,6 @@ export default class ThreeScene extends Component {
       controls.enableRotate = true;
    
     // controls.update();
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
 
     function positionForSquare(square) {
         const found = board.children.find((child) => child.userData.squareNumber == square);
@@ -1367,57 +1056,6 @@ export default class ThreeScene extends Component {
       //   camera.position.copy(pos);
       //   camera.lookAt(pos2);
       // }
-<<<<<<< HEAD
-      // function onClick ( event ) {
-
-      //   // this.setState({
-      //   //   clickRotation : !this.state.clickRotation
-      
-      //   // });
-        
-      //   event.preventDefault();
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        
-      
-      //   raycaster.setFromCamera( mouse, camera );
-      
-      //   var intersects = raycaster.intersectObjects( scene.children, true );
-      
-      //   if ( intersects.length > 0 ) {
-          
-      //     console.log( 'Intersection:', intersects[ 0 ] );
-      //     console.log('Click done !')
-      //     // scene.scale.set(2.5, 2.5, 2.5);
-      //     // // scene.position.set(scene.position.x+10)
-      //     // scene.rotation_Y=60;
-      //     // scene.rotation_X=60;
-      //     // scene.rotation_Z=60;
-      //     // scene.position.set(1,-5,-6);
-
-
-
-      
-      //   }
-      
-      // }
-<<<<<<< HEAD
-=======
-      function updateCamera(){
-        const time = clock2.getElapsedTime();
-        const looptime = 20;
-        const t = ( time % looptime ) / looptime;
-        const t2 = ( (time + 0.1) % looptime) / looptime
-        
-        const pos = tube.geometry.parameters.path.getPointAt( t );
-        const pos2 = tube.geometry.parameters.path.getPointAt( t2 );
-        
-        camera.position.copy(pos);
-        camera.lookAt(pos2);
-      }
-=======
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       
       function update(){
         // requestAnimationFrame( update );
@@ -1433,7 +1071,6 @@ export default class ThreeScene extends Component {
         camera.updateProjectionMatrix();
       }
 
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
       function animate() {
         // requestAnimationFrame(animate);
         if (mixer)
@@ -1660,79 +1297,11 @@ export default class ThreeScene extends Component {
           })
         }
 			render();
-<<<<<<< HEAD
-<<<<<<< HEAD
-      // const dcontrols = new DragControls( objects, camera, renderer.domElement );
-      // document.body.appendChild( renderer.domElement );
-<<<<<<< HEAD
-
-    //   function onMouseMove( event ) {
- 
-    //     // calculate mouse position in normalized device coordinates
-    //     // (-1 to +1) for both components
-     
-    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-     
-    // }
-=======
-      
-      function onMouseMove( event ) {
-=======
->>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
- 
-      
-    //   function onMouseMove( event ) {
- 
-    //     // calculate mouse position in normalized device coordinates
-    //     // (-1 to +1) for both components
-     
-    //     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    //     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    
-        
-        
-     
-<<<<<<< HEAD
-    }
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-=======
-    // }
->>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
-
-
-      // add event listener to highlight dragged objects
-
-      // dcontrols.addEventListener( 'dragstart', function ( event ) {
-      //   // event.object.material.emissive.set( 0xaaaaaa );
-
-
-      // } );
-
-      // dcontrols.addEventListener( 'dragend', function ( event ) {
-      //   // event.object.material.emissive.set( 0x000000 );
-
-      // } );
-<<<<<<< HEAD
-      // window.addEventListener( 'mousemove', onMouseMove, false );
-=======
-     
-<<<<<<< HEAD
-      window.addEventListener( 'mousemove', onMouseMove, false );
->>>>>>> 979174e0733bb193497d0a843b77fa25e44fb804
-=======
-      // window.addEventListener( 'mousemove', onMouseMove, false );
-      // window.addEventListener( 'resize', resize, false );
-
->>>>>>> 1f2038f5b3660d4884a21d3e5aeba21b60f1128d
-      // window.addEventListener('click', onClick);
-=======
    
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
       window.addEventListener( 'resize', resize, false);
       window.addEventListener('click', onClick);
->>>>>>> 0aecedfed4eb3019c45c574f8556f2f7297e063f
       // window.addEventListener( 'mousemove', moveobject );
 
       
