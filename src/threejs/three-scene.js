@@ -1226,24 +1226,7 @@ export default class ThreeScene extends Component {
                   // arrayMouseX.push((mouse.x)*20);
                   // arrayMouseY.push((mouse.y)*20);
               }
-              // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
-              //   console.log('arrayMouseX: ', arrayMouseX)
-              //   console.log('arrayMouseY: ', arrayMouseY)
-
-              //   const dir = new THREE.Vector3( arrayMouseX[arrayArrow.length - 1],arrayMouseY[arrayArrow.length - 1], 0 );
-              //   const origin = new THREE.Vector3( 0,0.5,14 );
-          
-              //   const length = 5;
-              //   const headLengthzero = 1;
-              //   const headWidthzero = 1;
-              //   dir.normalize();
-              //   const hex = 0x00FF00;
-              //   const arrowHelper3 = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
-              //   arrowHelper3.rotation.y = (Math.PI)*2;
-              //   arrowHelper3.rotation.x = (Math.PI);
-              //   scene.add(arrowHelper3);
-
-              // }
+              
      
             }
             

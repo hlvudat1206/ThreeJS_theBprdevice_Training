@@ -135,52 +135,11 @@ export default class Objectcustom extends Component {
       });
 
       // file perbaodo8 is belong to baodo6.glb
-      const resetCube = new THREE.Mesh( geometry, material );
-      resetCube.position.set(0,3,-5);
-      resetCube.name='resetCube';
-      console.log('value 2 lan 1 la: ',value2)
-      mmi.addHandler('resetCube', 'click', (object) => {
-        console.log('da click resetCube');
-        model.remove(model2x);
-        // scene.remove(model2);
-
-        const arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
-
-     
-          arrayObject.map((value2,key) => {
-
-          
-          
-          const loader2 = new GLTFLoader();
-          // file perbaodo8 is belong to baodo6.glb
-          
-          loader2.load(value2,  (gltf) => {
-            console.log('value 2 lan 2 la: ',value2)
-            scene.remove(model2);
-            // model = gltf.scene.children[2];
-            model2 = gltf.scene;
-            
-
-            model2animation = gltf.animations;
-            gltf.scene.position.set(1.5,6,-5 + key*5);
-            gltf.scene.scale.set(.1, .1, .1);
-            // gltf.scene.rotation.y = 0.2;
-          
-            // gltf.scene.rotation.y = 0.0;
-            // console.log('print scale:', gltf.scene.scale);
-
-            model2.name = 'battery';
       
-            scene.add( model2 );
-            
-          })
-        });
-     
-      });
 
       const arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
 
-     
+      const arrayValue = []
       arrayObject.map((value,key) => {
 
       const loader2x = new GLTFLoader();
@@ -188,7 +147,7 @@ export default class Objectcustom extends Component {
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
       loader2.load(value,  (gltf) => {
-
+        arrayValue.push(value)
         console.log('print battery:', gltf);
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
@@ -206,6 +165,7 @@ export default class Objectcustom extends Component {
         // group.add( cubeA );
         // group.add( cubeB );
         scene.add( model2 );
+        console.log('print value lan 1 xem: ',value, 'key la:',key)
 
         
         const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
@@ -222,9 +182,11 @@ export default class Objectcustom extends Component {
           console.log('in y2: ',mouse.y);
           
         mmi.addHandler('Battery0', 'click',  (object) => {
-          scene.add( resetCube );
-          console.log('print value2 xem: ',value2, 'key la:',key)
-          
+          model.remove(model2x)
+
+          console.log('print value lan 2 xem: ',value, 'key la:',key)
+          console.log('print arrayValue ',arrayValue)
+
             
             for (let z = 0; z <= 2.5; z = z + 0.5){
               // console.log('in z ne:', z)
@@ -247,7 +209,7 @@ export default class Objectcustom extends Component {
             
             },300*2.5)
              //rotate in itself
-            if (value2 === null) {
+       
             loader2x.load(value,  (gltf2) => {
             console.log('print value1 xem: ',value, 'key la:',key)
     
@@ -268,28 +230,7 @@ export default class Objectcustom extends Component {
             },100*2.5) 
           }
         })
-      } else {
-            loader2x.load(value2,  (gltf2) => {
-              console.log('print value1 xem: ',value, 'key la:',key)
       
-              model2x = gltf2.scene;
-              
-              gltf2.scene.scale.set(.05, .05, .05);
-      
-            
-              for (let rot=0; rot <=3.14; rot = rot + 0.05){
-              setTimeout (() => {
-                
-                //at -1 of y position, y: -3.14 ==> 0.16
-                model2x.position.set(2,-3.10 + rot + 0.16,0);
-                model2x.rotation.set(rot,rot,rot)
-                model.add(model2x)
-                // console.log('model model: ',model)
-                
-              },100*2.5) 
-            }
-          })
-      }
       })  
           
 
