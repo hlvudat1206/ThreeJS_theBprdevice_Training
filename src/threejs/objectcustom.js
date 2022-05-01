@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
-
+import data from "./data.json";
 import MouseMeshInteraction from "./mousemes_interact";
 
 
@@ -134,25 +134,27 @@ export default class Objectcustom extends Component {
         // } );
       });
 
-      const loader2x = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
-      const arrayObject = ['./battery.glb','battery2.glb','battery3.glb']
-      loader2x.load(arrayObject[0],  (gltf) => {
-        model2x = gltf.scene;
-        
-        gltf.scene.scale.set(.05, .05, .05);
+      
+      const arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
 
-      })
+     const addvalue =[]
+      arrayObject.map((value,key) => {
+      //  const id ={key}
+      // const pin = value.name;
+      // console.log('in ra valuename: ',value.name)
+      const loader2x = new GLTFLoader();
       
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
-      loader2.load("./battery.glb",  (gltf) => {
+      loader2.load(value,  (gltf) => {
+
         console.log('print battery:', gltf);
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
         
         model2animation = gltf.animations;
-        gltf.scene.position.set(1.5,5,2);
+        gltf.scene.position.set(1.5,6,-5 + key*5);
         gltf.scene.scale.set(.1, .1, .1);
         // gltf.scene.rotation.y = 0.2;
        
@@ -180,13 +182,12 @@ export default class Objectcustom extends Component {
           console.log('in y2: ',mouse.y);
           
         mmi.addHandler('Battery0', 'click',  (object) => {
-          console.log('da click battery');
-          // model.rotation.y= MathPI;
+          console.log('print value2 xem: ',value, 'key la:',key)
+          addvalue.push(value);
+          console.log('in addvalue: ',addvalue)
             
-            // scene.add(model2x);
-            
-            for (let z = 0; z <= 2.5; z = z + 0.1){
-              // console.log('in z ne:', z);
+            for (let z = 0; z <= 2.5; z = z + 0.5){
+              // console.log('in z ne:', z)
               setTimeout(() => {
               model.rotation.z= z;     
               },50*z)
@@ -198,7 +199,7 @@ export default class Objectcustom extends Component {
             // // action.clampWhenFinished = true; //Capture the status of aniamtion
             action.loop = THREE.LoopOnce; //go back the initial status
             action.time = 0.5; // fhz ??
-            action.weight = 5; //weight object
+            action.weight = 12; //weight object
             // // action.zeroSlopeAtStart = true;
             // // action.zeroSlopeAtEnd = true;
             action.play();
@@ -206,6 +207,14 @@ export default class Objectcustom extends Component {
             
             },300*2.5)
              //rotate in itself
+            loader2x.load(value,  (gltf2) => {
+            console.log('print value1 xem: ',value, 'key la:',key)
+    
+            model2x = gltf2.scene;
+            
+            gltf2.scene.scale.set(.05, .05, .05);
+    
+          
             for (let rot=0; rot <=3.14; rot = rot + 0.05){
             setTimeout (() => {
               
@@ -213,10 +222,11 @@ export default class Objectcustom extends Component {
               model2x.position.set(2,-3.10 + rot + 0.16,0);
               model2x.rotation.set(rot,rot,rot)
               model.add(model2x)
-              console.log('in position new battery: ',model2x.position)
-              console.log('in huyet ap grouped: ',model)
-            },400*2.5) 
+              // console.log('model model: ',model)
+              
+            },100*2.5) 
           }
+        })
         })  
           
 
@@ -225,6 +235,7 @@ export default class Objectcustom extends Component {
         
 
       })
+    })
       const loader = new GLTFLoader();
       
       loader.load("./bprbatterytray4.glb",  (gltf) => {
