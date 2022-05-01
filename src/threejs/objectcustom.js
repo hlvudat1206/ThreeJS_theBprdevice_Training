@@ -9,7 +9,8 @@ import MouseMeshInteraction from "./mousemes_interact";
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
-model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null;
+model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
+,arrayObject_orig, arrayObject, arrowforward, arrowBack;
 var clock2;
 
 
@@ -135,14 +136,151 @@ export default class Objectcustom extends Component {
       });
 
       // file perbaodo8 is belong to baodo6.glb
+      arrayObject_orig = ['./battery.glb','./battery2.glb','./battery3.glb']
+
+      arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
+
+      const loaderarrowForward = new GLTFLoader();
+
+      loaderarrowForward.load('./arrow.glb',  (gltf) => {
+        console.log('in arrow go: ',gltf)
+        arrowforward = gltf.scene;
+        
+        arrowforward.position.set(1.5,6,-10);
+        arrowforward.rotation.z = Math.PI/2
+        arrowforward.rotation.x = -Math.PI/2
+
+        // arrowforward.scale.set(0.1,0.1,0.1)
+        
+        scene.add(arrowforward)
+        
+        mmi.addHandler('Cube', 'click', (object) => {
+          model.remove(model2x)
+          console.log('da click arrowGo');
+          arrayObject.unshift(arrayObject[arrayObject.length -1]);
+          arrayObject.pop();
+          console.log('in arrayObject: ', arrayObject)
+          for (let z = 0; z <= 2.5; z = z + 0.5){
+            // console.log('in z ne:', z)
+            setTimeout(() => {
+            model.rotation.z= z;     
+            },50*z)
+          }
+          setTimeout(() =>{
+          mixer = new THREE.AnimationMixer( model );
+        
+          const action = mixer.clipAction(clipanimationDevice);
+          // // action.clampWhenFinished = true; //Capture the status of aniamtion
+          action.loop = THREE.LoopOnce; //go back the initial status
+          action.time = 0.5; // fhz ??
+          action.weight = 12; //weight object
+          // // action.zeroSlopeAtStart = true;
+          // // action.zeroSlopeAtEnd = true;
+          action.play();
+  
+          
+          },400*2.5)
+           //rotate in itself
+          const loader2x = new GLTFLoader();
+  
+          loader2x.load(arrayObject[1],  (gltf2) => {
+          console.log('print value1 array: ',arrayObject[1])
+  
+          model2x = gltf2.scene;
+          
+          gltf2.scene.scale.set(.05, .05, .05);
+  
+        
+          for (let rot=0; rot <=3.14; rot = rot + 0.05){
+          setTimeout (() => {
+            
+            //at -1 of y position, y: -3.14 ==> 0.16
+            model2x.position.set(2,-3.10 + rot + 0.16,0);
+            model2x.rotation.set(rot,rot,rot)
+            model.add(model2x)
+            // console.log('model model: ',model)
+            
+          },250*2.5) 
+        }
+      })
+        });
+      })
+      const loaderarrowBack = new GLTFLoader();
+
+      loaderarrowBack.load('./arrow2.glb',  (gltf) => {
+        console.log('in arrow back: ',gltf)
+        arrowBack = gltf.scene;
+        
+        arrowBack.position.set(1.5,6,10);
+        arrowBack.rotation.z = Math.PI/2
+        arrowBack.rotation.x = Math.PI/2
+
+        // arrowforward.scale.set(0.1,0.1,0.1)
+        
+        scene.add(arrowBack)
+        mmi.addHandler('Cube2', 'click', (object) => {
+          model.remove(model2x)
+          console.log('da click arrowBack');
+          arrayObject.push(arrayObject[0]);
+          arrayObject.shift();
+          console.log('in arrayObject2: ', arrayObject)
+  
+          for (let z = 0; z <= 2.5; z = z + 0.5){
+                // console.log('in z ne:', z)
+                setTimeout(() => {
+                model.rotation.z= z;     
+                },50*z)
+              }
+              setTimeout(() =>{
+              mixer = new THREE.AnimationMixer( model );
+            
+              const action = mixer.clipAction(clipanimationDevice);
+              // // action.clampWhenFinished = true; //Capture the status of aniamtion
+              action.loop = THREE.LoopOnce; //go back the initial status
+              action.time = 0.5; // fhz ??
+              action.weight = 12; //weight object
+              // // action.zeroSlopeAtStart = true;
+              // // action.zeroSlopeAtEnd = true;
+              action.play();
+  
+              
+              },400*2.5)
+               //rotate in itself
+              const loader2x = new GLTFLoader();
+  
+              loader2x.load(arrayObject[1],  (gltf2) => {
+              console.log('print value1 array: ',arrayObject[1])
       
+              model2x = gltf2.scene;
+              
+              gltf2.scene.scale.set(.05, .05, .05);
+      
+            
+              for (let rot=0; rot <=3.14; rot = rot + 0.05){
+              setTimeout (() => {
+                
+                //at -1 of y position, y: -3.14 ==> 0.16
+                model2x.position.set(2,-3.10 + rot + 0.16,0);
+                model2x.rotation.set(rot,rot,rot)
+                model.add(model2x)
+                // console.log('model model: ',model)
+                
+              },250*2.5) 
+            }
+          })
+            
+       
+        });
 
-      const arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
+      })
+     
+     
 
+      arrayObject_orig = arrayObject_orig.reverse()
+      console.log('in ra arrayObject_orig: ',arrayObject_orig)
       const arrayValue = []
-      arrayObject.map((value,key) => {
+      arrayObject_orig.map((value,key) => {
 
-      const loader2x = new GLTFLoader();
       
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
@@ -182,54 +320,7 @@ export default class Objectcustom extends Component {
           console.log('in y2: ',mouse.y);
           
         mmi.addHandler('Battery0', 'click',  (object) => {
-          model.remove(model2x)
-
-          console.log('print value lan 2 xem: ',value, 'key la:',key)
-          console.log('print arrayValue ',arrayValue)
-
-            
-            for (let z = 0; z <= 2.5; z = z + 0.5){
-              // console.log('in z ne:', z)
-              setTimeout(() => {
-              model.rotation.z= z;     
-              },50*z)
-            }
-            setTimeout(() =>{
-            mixer = new THREE.AnimationMixer( model );
           
-            const action = mixer.clipAction(clipanimationDevice);
-            // // action.clampWhenFinished = true; //Capture the status of aniamtion
-            action.loop = THREE.LoopOnce; //go back the initial status
-            action.time = 0.5; // fhz ??
-            action.weight = 12; //weight object
-            // // action.zeroSlopeAtStart = true;
-            // // action.zeroSlopeAtEnd = true;
-            action.play();
-
-            
-            },300*2.5)
-             //rotate in itself
-       
-            loader2x.load(value,  (gltf2) => {
-            console.log('print value1 xem: ',value, 'key la:',key)
-    
-            model2x = gltf2.scene;
-            
-            gltf2.scene.scale.set(.05, .05, .05);
-    
-          
-            for (let rot=0; rot <=3.14; rot = rot + 0.05){
-            setTimeout (() => {
-              
-              //at -1 of y position, y: -3.14 ==> 0.16
-              model2x.position.set(2,-3.10 + rot + 0.16,0);
-              model2x.rotation.set(rot,rot,rot)
-              model.add(model2x)
-              // console.log('model model: ',model)
-              
-            },100*2.5) 
-          }
-        })
       
       })  
           
@@ -514,14 +605,21 @@ export default class Objectcustom extends Component {
         renderer.render(scene, camera);
   
       }
-      function onClick( event ) {
+      // function onClick( event ) {
 
-        // calculate pointer position in normalized device coordinates
-        // (-1 to +1) for both components
+      //   // calculate pointer position in normalized device coordinates
+      //   // (-1 to +1) for both components
       
-        mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
       
+      // }
+
+      let onClick = (event) => {
+        console.log('da click 1234567');
+        //0.8, 0.05, 0.75
+        
+
       }
 
       renderer.setAnimationLoop(animate);
