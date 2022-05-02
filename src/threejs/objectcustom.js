@@ -15,8 +15,8 @@ var clock2;
 
 
 export default class Objectcustom extends Component {
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
         this.state = {
           deviceAnimation: false,
           
@@ -99,41 +99,6 @@ export default class Objectcustom extends Component {
      
       });
     
-     
-      const loader5 = new GLTFLoader();
-      loader5.load("./perhand.glb",  (gltf) => {
-        console.log('in ra canh tay: ',gltf);
-
-        model5 = gltf.scene;
-        model5_1 = gltf.scene.children[0].children[1]
-        gltf.scene.position.set(-1,-2,8);
-        // gltf.scene.rotation.y = 0.5;
-        // gltf.scene.children[0].position.set(4,-5,2);
-        gltf.scene.scale.set(20.8,20.8,20.8);
-        gltf.scene.rotation.y = 1.8;
-        // gltf.scene.children[0].rotation.y = 1.78; 
-  // 
-
-        // scene.add( model5 );
-        // Create an AnimationMixer, and get the list of AnimationClip instances
-        mixer = new THREE.AnimationMixer( model5 );
-        const clips = gltf.animations;
-        
-        // Play a specific animation
-        const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction.002' );
-        // clip
-        const action = mixer.clipAction(clip);
-        action.clampWhenFinished = true; //Capture the last status of animation
-        action.loop = THREE.LoopOnce; //go back the initial status
-        action.time = 2; // fhz ??
-        // action.weight = 0.5; //weight object
-        // action.zeroSlopeAtStart = true;
-        // action.zeroSlopeAtEnd = true;
-        action.play();
-        // clips.forEach( function ( clip ) {
-        //   mixer.clipAction( clip ).play();
-        // } );
-      });
 
       // file perbaodo8 is belong to baodo6.glb
       arrayObject_orig = ['./battery.glb','./battery2.glb','./battery3.glb']
@@ -144,6 +109,7 @@ export default class Objectcustom extends Component {
 
       loaderarrowForward.load('./arrow.glb',  (gltf) => {
         console.log('in arrow go: ',gltf)
+        
         arrowforward = gltf.scene;
         
         arrowforward.position.set(1.5,6,-10);
@@ -155,6 +121,7 @@ export default class Objectcustom extends Component {
         scene.add(arrowforward)
         
         mmi.addHandler('Cube', 'click', (object) => {
+          scene.remove ( model2 );
           model.remove(model2x)
           console.log('da click arrowGo');
           arrayObject.unshift(arrayObject[arrayObject.length -1]);
@@ -293,10 +260,7 @@ export default class Objectcustom extends Component {
         model2animation = gltf.animations;
         gltf.scene.position.set(1.5,6,-5 + key*5);
         gltf.scene.scale.set(.1, .1, .1);
-        // gltf.scene.rotation.y = 0.2;
-       
-        // gltf.scene.rotation.y = 0.0;
-        // console.log('print scale:', gltf.scene.scale);
+        
 
         model2.name = 'battery';
         // const group = new THREE.Group();
