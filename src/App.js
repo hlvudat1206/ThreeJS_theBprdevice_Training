@@ -9,12 +9,25 @@ import Objectcustom from './threejs/objectcustom';
 
 
 
-function App() {
-  return (
-    // <ThreeScene/>
-    <Directurl/>
-  )
-}
 
-export default App;
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
+  componentDidMount(){
+    return(
+      <ThreeScene/>
+    )
+  }
+  
+  render() {
+    return (
+      <div>
+        <Directurl/>
+      </div>
+    )
+  }
+}
 
