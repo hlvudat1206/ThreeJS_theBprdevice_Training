@@ -29,8 +29,7 @@ export default class Directurl extends Component {
           <Route path="/objectcustom">
             <Objectcustom />
           </Route>
-          
-         
+
           </div>
       </Router>
     )
