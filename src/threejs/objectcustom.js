@@ -101,7 +101,6 @@ export default class Objectcustom extends Component {
     
 
       // file perbaodo8 is belong to baodo6.glb
-      arrayObject_orig = ['./battery.glb','./battery2.glb','./battery3.glb']
 
       arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
 
@@ -110,9 +109,10 @@ export default class Objectcustom extends Component {
       loaderarrowForward.load('./arrow.glb',  (gltf) => {
         console.log('in arrow go: ',gltf)
         
+
         arrowforward = gltf.scene;
         
-        arrowforward.position.set(1.5,6,-10);
+        arrowforward.position.set(-2,6,-10);
         arrowforward.rotation.z = Math.PI/2
         arrowforward.rotation.x = -Math.PI/2
 
@@ -121,29 +121,32 @@ export default class Objectcustom extends Component {
         scene.add(arrowforward)
         
         mmi.addHandler('Cube', 'click', (object) => {
-          
          
           model.remove(model2x)
           console.log('da click arrowGo');
           arrayObject.unshift(arrayObject[arrayObject.length -1]);
           arrayObject.pop();
-          console.log('in arrayObject: ', arrayObject)
+          //reload arrayObject, then run resetloaditem()
+          resetloaditem();
+
+      
           for (let z = 0; z <= 2.5; z = z + 0.5){
             // console.log('in z ne:', z)
             setTimeout(() => {
             model.rotation.z= z;     
+            model.position.set(6,0,0);
             },50*z)
           }
           setTimeout(() =>{
           mixer = new THREE.AnimationMixer( model );
         
           const action = mixer.clipAction(clipanimationDevice);
-          // // action.clampWhenFinished = true; //Capture the status of aniamtion
+          // action.clampWhenFinished = true; //Capture the status of aniamtion
           action.loop = THREE.LoopOnce; //go back the initial status
           action.time = 0.5; // fhz ??
-          action.weight = 12; //weight object
-          // // action.zeroSlopeAtStart = true;
-          // // action.zeroSlopeAtEnd = true;
+          action.weight = 2; //weight object
+          // action.zeroSlopeAtStart = true;
+          // action.zeroSlopeAtEnd = true;
           action.play();
   
           
@@ -157,8 +160,7 @@ export default class Objectcustom extends Component {
           model2x = gltf2.scene;
           
           gltf2.scene.scale.set(.05, .05, .05);
-  
-        
+
           for (let rot=0; rot <=3.14; rot = rot + 0.05){
           setTimeout (() => {
             
@@ -168,7 +170,7 @@ export default class Objectcustom extends Component {
             model.add(model2x)
             // console.log('model model: ',model)
             
-          },250*2.5) 
+          },150*2.5) 
         }
       })
         });
@@ -179,7 +181,7 @@ export default class Objectcustom extends Component {
         console.log('in arrow back: ',gltf)
         arrowBack = gltf.scene;
         
-        arrowBack.position.set(1.5,6,10);
+        arrowBack.position.set(-2,6,10);
         arrowBack.rotation.z = Math.PI/2
         arrowBack.rotation.x = Math.PI/2
 
@@ -187,10 +189,13 @@ export default class Objectcustom extends Component {
         
         scene.add(arrowBack)
         mmi.addHandler('Cube2', 'click', (object) => {
+          
+
           model.remove(model2x)
           console.log('da click arrowBack');
           arrayObject.push(arrayObject[0]);
           arrayObject.shift();
+          resetloaditem();
           console.log('in arrayObject2: ', arrayObject)
   
           for (let z = 0; z <= 2.5; z = z + 0.5){
@@ -212,7 +217,7 @@ export default class Objectcustom extends Component {
               action.play();
   
               
-              },400*2.5)
+              },500*2.5)
                //rotate in itself
               const loader2x = new GLTFLoader();
   
@@ -231,9 +236,9 @@ export default class Objectcustom extends Component {
                 model2x.position.set(2,-3.10 + rot + 0.16,0);
                 model2x.rotation.set(rot,rot,rot)
                 model.add(model2x)
-                // console.log('model model: ',model)
+
                 
-              },250*2.5) 
+              },150*2.5) 
             }
           })
             
@@ -241,65 +246,36 @@ export default class Objectcustom extends Component {
         });
 
       })
-     
-     
 
-      arrayObject_orig = arrayObject_orig.reverse()
-      console.log('in ra arrayObject_orig: ',arrayObject_orig)
-      // const arrayObject2 = arrayObject.reverse();
-      const arrayValue = []
-    function resetloaditem (){
-      arrayObject.map((value,key) => {
-      key2 = key
+    const resetloaditem = () =>{
+    
+      console.log('in ra arrayObject trong for: ',arrayObject)
+      arrayObject.forEach((model_i,i) => {
+        
       
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
-      loader2.load(value,  (gltf) => {
-        // scene.remove ( model2 );
-        arrayValue.push(value)
-        console.log('print battery:', gltf);
-        // model = gltf.scene.children[2];
+      loader2.load(model_i,  (gltf) => {
+        console.log('in ra i trong reset: ',i)
         model2 = gltf.scene;
-        
+ 
         model2animation = gltf.animations;
         
-        gltf.scene.position.set(1.5,6,-5 + key*5);
-        gltf.scene.scale.set(.1, .1, .1);
-        
+        gltf.scene.position.set(-2,6,5 - i*5);
+        if (i === 1) {
+          model2.scale.set(.2, .2, .15);
 
-        model2.name = 'battery';
-        // const group = new THREE.Group();
-        // group.add( cubeA );
-        // group.add( cubeB );
+        } else{
+          model2.scale.set(.1, .1, .1);
+
+        }
+
+
         scene.add( model2 );
-        console.log('print value lan 1 xem: ',value, 'key la:',key)
-
-        
-        const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
-        document.body.appendChild( renderer.domElement );
-        dcontrols2.addEventListener( 'dragstart', ( event ) => {
-      
-            console.log('in x: ',mouse.x);
-            console.log('in y: ',mouse.y);
-          } );
-  
-        dcontrols2.addEventListener( 'dragend', ( event ) => {
-        // event.object.material.emissive.set( 0x000000 );
-          console.log('in x2: ',mouse.x);
-          console.log('in y2: ',mouse.y);
-          
-        mmi.addHandler('Battery0', 'click',  (object) => {
-          
-      
-      })  
-          
-
-    });
-        
-        
 
       })
-    })
+    });
+  
   }
   resetloaditem();
       const loader = new GLTFLoader();
@@ -309,7 +285,7 @@ export default class Objectcustom extends Component {
         model = gltf.scene;
         clipsanimationDevice = gltf.animations;
         console.log('in ra update')
-        gltf.scene.position.set(0,0,0);
+        model.position.set(0,0,0);
 
         // gltf.scene.position.set(8,0,1);
         gltf.scene.scale.set(1.4, 1.4, 1.5);
@@ -338,10 +314,7 @@ export default class Objectcustom extends Component {
         scene.add( model );
         
         console.log('in ra huyetapnew: ',gltf);
-        // [gltf.scene.children[0]]
-        const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
-        // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
-
+        // const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
         document.body.appendChild( renderer.domElement );
 
        
