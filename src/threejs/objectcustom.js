@@ -10,7 +10,7 @@ import MouseMeshInteraction from "./mousemes_interact";
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
-,arrayObject_orig, arrayObject, arrowforward, arrowBack;
+,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2;
 var clock2;
 
 
@@ -121,7 +121,8 @@ export default class Objectcustom extends Component {
         scene.add(arrowforward)
         
         mmi.addHandler('Cube', 'click', (object) => {
-          scene.remove ( model2 );
+          
+         
           model.remove(model2x)
           console.log('da click arrowGo');
           arrayObject.unshift(arrayObject[arrayObject.length -1]);
@@ -245,19 +246,23 @@ export default class Objectcustom extends Component {
 
       arrayObject_orig = arrayObject_orig.reverse()
       console.log('in ra arrayObject_orig: ',arrayObject_orig)
+      // const arrayObject2 = arrayObject.reverse();
       const arrayValue = []
-      arrayObject_orig.map((value,key) => {
-
+    function resetloaditem (){
+      arrayObject.map((value,key) => {
+      key2 = key
       
       const loader2 = new GLTFLoader();
       // file perbaodo8 is belong to baodo6.glb
       loader2.load(value,  (gltf) => {
+        // scene.remove ( model2 );
         arrayValue.push(value)
         console.log('print battery:', gltf);
         // model = gltf.scene.children[2];
         model2 = gltf.scene;
         
         model2animation = gltf.animations;
+        
         gltf.scene.position.set(1.5,6,-5 + key*5);
         gltf.scene.scale.set(.1, .1, .1);
         
@@ -295,6 +300,8 @@ export default class Objectcustom extends Component {
 
       })
     })
+  }
+  resetloaditem();
       const loader = new GLTFLoader();
       
       loader.load("./bprbatterytray4.glb",  (gltf) => {
