@@ -98,8 +98,9 @@ export default class Objectcustom extends Component {
         window.location = 'training'
      
       });
-    
-
+   
+      //test props
+      this.props.connect()
       // file perbaodo8 is belong to baodo6.glb
 
       arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
@@ -586,8 +587,9 @@ export default class Objectcustom extends Component {
   render() {
     return (
         <div>
+          
         <canvas id="bg">
-       
+        
         </canvas>
         
         </div>

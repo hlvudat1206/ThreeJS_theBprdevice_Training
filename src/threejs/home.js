@@ -10,7 +10,7 @@ export default class Home extends Component {
      
         <ul>
           <li>
-            <Link to="/home">Statistic score</Link>
+            <Link to="/">Statistic score</Link>
           </li>
           <li>
             <Link to="/training">entering the training software</Link>

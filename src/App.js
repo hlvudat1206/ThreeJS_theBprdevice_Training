@@ -16,16 +16,17 @@ export default class App extends Component {
     super(props);
     
   }
-  componentDidMount(){
-    return(
-      <ThreeScene/>
-    )
+  senddata = () =>{
+    console.log('send successfully')
   }
-  
+  componentDidMount() {
+   
+}
   render() {
     return (
       <div>
-        <Directurl/>
+        {/* <Directurl /> */}
+        <Objectcustom connect ={()=>this.senddata()}/>
       </div>
     )
   }
