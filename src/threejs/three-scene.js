@@ -99,7 +99,7 @@ export default class ThreeScene extends Component {
 
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        window.location = 'home'
+        window.location = ''
      
      
       });
