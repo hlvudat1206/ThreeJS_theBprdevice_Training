@@ -250,8 +250,6 @@ export default class Objectcustom extends Component {
       const loader2x = new GLTFLoader();
   
       loader2x.load(arrayObject[1],  (gltf2) => {
-      console.log('print value1 array: ',arrayObject[1])
-
       model2x = gltf2.scene;
       
       gltf2.scene.scale.set(.05, .05, .05);
