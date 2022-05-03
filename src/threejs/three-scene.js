@@ -121,15 +121,7 @@ export default class ThreeScene extends Component {
       light.shadow.mapSize.width = 1024*4;
       light.shadow.mapSize.height = 1024*4;
 
-      
-      
-      // const dirLight = new THREE.DirectionalLight(0xf5f5f5); // anh sang song song, xa vo cuc, mo ta as ban ngay, mo phong mat troi
-      // dirLight.position.set(-3, 10, -10);
-      // scene.add(dirLight);
-  
-      // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // anh sang toan bo, khong co huong
-      // ambientLight.position.set(0, 0, 0);
-      // scene.add(ambientLight);
+
       
 
      
@@ -140,8 +132,7 @@ export default class ThreeScene extends Component {
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
 			
-			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
-			
+			// add a handler on mouse click for mesh with the name 'bulb'
 
       mouse = new THREE.Vector2();
      
@@ -337,24 +328,7 @@ export default class ThreeScene extends Component {
         gltf.scene.rotation.y = 1.4;
         // gltf.scene.children[0].position.set(4,-5,2);
         gltf.scene.scale.set(4.8,4.8,4.8);
-        // gltf.scene.rotation.y = 1.8;
-        // gltf.scene.children[0].rotation.y = 1.78; 
-  // 
-
-        // scene.add( model3 );
-        // Create an AnimationMixer, and get the list of AnimationClip instances
-        // mixer = new THREE.AnimationMixer( model3 );
-        // const clips = gltf.animations;
-        
-
-        // // Play a specific animation
-        // const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction' );
-        // // clip
-        // const action = mixer.clipAction(clip);
-        // // action.play();
-        // clips.forEach( function ( clip ) {
-        //   mixer.clipAction( clip ).play();
-        // } );
+       
       });
 
     
@@ -406,8 +380,7 @@ export default class ThreeScene extends Component {
           // scene.add(model2);
 
           console.log('in mode2 thay doi: ', model2);
-          // gltf.scene.parent.background.set(0xffaa00);
-          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+
           this.setState({
             // movecuff: !this.state.movecuff
             clickhandforcuff: true
