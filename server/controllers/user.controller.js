@@ -23,6 +23,7 @@ class UserController {
                     function (err, data, fields) {
                         console.log('data',data);
                         db.closeDB(connection);
+                        
                         return res.status(200).json(data);
                     }
                 );
