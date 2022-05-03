@@ -100,7 +100,7 @@ export default class Objectcustom extends Component {
       });
    
       //test props
-      this.props.connect()
+      
       // file perbaodo8 is belong to baodo6.glb
 
       arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
@@ -247,7 +247,19 @@ export default class Objectcustom extends Component {
         });
 
       })
+      const loader2x = new GLTFLoader();
+  
+      loader2x.load(arrayObject[1],  (gltf2) => {
+      console.log('print value1 array: ',arrayObject[1])
 
+      model2x = gltf2.scene;
+      
+      gltf2.scene.scale.set(.05, .05, .05);
+      model2x.position.set(2,0.2,0);
+      model.add(model2x)
+
+      
+  })
     const resetloaditem = () =>{
     
       console.log('in ra arrayObject trong for: ',arrayObject)

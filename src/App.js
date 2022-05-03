@@ -16,17 +16,11 @@ export default class App extends Component {
     super(props);
     
   }
-  senddata = () =>{
-    console.log('send successfully')
-  }
-  componentDidMount() {
-   
-}
+ 
   render() {
     return (
       <div>
-        {/* <Directurl /> */}
-        <Objectcustom connect ={()=>this.senddata()}/>
+        <Directurl />
       </div>
     )
   }
