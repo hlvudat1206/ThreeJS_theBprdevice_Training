@@ -5,15 +5,15 @@ require('dotenv').config();
 module.exports.connectDB = () => {
     return new Promise((resolve, reject)=>{
         const con = mysql.createConnection({
-            // host: process.env.DB_HOST ,
-            // user: process.env.DB_USER ,
-            // password: process.env.DB_PASS ,
-            // database: process.env.DB_NAME
+            host: process.env.DB_HOST || 'localhost',
+            user: process.env.DB_USER || 'myUserName',
+            password: process.env.DB_PASS || 'mypassword',
+            database: process.env.DB_NAME || 'mydb'
       
-            host: 'localhost',
-            user: 'root',
-            password: '123456',
-            database: 'qlsvlab'
+            // host: 'localhost',
+            // user: 'root',
+            // password: '123456',
+            // database: 'qlsvlab'
 
         });
         con.connect((err)=> {

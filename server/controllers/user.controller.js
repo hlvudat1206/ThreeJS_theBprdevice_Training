@@ -15,38 +15,6 @@ const jwt = require('jsonwebtoken');
 
 class UserController {
     get(req,res) {
-        // return res.status(200).json('Chao ban, da nhan duoc yeu cau');
-        // const filter = req.query.filter; //Khai bao filter. Muon tren URL ten gi thi query. cai do
-        // // console.log('filter',filter);
-        // const filterpeople = people.filter((person) => person.first_name.includes(filter)); //Loc first name co chu 'a'
-        
-        // const fs = require('fs'); // write vao file
-
-        // fs.writeFile('mynewfile1.txt', 'Hello content!', function (err) {
-        //     if (err) throw err;
-        //     console.log('Saved!');
-        // });
-        
-
-        // const fs = require('fs'); // write vao file
-
-        // fs.appendFile('mynewfile1.txt', 'Hello content! - Them vao 1 it', function (err) {
-        //     if (err) throw err;
-        //     console.log('Saved!');
-        // });
-        ///////////////
-        // try {
-        //     const data = fs.readFileSync(filename, 'utf8');
-        //     console.log(data);    //hien thi tren terminal
-        //     return res.status(200).json({data}); 
-
-        // } catch(e) {
-        //     console.log('Error:', e.stack);
-        // }
-                
-        // return res.status(200).json({error: 'Ko the doc file'});
-
-        // return res.status(200).json({data: filterpeople, length: filterpeople.length});
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
@@ -65,22 +33,12 @@ class UserController {
             });
         
     }
-    // post(req,res) {
-    //     const filter = req.body.filter; //Khai bao filter
-    //     console.log('filter',filter);
-    //     const fs = require('fs'); // write vao file
-    //     fs.appendFile(filename, `Hello ${filter}`, function (err) {
-    //         if (err) throw err;
-    //         console.log('Saved!');
-    //     });
-    //     return res.status(200).json({ result: `chao ban ${filter}`});
-    // }
+    
     post(req,res) {
         const username = req.body.username;
         const password = req.body.password;
         let encryptedPassword = '';
-        // console.log('username', username);
-        // console.log('password', password);
+
         bcrypt.genSalt(saltRounds, (err, salt) => {
             bcrypt.hash(password, salt, function(err, hash) {
                 encryptedPassword = hash;
@@ -120,18 +78,6 @@ class UserController {
                         console.log('data',data[0].password);
                         db.closeDB(connection);
 
-                        // bcrypt.compare(password, data[0].password, 
-                        //     function(err, result) {
-                        //         if (result) {
-                        //             return res.status(200).json('log in thanh cong');
-                            
-                        //         } else {
-                        //             return res.status(200).json('log in that bai');
-                        //         }
-                        //     }
-                            
-                        
-                        // );
                         const kiemtraPwd = await bcrypt.compare(password, data[0].password); 
                             //  function(err, kiemtraPwd) {
                                 if (kiemtraPwd) {
