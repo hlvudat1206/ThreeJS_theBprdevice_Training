@@ -6,11 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import Stats from 'three/examples/jsm/libs/stats.module'
-
-import CustomSinCurve from "./sinline";
-
-
-
+import axios from 'axios';
 
 
 
@@ -19,6 +15,22 @@ model2animation, angleDeg, map2, returnI
 , returnI3, returnI5;
 var clock2;
 let arrowHelper;
+
+//get data from server
+// axios.get('http://localhost:5001/api/users/2')
+//       .then(function (response) {
+//         // handle success
+//         console.log(response);
+//       })
+//       .catch(function (error) {
+//         // handle error
+//         console.log(error);
+//       })
+const getuserData = () => 
+   axios.get('http://localhost:5001/api/users/2')
+                .then((res) => 
+                   res.data
+                )
 
 export default class ThreeScene extends Component {
     constructor(props) {
@@ -31,22 +43,33 @@ export default class ThreeScene extends Component {
         clickwire: false,
         onoff: 0,
         clickbpr_to_wireconnect: false,
-        animationCuff: false
+        animationCuff: false,
+        data: null
       }
      
     }
+   
+    
     
     componentDidMount(){
-
+      if (this.state.data === null){
+        getuserData().then((res) => {
+          this.setState({
+            data: res
+          });
+          console.log('in ra data node 2: ',this.state.data)
+        })
+        
+      }
+     
         // create scene
- 
       
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x4caca5
         );
 
         // create camera
-
+      
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -105,7 +128,7 @@ export default class ThreeScene extends Component {
       });
       
       update();
-
+      
   
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
@@ -1234,10 +1257,11 @@ export default class ThreeScene extends Component {
 
       
     }
-
+    
 
     render() {
-        
+      console.log('in ra data node: ', this.state.data);
+
       return (
           <div>
           <canvas id="bg">
