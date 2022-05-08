@@ -11,29 +11,31 @@ import axios from 'axios';
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
-,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2;
+,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
+
 axios.get('http://localhost:5001/api/users/2')
       .then(function (response) {
         // handle success
         console.log(response);
       })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-const arraytest = 'ue';
-const addbattery = () =>{
-  axios.post('http://localhost:5001',{arraytest})
-  .then((resp)=>{
-    return resp.data
-  })
-}
+     
+
+// const addbattery = () =>{
+//   axios.post('http://localhost:5001/typebattery',{typebattery})
+//   .then((res)=>{
+    
+//     return res.data
+    
+//   })
+  
+// }
 export default class Objectcustom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          deviceAnimation: false,
+    
+          typebattery: ''
          
           
         }
@@ -102,7 +104,27 @@ export default class Objectcustom extends Component {
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
 
-
+      const batteryChange = () =>{
+        // const name = 'battery_name';
+        const value = arrayObject[1];
+        this.setState({
+          typebattery: value
+        })
+        // console.log('in typebattery: ',JSON.stringify(this.state.typebattery))
+        // addbattery(this.state.typebattery).then((res)=>{
+        //   console.log('insert ao: ', res)
+        // })
+        fetch('http://localhost:5001/typebattery', {
+        method: 'POST',
+        // We convert the React state to JSON and send it as the POST body
+        body: JSON.stringify(this.state)
+      }).then(function(response) {
+        console.log('test send data: ',response)
+        return response.json();
+      });
+ 
+    
+      }
       const geometry = new THREE.BoxGeometry();
       const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
       const cube = new THREE.Mesh( geometry, material );
@@ -114,7 +136,6 @@ export default class Objectcustom extends Component {
         window.location = 'training'
      
       });
-      console.log('in dataarray: ',data)
      
       const geometry2 = new THREE.BoxGeometry();
       const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
@@ -125,9 +146,10 @@ export default class Objectcustom extends Component {
       mmi.addHandler('cube2', 'click', (object) => {
         console.log('da click cubeeee');
         // const arradd = this.state.data;
-        addbattery(arraytest).then((res)=>{
-          console.log('return res: ',res);
-        })
+        // addbattery(arraytest).then((res)=>{
+        //   console.log('return res: ',res);
+        // })
+        batteryChange();
         
      
       });
@@ -137,6 +159,7 @@ export default class Objectcustom extends Component {
       // file perbaodo8 is belong to baodo6.glb
 
       arrayObject = ['./battery.glb','./battery2.glb','./battery3.glb']
+      console.log('in json object: ', JSON.stringify(arrayObject[1]))
 
       const loaderarrowForward = new GLTFLoader();
 

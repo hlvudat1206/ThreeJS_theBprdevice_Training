@@ -79,6 +79,31 @@ class UserController {
             });
         });
     }
+    post2(req,res) {
+        const nameBattery = req.body.typebattery;
+  
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                    `INSERT INTO pintype (nameBattery) VALUES ('${username}')`,
+                    // 'SELECT * FROM login',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        return res.status(200).json({ result: `Ket noi thanh cong`});
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+            
+     
+     
+    }
      login(req,res) {
         const username = req.body.username;
         const password = req.body.password;

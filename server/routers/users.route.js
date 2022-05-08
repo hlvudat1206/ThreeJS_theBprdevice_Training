@@ -6,6 +6,8 @@ const authenticateToken = require('../middlewares/authenticateToken');
 router.get('/2',userController.get);
 router.post('/2',userController.post);
 router.post('/login', userController.login);
+router.post('/typebattery', userController.post2);
+
 router.get('/promise', userController.promise);
 router.get('/async_await', userController.async_await);
 
