@@ -2,10 +2,17 @@ import logo from './logo.svg';
 import './App.css';
 // import ThreeScene from './threejs/three-scene2'
 import ThreeScene from './threejs/three-scene';
+import Home from './threejs/home';
+import Objectcustom from './threejs/objectcustom';
+
 
 import React, { Component }  from 'react';
-import Directurl from './router/directurl';
-import Objectcustom from './threejs/objectcustom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import axios from 'axios';
 
 export default class App extends Component {
@@ -16,25 +23,27 @@ export default class App extends Component {
     }
     
   }
-  // senddata = () =>{
-  //   return <ThreeScene ketnoi = {()=> this.state.data}/>
-  // }
+  senddata = () =>{
+    console.log('in ra senddata')
+  }
  
   render() {
-    axios.get('http://localhost:5001/api/users/2')
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
+    
     return (
-      <div>
-        <Directurl />
-       
-      </div>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/training">
+            <ThreeScene />
+          </Route>
+          <Route path="/objectcustom">
+            <Objectcustom ketnoi = {()=> this.senddata()}/>
+          </Route>
+        </Switch>
+   
+      </Router>
     )
   }
 }

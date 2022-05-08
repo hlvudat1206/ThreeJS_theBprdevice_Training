@@ -6,26 +6,42 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import data from "./data.json";
 import MouseMeshInteraction from "./mousemes_interact";
+import axios from 'axios';
 
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2;
 var clock2;
-
-
+axios.get('http://localhost:5001/api/users/2')
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+const arraytest = 'ue';
+const addbattery = () =>{
+  axios.post('http://localhost:5001',{arraytest})
+  .then((resp)=>{
+    return resp.data
+  })
+}
 export default class Objectcustom extends Component {
     constructor(props) {
         super(props);
         this.state = {
           deviceAnimation: false,
+         
           
         }
         
     }
     componentDidMount(){
          // create scene
-     
+      
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x87CEFA
         );
@@ -39,7 +55,7 @@ export default class Objectcustom extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
- 
+      this.props.ketnoi();
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -96,6 +112,23 @@ export default class Objectcustom extends Component {
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
         window.location = 'training'
+     
+      });
+      console.log('in dataarray: ',data)
+     
+      const geometry2 = new THREE.BoxGeometry();
+      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
+      const cube2 = new THREE.Mesh( geometry2, material2 );
+      cube2.position.set(0,0,-10);
+      cube2.name='cube2';
+      scene.add( cube2 );
+      mmi.addHandler('cube2', 'click', (object) => {
+        console.log('da click cubeeee');
+        // const arradd = this.state.data;
+        addbattery(arraytest).then((res)=>{
+          console.log('return res: ',res);
+        })
+        
      
       });
    
