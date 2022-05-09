@@ -389,7 +389,7 @@ export default class ThreeScene extends Component {
         //   mixer.clipAction( clip ).play();
         // } );
         
-      
+    
         mmi.addHandler('Body001', 'click', (object) => {
           console.log('Body001 is clicked!');
           // model2.children[2].position.set(0,-5,12);

@@ -122,7 +122,7 @@ export default class Objectcustom extends Component {
         console.log('test send data: ',response)
         return response.json();
       });
- 
+      
     
       }
       const geometry = new THREE.BoxGeometry();

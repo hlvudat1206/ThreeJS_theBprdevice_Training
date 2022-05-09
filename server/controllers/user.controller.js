@@ -87,7 +87,7 @@ class UserController {
                 console.log('connected successfully');
                 connection.query(
                     // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
-                    `INSERT INTO pintype (nameBattery) VALUES ('${username}')`,
+                    `INSERT INTO pintype (nameBattery) VALUES ('${nameBattery}')`,
                     // 'SELECT * FROM login',
                     function (err, data, fields) {
                         console.log('data',data);
