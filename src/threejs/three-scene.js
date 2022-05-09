@@ -1116,6 +1116,7 @@ export default class ThreeScene extends Component {
                 this.setState({
                   onoff: 1
                 });
+                
               } else {
                 const hex = 0xe83b1e;
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
