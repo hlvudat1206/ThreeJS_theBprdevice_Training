@@ -1096,16 +1096,9 @@ export default class ThreeScene extends Component {
             // arrow to guide connecting to the blood pressure monitor
             if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
 
-            
-              // this.setState({
-              //   pullcuff: false
-              // })
-              const dir = new THREE.Vector3( 0,0, -1 );
-             
+              const dir = new THREE.Vector3( 0,0, -1 );           
               dir.normalize();
-  
               const origin = new THREE.Vector3( 0, 0, 3 );
-          
               const length = 5;
               
               if (this.state.onoff === 0){
@@ -1116,7 +1109,7 @@ export default class ThreeScene extends Component {
                 this.setState({
                   onoff: 1
                 });
-                
+              
               } else {
                 const hex = 0xe83b1e;
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
@@ -1248,8 +1241,9 @@ export default class ThreeScene extends Component {
             
           })
         }
+
 			render();
-   
+        
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
       window.addEventListener( 'resize', resize, false);
@@ -1259,7 +1253,7 @@ export default class ThreeScene extends Component {
       
     }
     
-
+   
     render() {
       console.log('in ra data node: ', this.state.data);
 
