@@ -640,7 +640,7 @@ export default class ThreeScene extends Component {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
-
+        
           if (mouse.x < -0.01 &&  mouse.y > 0.1) {
             
             // gltf.scene.position.set(0,4,5);
@@ -674,6 +674,7 @@ export default class ThreeScene extends Component {
             const getNumArray2 = index => {
               return sleep(400).then(v => index)
             }
+
           if (arrayArrow[arrayArrow.length -1] < 60){          
             const endscreen = async _ => {
               console.log('Start')
@@ -683,7 +684,6 @@ export default class ThreeScene extends Component {
                   console.log(returnI2)
 
                   const map = new THREE.TextureLoader()
-
                   // rotate( Math.PI / 2 );
                     .load(imageArrayRR[returnI2])
                     map.minFilter = THREE.LinearFilter;
@@ -700,8 +700,6 @@ export default class ThreeScene extends Component {
                         child.material.map = map;
                         // child.visible = false;
                         // child.castShadow = true; 
-                      
-
                     }
                     // scene.add(model)
                   });
