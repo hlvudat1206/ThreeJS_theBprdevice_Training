@@ -111,7 +111,7 @@ export default class ThreeScene extends Component {
       // tube.position.set(4,4,4);
       // scene.add(tube);
 
-      
+     
       
       const geometry = new THREE.BoxGeometry();
       const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
@@ -147,7 +147,7 @@ export default class ThreeScene extends Component {
 
       
 
-     
+      console.log('in ra dl: ',this.props.pushdata);
 			//////////////
 			const gray_color = new THREE.Color(0x57554f);
 			const yellow_color = new THREE.Color(0xe0c53a);

@@ -19,12 +19,19 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [1,2,3]
+      data: [1,2,3],
+      typepin: ''
     }
     
   }
   senddata = () =>{
     console.log('in ra senddata')
+  }
+  getdata = (dl) =>{
+    console.log('in getdata: ',dl)
+    this.setState({
+      typepin: dl
+    })
   }
  
   render() {
@@ -36,10 +43,10 @@ export default class App extends Component {
             <Home />
           </Route>
           <Route path="/training">
-            <ThreeScene />
+            <ThreeScene pushdata = {this.state.typepin}/>
           </Route>
           <Route path="/objectcustom">
-            <Objectcustom ketnoi = {()=> this.senddata()}/>
+            <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl)}/>
           </Route>
         </Switch>
    

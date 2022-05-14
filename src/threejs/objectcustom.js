@@ -36,7 +36,7 @@ export default class Objectcustom extends Component {
         this.state = {
     
           typebattery: ''
-         
+          
           
         }
         
@@ -133,7 +133,8 @@ export default class Objectcustom extends Component {
       scene.add( cube );
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        window.location = 'training'
+        window.location = 'training';
+        {return (dl) =>  this.props.getdulieu(this.state.typebattery)};
      
       });
      
@@ -178,7 +179,9 @@ export default class Objectcustom extends Component {
         scene.add(arrowforward)
         
         mmi.addHandler('Cube', 'click', (object) => {
-         
+          this.setState({
+            typebattery: arrayObject[1]
+          })
           model.remove(model2x)
           console.log('da click arrowGo');
           arrayObject.unshift(arrayObject[arrayObject.length -1]);
@@ -246,7 +249,9 @@ export default class Objectcustom extends Component {
         
         scene.add(arrowBack)
         mmi.addHandler('Cube2', 'click', (object) => {
-          
+          this.setState({
+            typebattery: arrayObject[1]
+          })
 
           model.remove(model2x)
           console.log('da click arrowBack');
