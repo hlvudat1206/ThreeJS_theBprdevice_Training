@@ -1,13 +1,19 @@
 import * as THREE from "three";
-import React, { Component } from 'react';
 
+
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import {
+  Link
+} from "react-router-dom";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import data from "./data.json";
 import MouseMeshInteraction from "./mousemes_interact";
 import axios from 'axios';
-
+import button from './css/button.css';
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
@@ -41,7 +47,10 @@ export default class Objectcustom extends Component {
         }
         
     }
+    
     componentDidMount(){
+
+    
          // create scene
       
       scene = new THREE.Scene();
@@ -133,9 +142,11 @@ export default class Objectcustom extends Component {
       scene.add( cube );
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        window.location = 'training';
-        {return (dl) =>  this.props.getdulieu(this.state.typebattery)};
-     
+        {this.props.getdulieu(this.state.typebattery)};
+        // this.context.router.transitionTo('/training');
+        return(<Link to="/training"/>)
+        // window.location = '/training';
+        // console.log('in ra dl: ',this.props.pushdata());
       });
      
       const geometry2 = new THREE.BoxGeometry();
@@ -618,7 +629,7 @@ export default class Objectcustom extends Component {
         
         
         // onMouseMove();
-        renderer.render(scene, camera);
+        // renderer.render(scene, camera);
   
       }
       // function onClick( event ) {
@@ -637,13 +648,13 @@ export default class Objectcustom extends Component {
         
 
       }
-
+     
       renderer.setAnimationLoop(animate);
       function render() {
   			requestAnimationFrame(render);
 				// update the mmi
 				mmi.update();
-    
+     
 
 				renderer.render(scene, camera);
 
@@ -658,12 +669,19 @@ export default class Objectcustom extends Component {
   render() {
     return (
         <div>
-          
+          <Link to="/training">
+        <div class = "buttonlink">
+        <button type="button" class="btn btn-success">Success</button>
+
+        </div>
+        
         <canvas id="bg">
-        
         </canvas>
-        
+        </Link>
         </div>
     )
   }
 }
+// Objectcustom.contextTypes = {
+//   router: React.PropTypes.func.isRequired
+// };

@@ -28,7 +28,7 @@ export default class App extends Component {
     console.log('in ra senddata')
   }
   getdata = (dl) =>{
-    console.log('in getdata: ',dl)
+    console.log('in getdata 2: '+ dl)
     this.setState({
       typepin: dl
     })
@@ -42,14 +42,13 @@ export default class App extends Component {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/training">
-            <ThreeScene pushdata = {this.state.typepin}/>
+          <Route path="/training" >
+            <ThreeScene pushdata = {(dl) => this.getdata(this.state.typepin)}/>
           </Route>
           <Route path="/objectcustom">
-            <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl)}/>
+            <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl) } />
           </Route>
         </Switch>
-   
       </Router>
     )
   }
