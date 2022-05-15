@@ -145,12 +145,8 @@ export default class Objectcustom extends Component {
         console.log('da click cubeeee');
         {this.props.getdulieu(this.state.typebattery)};
         // this.context.router.transitionTo('/training');
-        return(
-        <Link to="/training" component={ThreeScene}>
-
-        </Link>
-        )
-        // window.location = '/training';
+        object.preventDefault();
+        window.location = '/training';
         // console.log('in ra dl: ',this.props.pushdata());
       });
      
@@ -680,6 +676,7 @@ export default class Objectcustom extends Component {
 
         </div> */}
         
+        
         <canvas id="bg">
         </canvas>
         {/* </Link> */}
@@ -687,6 +684,3 @@ export default class Objectcustom extends Component {
     )
   }
 }
-// Objectcustom.contextTypes = {
-//   router: React.PropTypes.func.isRequired
-// };
