@@ -14,7 +14,7 @@ import { DragControls } from "./DragControls";
 import data from "./data.json";
 import MouseMeshInteraction from "./mousemes_interact";
 import axios from 'axios';
-import button from './css/button.css';
+
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null

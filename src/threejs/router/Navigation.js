@@ -1,33 +1,43 @@
 import React, { Component } from 'react'
 import {
-  Link
+  NavLink
 } from "react-router-dom";
+import '../../App.css'
 const Navigation= () => {
     return (
 
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Statistic score</Link>
+      <div className='buttonlink'>
 
-          </li>
-          <li>
-            <Link to="/training">entering the training software</Link>
+     
+            <NavLink exact activeClassName="active" to="/">
+            <button type="button" class="btn btn-warning">Start</button>
+            </NavLink>
 
-          </li>
-          <li>
-            <Link to="/objectcustom">Object setting</Link>
+            <NavLink activeClassName="active" to="/document">
+            <button type="button" class="btn btn-success">Document</button>
+            </NavLink>
 
-          </li>
-          <li>
-            <Link to="/test1">test1</Link>
+            <NavLink activeClassName="active" to="/objectcustom">
+            <button type="button" class="btn btn-success">Setting</button>
+            </NavLink>
 
-          </li>
-          <li>
-            <Link to="/test2">test2</Link>
+     
+            <NavLink activeClassName="active" to="/training">
+            <button type="button" class="btn btn-success">Practice</button>
+            </NavLink>
 
-          </li>
-        </ul>
+            <NavLink activeClassName="active" to="/result">
+            <button type="button" class="btn btn-primary">Result</button>
+            </NavLink>
+
+
+
+            {/* <NavLink to="/test1">test1</NavLink>
+
+            <NavLink to="/test2">test2</NavLink> */}
+
+   
+
          
     </div>
     )

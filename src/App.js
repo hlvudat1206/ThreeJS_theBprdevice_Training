@@ -14,6 +14,9 @@ import Navigation from './threejs/router/Navigation';
 import Objectcustom from './threejs/objectcustom';
 import Home from './threejs/Home';
 import Errorshow from './threejs/Errorshow';
+import Result from './threejs/result';
+
+import Document from './threejs/document';
 
 import axios from 'axios';
 import Test1 from './threejs/test1';
@@ -62,8 +65,14 @@ export default class App extends Component {
           <Route path="/training" >
             <ThreeScene pushdata = {(dl) => this.getdata(this.state.typepin)}/>
           </Route>
+          <Route path="/document" >
+            <Document />
+          </Route>
           <Route path="/objectcustom" >
             <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl) } />
+          </Route>
+          <Route path="/result" >
+            <Result />
           </Route>
          
           <Route path="/test1" >
