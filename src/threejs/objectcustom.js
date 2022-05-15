@@ -1,5 +1,6 @@
 import * as THREE from "three";
 
+import ThreeScene from './three-scene';
 
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -108,7 +109,7 @@ export default class Objectcustom extends Component {
 
     
     ///
-
+    
       const mmi = new MouseMeshInteraction(scene, camera);
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
@@ -144,7 +145,11 @@ export default class Objectcustom extends Component {
         console.log('da click cubeeee');
         {this.props.getdulieu(this.state.typebattery)};
         // this.context.router.transitionTo('/training');
-        return(<Link to="/training"/>)
+        return(
+        <Link to="/training" component={ThreeScene}>
+
+        </Link>
+        )
         // window.location = '/training';
         // console.log('in ra dl: ',this.props.pushdata());
       });
@@ -669,15 +674,15 @@ export default class Objectcustom extends Component {
   render() {
     return (
         <div>
-          <Link to="/training">
+          {/* <Link to="/training">
         <div class = "buttonlink">
         <button type="button" class="btn btn-success">Success</button>
 
-        </div>
+        </div> */}
         
         <canvas id="bg">
         </canvas>
-        </Link>
+        {/* </Link> */}
         </div>
     )
   }

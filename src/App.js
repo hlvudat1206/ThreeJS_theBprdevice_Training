@@ -42,7 +42,7 @@ export default class App extends Component {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/training" >
+          <Route path="/training" component={ThreeScene}>
             <ThreeScene pushdata = {(dl) => this.getdata(this.state.typepin)}/>
           </Route>
           <Route path="/objectcustom">
