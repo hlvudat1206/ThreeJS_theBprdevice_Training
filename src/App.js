@@ -48,14 +48,7 @@ export default class App extends Component {
     return (
       
       <Router>
-       
-        {/* <div className='App'>
-          <NavLink exact activeClassName="active" to="/"> Home</NavLink>
-          <NavLink activeClassName="active" to="/training"> training</NavLink>
-          <NavLink activeClassName="active" to="/objectcustom"> objectcustom</NavLink>
-        </div>
-        <hr/> */}
-       
+
         <Navigation/>
         
         <Switch>

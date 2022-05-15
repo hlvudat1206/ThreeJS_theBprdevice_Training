@@ -144,7 +144,7 @@ export default class Objectcustom extends Component {
         {this.props.getdulieu(this.state.typebattery)};
     
         // window.location = "/training";
-        // this.context.router.transitionTo('/training');
+
        
         // console.log('in ra dl: ',this.props.pushdata());
         
