@@ -16,6 +16,8 @@ import Home from './threejs/Home';
 import Errorshow from './threejs/Errorshow';
 
 import axios from 'axios';
+import Test1 from './threejs/test1';
+import Test2 from './threejs/test2';
 
 // import { NavLink } from 'react-bootstrap';
 
@@ -48,19 +50,27 @@ export default class App extends Component {
           <NavLink exact activeClassName="active" to="/"> Home</NavLink>
           <NavLink activeClassName="active" to="/training"> training</NavLink>
           <NavLink activeClassName="active" to="/objectcustom"> objectcustom</NavLink>
+        </div>
         <hr/> */}
        
-        {/* <Navigation/> */}
-
+        <Navigation/>
+        
         <Switch>
           <Route exact path="/">
-            <Navigation />
+            <Home />
           </Route>
           <Route path="/training" >
             <ThreeScene pushdata = {(dl) => this.getdata(this.state.typepin)}/>
           </Route>
           <Route path="/objectcustom" >
             <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl) } />
+          </Route>
+         
+          <Route path="/test1" >
+            <Test1  />
+          </Route>
+          <Route path="/test2" >
+            <Test2  />
           </Route>
           <Route path="/:somestring" >
             <Errorshow  />

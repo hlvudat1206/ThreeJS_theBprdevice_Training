@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import React, { Component } from 'react';
+
 import MouseMeshInteraction from "./mousemes_interact";
 // import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -7,6 +8,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
 import Stats from 'three/examples/jsm/libs/stats.module'
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 
@@ -1257,9 +1259,16 @@ export default class ThreeScene extends Component {
 
       return (
           <div>
+            {/* <Link to="/objectcustom">
+        <div class = "buttonlink">
+        <button type="button" class="btn btn-success">Success</button>
+
+        </div>
+        </Link> */}
           <canvas id="bg">
          
           </canvas>
+
           
           </div>
       )

@@ -141,14 +141,17 @@ export default class Objectcustom extends Component {
       cube.position.set(0,5,-12);
       cube.name='cube';
       scene.add( cube );
+      
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
         {this.props.getdulieu(this.state.typebattery)};
+    
+        // window.location = "/training";
         // this.context.router.transitionTo('/training');
-        object.preventDefault();
-        window.location = '/training';
+       
         // console.log('in ra dl: ',this.props.pushdata());
-      });
+        
+    });
      
       const geometry2 = new THREE.BoxGeometry();
       const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
@@ -674,12 +677,12 @@ export default class Objectcustom extends Component {
         <div class = "buttonlink">
         <button type="button" class="btn btn-success">Success</button>
 
-        </div> */}
-        
+        </div>
+        </Link> */}
         
         <canvas id="bg">
         </canvas>
-        {/* </Link> */}
+       
         </div>
     )
   }
