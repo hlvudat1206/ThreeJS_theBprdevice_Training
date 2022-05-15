@@ -201,7 +201,7 @@ export default class ThreeScene extends Component {
 
         
         const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
-        document.body.appendChild( renderer.domElement );
+        
         dcontrols2.addEventListener( 'dragstart', ( event ) => {
       
             console.log('in x: ',mouse.x);
@@ -632,7 +632,7 @@ export default class ThreeScene extends Component {
 
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
-        document.body.appendChild( renderer.domElement );
+     
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
 

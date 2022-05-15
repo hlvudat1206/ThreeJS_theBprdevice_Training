@@ -1,13 +1,10 @@
 import * as THREE from "three";
 
-import ThreeScene from './three-scene';
+
 
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {
-  Link
-} from "react-router-dom";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
@@ -402,7 +399,7 @@ export default class Objectcustom extends Component {
         
         console.log('in ra huyetapnew: ',gltf);
         // const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
-        document.body.appendChild( renderer.domElement );
+       
 
        
   
