@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 
 
-let scene, camera, mouse, stats, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+let scene, camera, mouse, stats, raycaster, board, selectedPiece = null, mixer, light,light2, model, model2,model3, 
 model2animation, angleDeg, map2, returnI
 , returnI3, returnI5;
 var clock2;
@@ -75,12 +75,12 @@ export default class ThreeScene extends Component {
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.set(0, 0, 0);//wide position
+      camera.position.set(15, 2, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
       stats = new Stats();
       document.body.appendChild( stats.dom );
-      
+      document.body.style.backgroundColor = "yellow"
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -98,7 +98,7 @@ export default class ThreeScene extends Component {
       // camera.aspect = window.innerWidth / window.innerHeight
 
       
-      camera.position.set(10, 2, 0);
+      // camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
       clock2 = new THREE.Clock();
       const mmi = new MouseMeshInteraction(scene, camera);
@@ -138,15 +138,21 @@ export default class ThreeScene extends Component {
       scene.add(hemiLight);
 
       light = new THREE.SpotLight(0xffa95c,4); //The sun
-      light.position.set(-50,50,50);
+      // light = new THREE.SpotLight(0xAAAAAA ,4); //The sun
+
+
+      // light.position.set(-50,50,50);
+      light.position.set(15,50,50);
+ 
+      
       light.castShadow = true;
       scene.add( light ); 
-
+  
       light.shadow.bias = -0.0001;
       light.shadow.mapSize.width = 1024*4;
       light.shadow.mapSize.height = 1024*4;
 
-
+  
       
 
       console.log('in ra dl: ',this.props.pushdata);
@@ -162,6 +168,33 @@ export default class ThreeScene extends Component {
       mouse = new THREE.Vector2();
      
       raycaster = new THREE.Raycaster();
+
+      //Change Battery
+      
+      if (this.props.pushdata != './battery2.glb'){
+       
+        const loader1 = new GLTFLoader();
+        loader1.load("./popupBattery.glb", function (gltf) {
+        
+          camera.position.set(50, 2, 0);//wide position
+
+          // model = gltf.scene.children[2];
+          const model1 = gltf.scene;
+
+          gltf.scene.position.set(15,-1,2);
+          gltf.scene.scale.set(5.9, 5.9, 5.9);
+        
+          gltf.scene.rotation.y = Math.PI / 2;
+          // console.log('print scale:', gltf.scene.scale);
+
+
+          scene.add( model1 );
+
+        
+
+      })
+      } 
+      
       const _mixers = [];
       // import glb file
       const loader4 = new GLTFLoader();
@@ -192,7 +225,11 @@ export default class ThreeScene extends Component {
         model2animation = gltf.animations;
         gltf.scene.position.set(1.5,-1,2);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
-       
+        gltf.scene.children[2].material.emissive.b = 1
+        gltf.scene.children[2].material.emissive.g = 1
+        gltf.scene.children[2].material.emissive.r = 0.5
+
+
         // gltf.scene.rotation.y = 0.0;
         // console.log('print scale:', gltf.scene.scale);
 
@@ -493,6 +530,10 @@ export default class ThreeScene extends Component {
         gltf.scene.rotation.z = -0.7;
         gltf.scene.rotation.x = 0;
         // gltf.scene.rotation.y = -0.05;
+        // gltf.scene.children[0].children[1].children[0].material.color.b = 0
+        // gltf.scene.children[0].children[1].children[0].material.color.g = 0.5
+        // gltf.scene.children[0].children[1].children[0].material.color.r = 0
+      
 
         scene.add( model );
         
@@ -685,9 +726,10 @@ export default class ThreeScene extends Component {
                   const returnI2 = await getNumArray2(i)
                   console.log(returnI2)
 
-                  const map = new THREE.TextureLoader()
+                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
                     .load(imageArrayRR[returnI2])
+                 
                     map.minFilter = THREE.LinearFilter;
 
                     // map.repeat.set(0.5,0.5); //scale image len
@@ -797,6 +839,7 @@ export default class ThreeScene extends Component {
                 map2 = new THREE.TextureLoader()
                   .load(imageArray2[returnI3])
                   map2.minFilter = THREE.LinearFilter;
+                  
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map2.center.set(0.5, 0.5);
@@ -831,6 +874,8 @@ export default class ThreeScene extends Component {
                 console.log('in returnI: ',returnI5)
                 map2 = new THREE.TextureLoader()
                   .load(imageArray3[returnI5])
+                  // console.log('in ra map2: ',map2)
+                  // map2.mapping = 100;
                   map2.minFilter = THREE.LinearFilter;
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
@@ -1042,11 +1087,11 @@ export default class ThreeScene extends Component {
         // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
-          light.position.set( 
-          camera.position.x + 10,
-          camera.position.y + 10,
-          camera.position.z + 10,
-        );
+        //   light.position.set( 
+        //   camera.position.x + 10,
+        //   camera.position.y + 10,
+        //   camera.position.z + 10,
+        // );
         if (cube){
           cube.rotation.y += 0.05;
         }
@@ -1234,8 +1279,10 @@ export default class ThreeScene extends Component {
         let onClick = (event) => {
           console.log('da click 1234567');
           //0.8, 0.05, 0.75
-          
-
+          if (this.props.pushdata != './battery2.glb' &  document.body.style.backgroundColor === "yellow")
+          {
+            alert('Choosing the wrong battery')
+          }
           this.setState({
             pullcuff: false,
             

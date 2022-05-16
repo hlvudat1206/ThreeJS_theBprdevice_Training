@@ -15,9 +15,9 @@
 
 .buttonlink{
   background-color: #FF7433;
-  padding: 15px;
+  /* padding: 15px; */
   text-align: center;
-  height: 15vmin;
+  /* height: 15vmin; */
   align-items: center;
   justify-content: center;
 }

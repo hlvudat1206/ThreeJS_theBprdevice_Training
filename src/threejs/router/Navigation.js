@@ -10,24 +10,24 @@ const Navigation= () => {
 
      
             <NavLink exact activeClassName="active" to="/">
-            <button type="button" class="btn btn-warning">Start</button>
+            <button type="button" className="btn btn-warning">Start</button>
             </NavLink>
 
             <NavLink activeClassName="active" to="/document">
-            <button type="button" class="btn btn-success">Document</button>
+            <button type="button" className="btn btn-success">Document</button>
             </NavLink>
 
             <NavLink activeClassName="active" to="/objectcustom">
-            <button type="button" class="btn btn-success">Setting</button>
+            <button type="button" className="btn btn-success">Setting</button>
             </NavLink>
 
      
             <NavLink activeClassName="active" to="/training">
-            <button type="button" class="btn btn-success">Practice</button>
+            <button type="button" className="btn btn-success">Practice</button>
             </NavLink>
 
             <NavLink activeClassName="active" to="/result">
-            <button type="button" class="btn btn-primary">Result</button>
+            <button type="button" className="btn btn-primary">Result</button>
             </NavLink>
 
 

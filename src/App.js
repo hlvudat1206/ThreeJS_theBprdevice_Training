@@ -21,6 +21,7 @@ import Document from './threejs/document';
 import axios from 'axios';
 import Test1 from './threejs/test1';
 import Test2 from './threejs/test2';
+import Timeandscore from './threejs/timeandscore';
 
 // import { NavLink } from 'react-bootstrap';
 
@@ -50,7 +51,7 @@ export default class App extends Component {
       <Router>
 
         <Navigation/>
-        
+        <Timeandscore/>
         <Switch>
           <Route exact path="/">
             <Home />

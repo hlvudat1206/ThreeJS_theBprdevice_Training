@@ -80,7 +80,8 @@ export default class Objectcustom extends Component {
       // renderer.setSize( 800, 400 ); // some width and height values
       renderer.setSize(window.innerWidth, window.innerHeight);
       // camera.aspect = window.innerWidth / window.innerHeight
-
+      document.body.style.backgroundColor = "blue"
+      // document.body.innerHTML = "Some new HTML content";
       
       camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
