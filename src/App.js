@@ -44,7 +44,7 @@ export default class App extends Component {
   }
   
   render() {
-    
+    console.log('in ra app dl: ',this.state.typepin)
     return (
       
       <Router>
@@ -56,7 +56,7 @@ export default class App extends Component {
             <Home />
           </Route>
           <Route path="/training" >
-            <ThreeScene pushdata = {(dl) => this.getdata(this.state.typepin)}/>
+            <ThreeScene pushdata = {this.state.typepin} />
           </Route>
           <Route path="/document" >
             <Document />

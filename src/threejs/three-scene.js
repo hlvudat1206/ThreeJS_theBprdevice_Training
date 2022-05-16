@@ -112,7 +112,7 @@ export default class ThreeScene extends Component {
       // const tube = new THREE.Mesh( geometry, material );
       // tube.position.set(4,4,4);
       // scene.add(tube);
-      console.log('in ra dl: ',this.props.pushdata());
+     
      
       
       const geometry = new THREE.BoxGeometry();
@@ -149,7 +149,7 @@ export default class ThreeScene extends Component {
 
       
 
-      console.log('in ra dl: ',this.props.pushdata());
+      console.log('in ra dl: ',this.props.pushdata);
 			//////////////
 			const gray_color = new THREE.Color(0x57554f);
 			const yellow_color = new THREE.Color(0xe0c53a);
