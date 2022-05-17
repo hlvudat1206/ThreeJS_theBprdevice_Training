@@ -30,7 +30,8 @@ export default class App extends Component {
     super(props);
     this.state = {
       data: [1,2,3],
-      typepin: ''
+      typepin: '',
+      score: ''
     }
     
   }
@@ -41,6 +42,12 @@ export default class App extends Component {
     console.log('in getdata 2: '+ dl)
     this.setState({
       typepin: dl
+    })
+  }
+  getscore = (dl) => {
+    console.log('in ra getscore: '+ dl)
+    this.setState({
+      score: dl
     })
   }
  
@@ -58,7 +65,7 @@ export default class App extends Component {
             <Home />
           </Route>
           <Route path="/training" >
-            <ThreeScene pushdata = {this.state.typepin} />
+            <ThreeScene pushdata = {this.state.typepin} getscorescore = {(dl) => this.getscore(dl)} />
           </Route>
           <Route path="/document" >
             <Document />

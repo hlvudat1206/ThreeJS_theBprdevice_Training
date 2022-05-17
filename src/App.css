@@ -32,6 +32,9 @@
   align-items: center;
   justify-content: center;
 }
+.score{
+  text-align: left;
+}
 
 .App-header {
   background-color: #282c34;
