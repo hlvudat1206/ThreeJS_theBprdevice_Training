@@ -31,7 +31,7 @@ export default class App extends Component {
     this.state = {
       data: [1,2,3],
       typepin: '',
-      score: ''
+      score: 0
     }
     
   }
@@ -59,7 +59,7 @@ export default class App extends Component {
       <Router>
 
         <Navigation/>
-        <Timeandscore/>
+        <Timeandscore pushscore ={this.state.score}/>
         <Switch>
           <Route exact path="/">
             <Home />

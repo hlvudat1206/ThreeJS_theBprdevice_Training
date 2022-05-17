@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default class Timeandscore extends Component {
   constructor(props) {
     super(props);
-    
+    // this.updatecountTimes = this.updatecountTimes.bind(this)
   }
   componentDidMount(){
     //time
@@ -29,11 +29,48 @@ export default class Timeandscore extends Component {
     //Score
     let startScore = 1;
     const countup = document.getElementById('countup');
-    let refreshIntervalId2 = setInterval(updateCountup, 1000);
-    function updateCountup (){
-      countup.innerHTML = "Score "+`${startScore}`;
+    let refreshIntervalId2 = setInterval(() => {
+      console.log('in ketqua nhan: ',startScore*this.props.pushscore)
+      if (this.props.pushscore === 0) {
+        countup.innerHTML = "Score "+`${startScore}`;
+      } else {
+        countup.innerHTML = "Score "+`${startScore*this.props.pushscore}`;
+      }
+      
       startScore ++;
-    }
+    }, 100);
+
+    // function updateCountup (){
+    //   countup.innerHTML = "Score "+`${startScore}*${this.props.pushscore}`;
+    //   startScore ++;
+    // }
+
+    
+    let coefficientTimes = 1
+    const counttimes = document.getElementById('counttimes');
+    console.log('in ra score: ',this.props.pushscore);
+
+    let refreshTimes = setInterval(() =>{
+      console.log('in ra score222: ',this.props.pushscore);
+      if (this.props.pushscore === 0){
+        counttimes.innerHTML = "x "+`${coefficientTimes}`;
+      } else{
+        counttimes.innerHTML = "x "+`${this.props.pushscore}`;
+      }
+      
+    }, 1000);
+    
+
+    // function updatecountTimes (props) {
+      
+    //   console.log('in ra score222: ',this.props.pushscore);
+    //   if (this.props.pushscore === 0){
+    //     counttimes.innerHTML = "x "+`${coefficientTimes}`;
+    //   } else{
+    //     counttimes.innerHTML = "x "+`${this.props.pushscore}`;
+    //   }
+    //   }
+    //   updatecountTimes();
 
   }
   
@@ -43,7 +80,13 @@ export default class Timeandscore extends Component {
 
         <div className='col-12'>
           <div className='row'>
-            <div className = 'col-10' id ='countup'>
+            <div className = 'col-4'>
+             Copyright by Lab 202 at B4
+            </div>
+            <div className = 'col-2' id ='countup'>
+
+            </div>
+            <div className = 'col-4' id ='counttimes'>
 
             </div>
 

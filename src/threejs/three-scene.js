@@ -46,7 +46,8 @@ export default class ThreeScene extends Component {
         onoff: 0,
         clickbpr_to_wireconnect: false,
         animationCuff: false,
-        data: null
+        data: null,
+        score: 0
       }
      
     }
@@ -265,6 +266,10 @@ export default class ThreeScene extends Component {
 
         });
         mmi.addHandler('Plane001', 'click', (object) => {
+          this.setState({
+            score: this.state.score +4
+          })
+          {this.props.getscorescore(this.state.score)}
           console.log('daydo mesh is being clicked!');
           object.material.color.r = 0;
           object.material.color.g = 10;
@@ -311,9 +316,13 @@ export default class ThreeScene extends Component {
           object.material.color.r = 0;
           object.material.color.g = 10;
           object.material.color.b = 0;
+
           this.setState({
-            clickwire: true
+            clickwire: true,
+            score: this.state.score +32
           })
+      
+          {this.props.getscorescore(this.state.score)}
        
 
         
@@ -431,6 +440,10 @@ export default class ThreeScene extends Component {
         
     
         mmi.addHandler('Body001', 'click', (object) => {
+          this.setState({
+            score: this.state.score +8
+          })
+          {this.props.getscorescore(this.state.score)}
           console.log('Body001 is clicked!');
           // model2.children[2].position.set(0,-5,12);
           model2.children[2].position.set(0.8,0.05,0.75);
@@ -703,7 +716,11 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'click', (object) => {
           console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
           console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
-       
+          this.setState({
+            score: this.state.score +128
+          })
+      
+          {this.props.getscorescore(this.state.score)}
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
           
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
@@ -959,8 +976,11 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'contextmenu', (object) => {
           this.setState({
             clickbpr_to_wireconnect: true,
-            clickwire: false
+            clickwire: false,
+            score: this.state.score +64
           })
+
+          {this.props.getscorescore(this.state.score)}
           console.log('onoff: ',this.state.onoff)
           model2.children[2].visible = false;
 
@@ -1291,8 +1311,13 @@ export default class ThreeScene extends Component {
             pullcuff: false,
             
           })
+          if (this.state.pullcuff = false & arrayArrow[arrayArrow.length -1] < 60){
+            this.setState({
+              score: this.state.score +16
+            })
+            {this.props.getscorescore(this.state.score)}
         }
-
+      }
 			render();
         
       window.addEventListener( 'mousemove', onPointerMove, false );
