@@ -21,6 +21,18 @@
   align-items: center;
   justify-content: center;
 }
+.textlink{
+  background-color: #FF7433;
+  /* padding: 15px; */
+  font-size: 30px;
+  font-weight: bold;
+  text-align: right;
+ 
+  /* height: 15vmin; */
+  align-items: center;
+  justify-content: center;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

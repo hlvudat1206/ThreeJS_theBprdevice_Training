@@ -80,7 +80,7 @@ export default class ThreeScene extends Component {
       camera.lookAt(0,1.5,0);
       stats = new Stats();
       document.body.appendChild( stats.dom );
-      document.body.style.backgroundColor = "yellow"
+      // document.body.style.backgroundColor = "yellow"
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -171,8 +171,9 @@ export default class ThreeScene extends Component {
 
       //Change Battery
       
-      if (this.props.pushdata != './battery2.glb'){
-       
+      if (this.props.pushdata != './battery.glb'){
+        alert('Choosing the wrong battery')
+      
         const loader1 = new GLTFLoader();
         loader1.load("./popupBattery.glb", function (gltf) {
         
@@ -1279,10 +1280,13 @@ export default class ThreeScene extends Component {
         let onClick = (event) => {
           console.log('da click 1234567');
           //0.8, 0.05, 0.75
-          if (this.props.pushdata != './battery2.glb' &  document.body.style.backgroundColor === "yellow")
-          {
-            alert('Choosing the wrong battery')
-          }
+         
+       
+          // if ( this.props.pushdata == "./battery.glb" || document.body.style.backgroundColor == "blue")
+          // {
+          // } else {
+          //   alert('Choosing the wrong battery')
+          // }
           this.setState({
             pullcuff: false,
             

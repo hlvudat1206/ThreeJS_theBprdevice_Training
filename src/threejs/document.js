@@ -89,53 +89,7 @@ export default class Document extends Component {
      
       });
 
-    const loader = new GLTFLoader();
     
-    loader.load("./bprbatterytray4.glb",  (gltf) => {
-
-        
-      console.log('in ra huyetap: ',gltf);
-      model = gltf.scene;
-      clipsanimationDevice = gltf.animations;
-      console.log('in ra update')
-      model.position.set(0,0,0);
-
-      // gltf.scene.position.set(8,0,1);
-      gltf.scene.scale.set(1.4, 1.4, 1.5);
-      gltf.scene.rotation.z = -0.7;
-      gltf.scene.rotation.x = 0;
-     
-       
-      //animation
-      mixer = new THREE.AnimationMixer( model );
-      // const clips = gltf.animations;
-      
-      clipanimationDevice = THREE.AnimationClip.findByName( clipsanimationDevice,'Armature.001Action');
-      // // Play a specific animation
-      // const clip = THREE.AnimationClip.findByName( clipsanimationDevice,'Armature.001Action');
-      // clip
-      const action = mixer.clipAction(clipanimationDevice);
-      // action.clampWhenFinished = true; //Capture the status of aniamtion
-      action.loop = THREE.LoopOnce; //go back the initial status
-      action.time = 0.5; // fhz ??
-      action.weight = 2; //weight object
-      // action.zeroSlopeAtStart = true;
-      // action.zeroSlopeAtEnd = true;
-      action.play();
-
-      ///
-      scene.add( model );
-      
-      console.log('in ra huyetapnew: ',gltf);
-      // const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
-
-     
-
-    // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
-    
-      
-
-    });
       //controls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enable = false;

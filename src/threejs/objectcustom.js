@@ -80,7 +80,7 @@ export default class Objectcustom extends Component {
       // renderer.setSize( 800, 400 ); // some width and height values
       renderer.setSize(window.innerWidth, window.innerHeight);
       // camera.aspect = window.innerWidth / window.innerHeight
-      document.body.style.backgroundColor = "blue"
+      // document.body.style.backgroundColor = "blue"
       // document.body.innerHTML = "Some new HTML content";
       
       camera.position.set(10, 2, 0);
@@ -192,14 +192,16 @@ export default class Objectcustom extends Component {
         scene.add(arrowforward)
         
         mmi.addHandler('Cube', 'click', (object) => {
-          this.setState({
-            typebattery: arrayObject[1]
-          })
+          
           model.remove(model2x)
           console.log('da click arrowGo');
           arrayObject.unshift(arrayObject[arrayObject.length -1]);
           arrayObject.pop();
           //reload arrayObject, then run resetloaditem()
+          console.log('new arrayObject: ',arrayObject)
+          this.setState({
+            typebattery: arrayObject[1]
+          })
           resetloaditem();
 
       
@@ -262,14 +264,16 @@ export default class Objectcustom extends Component {
         
         scene.add(arrowBack)
         mmi.addHandler('Cube2', 'click', (object) => {
-          this.setState({
-            typebattery: arrayObject[1]
-          })
+          
 
           model.remove(model2x)
           console.log('da click arrowBack');
           arrayObject.push(arrayObject[0]);
           arrayObject.shift();
+          console.log('new arrayObject: ',arrayObject)
+          this.setState({
+            typebattery: arrayObject[1]
+          })
           resetloaditem();
           console.log('in arrayObject2: ', arrayObject)
   

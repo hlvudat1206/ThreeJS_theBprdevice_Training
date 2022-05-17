@@ -43,9 +43,10 @@ export default class App extends Component {
       typepin: dl
     })
   }
-  
+ 
   render() {
     console.log('in ra app dl: ',this.state.typepin)
+    
     return (
       
       <Router>
