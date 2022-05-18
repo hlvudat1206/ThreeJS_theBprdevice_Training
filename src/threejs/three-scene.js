@@ -29,7 +29,7 @@ let arrowHelper;
 //         console.log(error);
 //       })
 const getuserData = () => 
-   axios.get('api/users/2')
+   axios.get('/api/users/2')
                 .then((res) => 
                    res.data
                 )

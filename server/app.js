@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 8000;
 const apiPath = '/api/';
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
@@ -51,4 +51,4 @@ app.listen(port, function () {
 //     console.log("Example app listening at http://%s:%s", host, port)
 //  })
 
-module.exports = app;
+// module.exports = app;
