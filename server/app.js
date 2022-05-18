@@ -15,8 +15,8 @@ app.use(express.urlencoded());
     // const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // website
-app.use(express.static('client'));
-// app.get('/client', express.static('client'));
+// app.use(express.static('client'));
+app.get('/client', express.static('client'));
 // app.get('/', function (req, res) {
 //    res.sendFile( __dirname + "/" + "index.html" );
 // })
