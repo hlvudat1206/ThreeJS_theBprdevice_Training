@@ -48,6 +48,7 @@ export default class ThreeScene extends Component {
         animationCuff: false,
         data: null,
         score: 0
+    
       }
      
     }
@@ -497,30 +498,24 @@ export default class ThreeScene extends Component {
         });
         mmi.addHandler('Body001', 'mouseenter',  (object) => {
           console.log('the hand has been moved');
-          // gltf.scene.parent.background.set(1,0,1)
-          // object.material.color.set( 0x57554f);
-        
-          // if (this.state.movehand === true){
-          //   console.log('da group vao')
-          //   model2.rotation.x = 1.78;
-          //   model2.position.set(-1,-2,12);
-          // } else {
-          //   console.log('chua co group')
-          // }
-
-          object.material.color.r = 0.6;
-          object.material.color.g = 0.2;
-          object.material.color.b = 0.2;
+    
+            object.material.color.r = 0.6;
+            object.material.color.g = 0.2;
+            object.material.color.b = 0.2;
+     
       
           
         });
         mmi.addHandler('Body001', 'mouseleave', (object) => {
           console.log('the hand hasnt been moved');
-          object.material.color.r = 0.801;
-          object.material.color.g = 0.664;
-          object.material.color.b = 0.234;
-          
-          // gltf.scene.children.material.opacity = 0.5;
+         
+            object.material.color.r = 0.801;
+            object.material.color.g = 0.664;
+            object.material.color.b = 0.234;
+
+    
+         
+      
           
         });
         

@@ -30,7 +30,7 @@ export default class Timeandscore extends Component {
     let startScore = 1;
     const countup = document.getElementById('countup');
     let refreshIntervalId2 = setInterval(() => {
-      console.log('in ketqua nhan: ',startScore*this.props.pushscore)
+      // console.log('in ketqua nhan: ',startScore*this.props.pushscore)
       if (this.props.pushscore === 0) {
         countup.innerHTML = "Score "+`${startScore}`;
       } else {
@@ -51,7 +51,7 @@ export default class Timeandscore extends Component {
     console.log('in ra score: ',this.props.pushscore);
 
     let refreshTimes = setInterval(() =>{
-      console.log('in ra score222: ',this.props.pushscore);
+      // console.log('in ra score222: ',this.props.pushscore);
       if (this.props.pushscore === 0){
         counttimes.innerHTML = "x "+`${coefficientTimes}`;
       } else{

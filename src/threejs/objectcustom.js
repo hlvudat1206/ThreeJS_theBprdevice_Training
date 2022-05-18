@@ -18,22 +18,22 @@ model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
 
-axios.get('http://localhost:5001/api/users/2')
+axios.get('/api/users/2')
       .then(function (response) {
         // handle success
         console.log(response);
       })
      
 
-// const addbattery = () =>{
-//   axios.post('http://localhost:5001/typebattery',{typebattery})
-//   .then((res)=>{
+const addbattery = () =>{
+  axios.post('/api/users/typebattery',{typebattery})
+  .then((res)=>{
     
-//     return res.data
+    return res.data
     
-//   })
+  })
   
-// }
+}
 export default class Objectcustom extends Component {
     constructor(props) {
         super(props);
@@ -122,7 +122,7 @@ export default class Objectcustom extends Component {
         // addbattery(this.state.typebattery).then((res)=>{
         //   console.log('insert ao: ', res)
         // })
-        fetch('http://localhost:5001/typebattery', {
+        fetch('/api/users/typebattery', {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
         body: JSON.stringify(this.state)
