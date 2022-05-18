@@ -25,15 +25,15 @@ axios.get('/api/users/2')
       })
      
 
-const addbattery = () =>{
-  axios.post('/api/users/typebattery',{typebattery})
-  .then((res)=>{
+// const addbattery = () =>{
+//   axios.post('/api/users/typebattery',{typebattery})
+//   .then((res)=>{
     
-    return res.data
+//     return res.data
     
-  })
+//   })
   
-}
+// }
 export default class Objectcustom extends Component {
     constructor(props) {
         super(props);
@@ -115,9 +115,11 @@ export default class Objectcustom extends Component {
       const batteryChange = () =>{
         // const name = 'battery_name';
         const value = arrayObject[1];
+        
         this.setState({
           typebattery: value
         })
+        console.log('value json: ',this.state)
         // console.log('in typebattery: ',JSON.stringify(this.state.typebattery))
         // addbattery(this.state.typebattery).then((res)=>{
         //   console.log('insert ao: ', res)
@@ -126,6 +128,8 @@ export default class Objectcustom extends Component {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
         body: JSON.stringify(this.state)
+        // body: this.state.typebattery
+
       }).then(function(response) {
         console.log('test send data: ',response)
         return response.json();

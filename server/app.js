@@ -15,6 +15,7 @@ app.use(express.urlencoded());
 
 // website
 app.use(express.static('client'));
+// app.get('/client', express.static('client'));
 // app.get('/', function (req, res) {
 //    res.sendFile( __dirname + "/" + "index.html" );
 // })
@@ -42,3 +43,5 @@ app.listen(port, function () {
    
     console.log("Example app listening at http://%s:%s", host, port)
 });
+
+module.exports = app;

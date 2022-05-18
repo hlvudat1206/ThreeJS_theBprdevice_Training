@@ -29,7 +29,7 @@ let arrowHelper;
 //         console.log(error);
 //       })
 const getuserData = () => 
-   axios.get('http://localhost:5001/api/users/2')
+   axios.get('/api/users/2')
                 .then((res) => 
                    res.data
                 )
@@ -47,7 +47,8 @@ export default class ThreeScene extends Component {
         clickbpr_to_wireconnect: false,
         animationCuff: false,
         data: null,
-        score: 0
+        score: 0,
+        offscore: false
     
       }
      
@@ -717,7 +718,10 @@ export default class ThreeScene extends Component {
       
           {this.props.getscorescore(this.state.score)}
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
-          
+          // this.setState({
+          //   offscore: true
+          // })
+          // {this.props.getscorescore(this.state.offscore)}
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           const z = imageArray.length -1
             const sleep = ms => {
@@ -1327,6 +1331,7 @@ export default class ThreeScene extends Component {
    
     render() {
       console.log('in ra data node: ', this.state.data);
+
 
       return (
           <div>

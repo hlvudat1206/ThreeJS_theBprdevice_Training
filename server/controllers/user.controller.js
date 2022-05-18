@@ -80,8 +80,9 @@ class UserController {
         });
     }
     post2(req,res) {
-        const nameBattery = req.body.typebattery;
-  
+        // const nameBattery = req.body.typebattery;
+        const nameBattery = req.body;
+        console.log('in ra nameBattery: ', nameBattery)
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');

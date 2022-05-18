@@ -50,6 +50,10 @@ export default class App extends Component {
       score: dl
     })
   }
+
+  offscore = (dl) =>{
+    console.log('in ra status score: ', dl)
+  }
  
   render() {
     console.log('in ra app dl: ',this.state.typepin)
@@ -65,7 +69,7 @@ export default class App extends Component {
             <Home />
           </Route>
           <Route path="/training" >
-            <ThreeScene pushdata = {this.state.typepin} getscorescore = {(dl) => this.getscore(dl)} />
+            <ThreeScene pushdata = {this.state.typepin} offoffscore ={(dl) => this.offscore(dl)} getscorescore = {(dl) => this.getscore(dl)} />
           </Route>
           <Route path="/document" >
             <Document />
