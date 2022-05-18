@@ -9,6 +9,7 @@ const upload = multer({ dest: 'uploads/' })
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 require('dotenv').config();
+
 app.use(express.json());
 app.use(express.urlencoded());
     // const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -37,11 +38,17 @@ app.use(apiPath + 'upload', require('./routers/upload.route'));
 //     res.send({name: 'Dat',address: 'USA'});
 // });
 
-app.listen(port, function () {
-    const host = 'localhost';               // server.address().address
-    // const port = server.address().port
+// app.listen(port, function () {
+//     const host = 'localhost';               // server.address().address
+//     // const port = server.address().port
    
-    console.log("Example app listening at http://%s:%s", host, port)
-});
+//     console.log("Example app listening at http://%s:%s", host, port)
+// });
 
-module.exports = app;
+var server = app.listen(port, function () {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Example app listening at http://%s:%s", host, port)
+ })
+
+// module.exports = app;
