@@ -554,10 +554,9 @@ export default class ThreeScene extends Component {
         const screen = root.children[0];
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
       
-        const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png']
+        const imageArray = ['Artboard0.png','Artboard1.png','Artboard2.png']
         const imageArrayR = [
-          'Artboard final.png','Artboard final.png'
-          ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png']
+         'Artboard74.png','Artboard75.png','Artboard76.png']
         
         // const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
         // ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
