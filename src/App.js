@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import ThreeScene from './threejs/three-scene2'
 import ThreeScene from './threejs/three-scene';
 import Navigation from './threejs/router/Navigation';
@@ -22,6 +23,7 @@ import axios from 'axios';
 import Test1 from './threejs/test1';
 import Test2 from './threejs/test2';
 import Timeandscore from './threejs/timeandscore';
+import Login from './threejs/login';
 
 // import { NavLink } from 'react-bootstrap';
 
@@ -59,8 +61,9 @@ export default class App extends Component {
     console.log('in ra app dl: ',this.state.typepin)
     
     return (
-      
       <Router>
+   
+      
         {/* pushscore = {this.state.score} */}
         <Navigation/>
         <Timeandscore pushscore = {this.state.score}/>
@@ -87,13 +90,17 @@ export default class App extends Component {
           <Route path="/test2" >
             <Test2  />
           </Route>
+          <Route path="/login" >
+            <Login  />
+          </Route>
           <Route path="/:somestring" >
             <Errorshow  />
           </Route>
         </Switch>
         
+     
+
       </Router>
-  
     )
   }
 }
