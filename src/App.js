@@ -63,7 +63,7 @@ export default class App extends Component {
       <Router>
 
         <Navigation/>
-        <Timeandscore pushscore ={this.state.score}/>
+        <Timeandscore pushscore = {this.state.score}/>
         <Switch>
           <Route exact path="/">
             <Home />
