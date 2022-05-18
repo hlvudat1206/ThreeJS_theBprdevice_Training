@@ -18,7 +18,7 @@ model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
 
-axios.get('/api/users/2')
+axios.get('api/users/2')
       .then(function (response) {
         // handle success
         console.log(response);
@@ -124,7 +124,7 @@ export default class Objectcustom extends Component {
         // addbattery(this.state.typebattery).then((res)=>{
         //   console.log('insert ao: ', res)
         // })
-        fetch('/api/users/typebattery', {
+        fetch('api/users/typebattery', {
         method: 'POST',
         // We convert the React state to JSON and send it as the POST body
         body: JSON.stringify(this.state)

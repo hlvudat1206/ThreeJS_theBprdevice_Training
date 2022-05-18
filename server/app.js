@@ -44,4 +44,4 @@ app.listen(port, function () {
     console.log("Example app listening at http://%s:%s", host, port)
 });
 
-module.exports = app;
+// module.exports = app;
