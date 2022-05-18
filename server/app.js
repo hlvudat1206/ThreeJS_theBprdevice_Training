@@ -8,7 +8,7 @@ const upload = multer({ dest: 'uploads/' })
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+require('dotenv').config();
 app.use(express.json());
 app.use(express.urlencoded());
     // const urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -39,7 +39,7 @@ app.use(apiPath + 'upload', require('./routers/upload.route'));
 
 app.listen(port, function () {
     const host = 'localhost';               // server.address().address
-    const port = server.address().port
+    // const port = server.address().port
    
     console.log("Example app listening at http://%s:%s", host, port)
 });
