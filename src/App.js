@@ -61,9 +61,9 @@ export default class App extends Component {
     return (
       
       <Router>
-
+        {/* pushscore = {this.state.score} */}
         <Navigation/>
-        <Timeandscore pushscore = {this.state.score}/>
+        <Timeandscore />
         <Switch>
           <Route exact path="/">
             <Home />
