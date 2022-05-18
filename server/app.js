@@ -38,17 +38,17 @@ app.use(apiPath + 'upload', require('./routers/upload.route'));
 //     res.send({name: 'Dat',address: 'USA'});
 // });
 
-// app.listen(port, function () {
-//     const host = 'localhost';               // server.address().address
-//     // const port = server.address().port
+app.listen(port, function () {
+    const host = 'localhost';               // server.address().address
+    // const port = server.address().port
    
-//     console.log("Example app listening at http://%s:%s", host, port)
-// });
-
-var server = app.listen(port, function () {
-    var host = server.address().address
-    var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
- })
+});
 
-// module.exports = app;
+// var server = app.listen(port, function () {
+//     var host = server.address().address
+//     var port = server.address().port
+//     console.log("Example app listening at http://%s:%s", host, port)
+//  })
+
+module.exports = app;
