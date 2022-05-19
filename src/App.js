@@ -34,17 +34,16 @@ export default class App extends Component {
       data: [1,2,3],
       typepin: '',
       score: 0,
-      status: false
+      status: false,
+      scoreResult: 0
     }
     
   }
-  senddata = () =>{
-    console.log('in ra senddata')
-  }
-  getdata = (dl) =>{
-    console.log('in getdata 2: '+ dl)
+
+  getdata = (tp) =>{
+    console.log('in getdata 2: '+ tp)
     this.setState({
-      typepin: dl
+      typepin: tp
     })
   }
   getscore = (dl) => {
@@ -60,7 +59,12 @@ export default class App extends Component {
       status: offs
     })
   }
- 
+  scoreresult = (scRe) =>{
+    console.log('in ra scoreresult: ', scRe )
+    this.setState({
+      scoreResult: scRe
+    })
+  }
   render() {
     console.log('in ra app dl: ',this.state.typepin)
     
@@ -70,7 +74,7 @@ export default class App extends Component {
       
         {/* pushscore = {this.state.score} */}
         <Navigation/>
-        <Timeandscore pushscore = {this.state.score} offscoreTime = {this.state.status}/>
+        <Timeandscore pushscore = {this.state.score} offscoreTime = {this.state.status} getscoreResult = {(scRe)=>this.scoreresult(scRe)}/>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -82,10 +86,10 @@ export default class App extends Component {
             <Document />
           </Route>
           <Route path="/objectcustom" >
-            <Objectcustom ketnoi = {()=> this.senddata() } getdulieu = {(dl)=>this.getdata(dl) } />
+            <Objectcustom  getdulieu = {(dl)=>this.getdata(dl) } />
           </Route>
           <Route path="/result" >
-            <Result />
+            <Result pushscoreresult = {this.state.scoreResult} />
           </Route>
          
           <Route path="/test1" >

@@ -21,8 +21,9 @@ export default class Result extends Component {
     }
     componentDidMount(){
         // create scene
-      
-     
+      const scoreResult = document.getElementById('scoreResult');
+      scoreResult.innerHTML = `${this.props.pushscoreresult}`;
+      console.log('in ra result cuoi cung: ', this.props.pushscoreresult)
     ///
     }
   render() {
@@ -35,7 +36,23 @@ export default class Result extends Component {
      
         </div>
         <div className='container'>
-          SCORE: 
+          <div className = 'col-12' >
+            <div className = 'row'>
+           
+                <div className = 'col-5'> 
+                </div>
+
+                <div className = 'col-1'>
+                  <h4>SCORE:</h4>
+                </div>
+
+                <div className = 'col-6' >
+                  <h4 id ='scoreResult'></h4>
+                </div>
+        
+            </div>
+          </div>
+
         </div>
 
       </div>

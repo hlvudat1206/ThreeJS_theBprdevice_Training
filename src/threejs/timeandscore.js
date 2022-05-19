@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import "../App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+let minute, second;
 export default class Timeandscore extends Component {
   constructor(props) {
     super(props);
     // this.updatecountTimes = this.updatecountTimes.bind(this)
   }
+  
   componentDidMount(){
     //time
     const startMinute = 2;
@@ -14,9 +16,9 @@ export default class Timeandscore extends Component {
 
     // updateCountdown
     let refreshIntervalId = setInterval(()=>{
-      console.log('in ra offscore in cTime: ',this.props.offscoreTime)
-      const minute = Math.floor(time/60);
-      let second = time % 60;
+      // console.log('in ra offscore in cTime: ',this.props.offscoreTime)
+      minute = Math.floor(time/60);
+      second = time % 60;
       second = second < 10 ? '0' + second: second;
       countdown.innerHTML = "TimeLeft "+`${minute}: ${second}`;
       
@@ -27,7 +29,7 @@ export default class Timeandscore extends Component {
       if (this.props.offscoreTime === true){
         clearInterval(refreshIntervalId);
       }
-      console.log('in ra time con lai: ',minute*60 + second)
+      // console.log('in ra time con lai: ',minute*60 + second)
     }, 1000); //update every 1 second
     
  
@@ -44,7 +46,10 @@ export default class Timeandscore extends Component {
       }
       if(this.props.offscoreTime === true){
         clearInterval(refreshIntervalId2);
+        const scoreSum = startScore*this.props.pushscore + (minute*60 + second)*256;
+        {this.props.getscoreResult(scoreSum)}
       }
+      
       startScore ++;
     }, 100);
 
@@ -73,16 +78,7 @@ export default class Timeandscore extends Component {
     }, 1000);
     
 
-    // function updatecountTimes (props) {
-      
-    //   console.log('in ra score222: ',this.props.pushscore);
-    //   if (this.props.pushscore === 0){
-    //     counttimes.innerHTML = "x "+`${coefficientTimes}`;
-    //   } else{
-    //     counttimes.innerHTML = "x "+`${this.props.pushscore}`;
-    //   }
-    //   }
-    //   updatecountTimes();
+   
 
   }
   

@@ -46,6 +46,12 @@
   align-items: center;
   text-align: center;
 }
+.textscore{
+
+  /* margin-top: 40px; */
+  /* font-size: 40px; */
+
+}
 .score{
   text-align: left;
 }

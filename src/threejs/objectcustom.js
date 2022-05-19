@@ -64,7 +64,7 @@ export default class Objectcustom extends Component {
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
-      this.props.ketnoi();
+ 
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -146,6 +146,7 @@ export default class Objectcustom extends Component {
       
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
+        console.log('in ra typebattery: ',this.state.typebattery)
         {this.props.getdulieu(this.state.typebattery)};
     
         // window.location = "/training";
