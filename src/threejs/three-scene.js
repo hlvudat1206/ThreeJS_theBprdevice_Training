@@ -597,7 +597,7 @@ export default class ThreeScene extends Component {
         //,'Artboard101.png','Artboard102.png','Artboard103.png','Artboard104.png','Artboard105.png','Artboard106.png'
         ,'Artboard107.png','Artboard108.png','Artboard109.png','Artboard110.png','Artboard111.png','Artboard112.png'
         //,'Artboard113.png','Artboard114.png','Artboard115.png','Artboard116.png','Artboard117.png','Artboard118.png'
-        ,'Artboard119.png','Artboard120.png','Artboard121.png','Artboard122.png','Artboard123.png','Artboard124.png'
+        // ,'Artboard119.png','Artboard120.png','Artboard121.png','Artboard122.png','Artboard123.png','Artboard124.png'
         //,'Artboard125.png','Artboard126.png','Artboard127.png','Artboard128.png','Artboard129.png','Artboard130.png'
         ,'Artboard131.png','Artboard132.png','Artboard133.png','Artboard134.png','Artboard135.png','Artboard136.png'
         //,'Artboard137.png','Artboard138.png','Artboard139.png','Artboard140.png','Artboard141.png','Artboard142.png'
@@ -713,15 +713,14 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'click', (object) => {
           console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
           console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
-          this.setState({
-            score: this.state.score +128
-          })
-      
-          {this.props.getscorescore(this.state.score)}
+     
+          
         if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
           // this.setState({
+          //   score: this.state.score +128,
           //   offscore: true
           // })
+          // {this.props.getscorescore(this.state.score)}
           // {this.props.getscorescore(this.state.offscore)}
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           const z = imageArray.length -1
