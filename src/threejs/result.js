@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as THREE from "three";
-
+import "../App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -27,12 +27,17 @@ export default class Result extends Component {
     }
   render() {
     return (
-        <div>
-       
-      
-      <canvas id="bg">
-      </canvas>
+      <div>
+        <div className='container'>
+          <div className='textresult'>
+            YOUR RESULT
+          </div>
      
+        </div>
+        <div className='container'>
+          SCORE: 
+        </div>
+
       </div>
     )
   }

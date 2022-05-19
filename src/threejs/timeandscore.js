@@ -12,31 +12,39 @@ export default class Timeandscore extends Component {
     let time = startMinute * 60;
     const countdown = document.getElementById('countdown');
 
-
-    let refreshIntervalId = setInterval(updateCountdown, 1000); //update every 1 second
-    
-    function updateCountdown() {
+    // updateCountdown
+    let refreshIntervalId = setInterval(()=>{
+      console.log('in ra offscore in cTime: ',this.props.offscoreTime)
       const minute = Math.floor(time/60);
       let second = time % 60;
       second = second < 10 ? '0' + second: second;
       countdown.innerHTML = "TimeLeft "+`${minute}: ${second}`;
       
       time --;
-      if (time < 0) { //stop the setInterval when time = 0 
+      if (time < 0 ) { //stop the setInterval when time = 0 
         clearInterval(refreshIntervalId);
     }
-    }
+      if (this.props.offscoreTime === true){
+        clearInterval(refreshIntervalId);
+      }
+      console.log('in ra time con lai: ',minute*60 + second)
+    }, 1000); //update every 1 second
+    
+ 
     //Score
     let startScore = 1;
     const countup = document.getElementById('countup');
     let refreshIntervalId2 = setInterval(() => {
       // console.log('in ketqua nhan: ',startScore*this.props.pushscore)
+      
       if (this.props.pushscore === 0) {
         countup.innerHTML = "Score "+`${startScore}`;
       } else {
         countup.innerHTML = "Score "+`${startScore*this.props.pushscore}`;
       }
-      
+      if(this.props.offscoreTime === true){
+        clearInterval(refreshIntervalId2);
+      }
       startScore ++;
     }, 100);
 
@@ -56,6 +64,10 @@ export default class Timeandscore extends Component {
         counttimes.innerHTML = "x "+`${coefficientTimes}`;
       } else{
         counttimes.innerHTML = "x "+`${this.props.pushscore}`;
+      }
+
+      if(this.props.offscoreTime === true){
+        clearInterval(refreshTimes);
       }
       
     }, 1000);

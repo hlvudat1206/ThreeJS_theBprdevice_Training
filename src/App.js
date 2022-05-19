@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ThreeScene from './threejs/three-scene';
 import Navigation from './threejs/router/Navigation';
 import Objectcustom from './threejs/objectcustom';
-import Home from './threejs/Home';
+import Home from './threejs/home';
 import Errorshow from './threejs/Errorshow';
 import Result from './threejs/result';
 
@@ -33,7 +33,8 @@ export default class App extends Component {
     this.state = {
       data: [1,2,3],
       typepin: '',
-      score: 0
+      score: 0,
+      status: false
     }
     
   }
@@ -53,8 +54,11 @@ export default class App extends Component {
     })
   }
 
-  offscore = (dl) =>{
-    console.log('in ra status score: ', dl)
+  offscore = (offs) =>{
+    console.log('in ra status score: '+ offs)
+    this.setState({
+      status: offs
+    })
   }
  
   render() {
@@ -66,13 +70,13 @@ export default class App extends Component {
       
         {/* pushscore = {this.state.score} */}
         <Navigation/>
-        <Timeandscore pushscore = {this.state.score}/>
+        <Timeandscore pushscore = {this.state.score} offscoreTime = {this.state.status}/>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           <Route path="/training" >
-            <ThreeScene pushdata = {this.state.typepin} offoffscore ={(dl) => this.offscore(dl)} getscorescore = {(dl) => this.getscore(dl)} />
+            <ThreeScene pushdata = {this.state.typepin} offoffscore ={(offs) => this.offscore(offs)} getscorescore = {(dl) => this.getscore(dl)} />
           </Route>
           <Route path="/document" >
             <Document />
