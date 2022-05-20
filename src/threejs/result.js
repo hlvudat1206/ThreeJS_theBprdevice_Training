@@ -21,27 +21,25 @@ const addresult = (score) =>
            res.data
           
       ))
+
 export default class Result extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          score: 20
-        }
+      
         
     }
     componentDidMount(){
-
+     
         
       const scoreResult = document.getElementById('scoreResult');
       scoreResult.innerHTML = `${this.props.pushscoreresult}`;
-      console.log('in ra result cuoi cung: ', this.props.pushscoreresult);
-      let scoreResult2 = this.props.pushscoreresult;
-      console.log('in ra scoreResult2 cuoi cung: ', scoreResult2);
-      this.setState({
-        score: scoreResult2
-      })
+      // console.log('in ra result cuoi cung: ', this.props.pushscoreresult);
+      let score = this.props.pushscoreresult;
+      // console.log('in ra scoreResult2 cuoi cung: ', scoreResult2);
+
       console.log('in ra score cuoi cung: ', this.state);
-      let {score} = this.state;
+      // let {score} = this.state;
+      
       addresult({score}).then((res)=>{
         console.log(res);
       })

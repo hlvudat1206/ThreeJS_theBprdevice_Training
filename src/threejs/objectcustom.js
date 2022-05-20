@@ -25,7 +25,7 @@ axios.get('/api/users/2')
       })
      
 
-const addbattery = () =>
+const addbattery = (typebattery) =>
   (axios.post('/api/users/typebattery',{typebattery})
   .then((res)=>
     
@@ -170,7 +170,8 @@ export default class Objectcustom extends Component {
         //   console.log('return res: ',res);
         // })
         console.log('typebattery truoc khi push: ', this.state.typebattery)
-        addbattery(this.state.typebattery).then((res)=>{
+        let typebattery = this.state.typebattery;
+        addbattery({typebattery}).then((res)=>{
           console.log(res);
         })
      
