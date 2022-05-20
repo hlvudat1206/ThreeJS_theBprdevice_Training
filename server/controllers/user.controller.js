@@ -142,7 +142,7 @@ class UserController {
     post3(req,res) {
         const score = req.body.score;
         // const nameBattery = req.body;
-        console.log('in ra scoreResult2: ', score)
+        console.log('in ra scoreResult2: ', score);
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
