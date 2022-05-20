@@ -95,6 +95,7 @@ class UserController {
                         connection.query(
                             // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
                             `INSERT INTO result (user, pass, imagelink) VALUES ('${username}','${encryptedPassword}','${image}')`,
+
                             // 'SELECT * FROM login',
                             function (err, data, fields) {
                                 console.log('data',data);
@@ -139,15 +140,15 @@ class UserController {
      
     }
     post3(req,res) {
-        const scoreResult2 = req.body.scoreResult;
+        const score = req.body.score;
         // const nameBattery = req.body;
-        console.log('in ra nameBattery: ', scoreResult2)
+        console.log('in ra scoreResult2: ', score)
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
                 connection.query(
                     // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
-                    `INSERT INTO pintype (nameBattery) VALUES ('${scoreResult2}')`,
+                    `INSERT INTO pintype (nameBattery) VALUES ('${score}')`,
                     // 'SELECT * FROM pintype',
                     function (err, data, fields) {
                         console.log('data',data);

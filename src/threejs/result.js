@@ -15,26 +15,34 @@ model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
 
-
-export default class Result extends Component {
-    constructor(props) {
-        super(props);
-        
-    }
-    componentDidMount(){
-        const scoreResult2 = { title: 'React POST Request Example' };
-
-        const addresult = () =>
-        (axios.post('/api/users/result',scoreResult2)
+const addresult = (score) =>
+        (axios.post('/api/users/result',score)
         .then((res)=>
-          
            res.data
           
       ))
+export default class Result extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          score: 0
+        }
+        
+    }
+    componentDidMount(){
+
+        
       const scoreResult = document.getElementById('scoreResult');
       scoreResult.innerHTML = `${this.props.pushscoreresult}`;
       console.log('in ra result cuoi cung: ', this.props.pushscoreresult)
-      addresult(this.props.pushscoreresult).then((res)=>{
+      let scoreResult2 = this.props.pushscoreresult;
+      console.log('in ra scoreResult2 cuoi cung: ', scoreResult2)
+      this.setState({
+        score: scoreResult2
+      })
+      console.log('in ra score cuoi cung: ', this.state)
+      let {score} = this.state
+      addresult(score).then((res)=>{
         console.log(res);
       })
     ///
@@ -61,7 +69,7 @@ export default class Result extends Component {
 
                 <div className = 'col-6' >
                 
-                  <h4 id ='scoreResult'></h4>
+                  <h4 id ='scoreResult' ></h4>
                   
                 </div>
         
