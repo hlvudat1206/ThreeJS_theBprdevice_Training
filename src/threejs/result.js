@@ -14,16 +14,29 @@ let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, 
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
+
+
 export default class Result extends Component {
     constructor(props) {
         super(props);
         
     }
     componentDidMount(){
-        // create scene
+        const scoreResult2 = { title: 'React POST Request Example' };
+
+        const addresult = () =>
+        (axios.post('/api/users/result',scoreResult2)
+        .then((res)=>
+          
+           res.data
+          
+      ))
       const scoreResult = document.getElementById('scoreResult');
       scoreResult.innerHTML = `${this.props.pushscoreresult}`;
       console.log('in ra result cuoi cung: ', this.props.pushscoreresult)
+      addresult(this.props.pushscoreresult).then((res)=>{
+        console.log(res);
+      })
     ///
     }
   render() {
@@ -47,7 +60,9 @@ export default class Result extends Component {
                 </div>
 
                 <div className = 'col-6' >
+                
                   <h4 id ='scoreResult'></h4>
+                  
                 </div>
         
             </div>

@@ -79,8 +79,41 @@ class UserController {
             });
         });
     }
+    signup(req,res) {
+        const username = req.body.username;
+        const password = req.body.pass;
+        const image = req.body.image;
+        let encryptedPassword = '';
+
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(password, salt, function(err, hash) {
+                encryptedPassword = hash;
+                console.log('hash', hash);
+                db.connectDB()
+                    .then((connection) => {
+                        console.log('connected successfully');
+                        connection.query(
+                            // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                            `INSERT INTO result (user, pass, imagelink) VALUES ('${username}','${encryptedPassword}','${image}')`,
+                            // 'SELECT * FROM login',
+                            function (err, data, fields) {
+                                console.log('data',data);
+                                db.closeDB(connection);
+                                return res.status(200).json({ result: `Ket noi thanh cong`});
+                            }
+                        );
+                    })
+                    .catch((error) => {
+                        console.log('DB not connected successfully',error);
+                        return res.status(200).json({ result: `Ko the ket noi Db`});
+                    });
+            
+        // return res.status(200).json({ result: `Dang nhap thanh cong`});
+            });
+        });
+    }
     post2(req,res) {
-        const nameBattery = req.body.typebattery;
+        let nameBattery = req.body.typebattery;
         // const nameBattery = req.body;
         console.log('in ra nameBattery: ', nameBattery)
         db.connectDB()
@@ -106,16 +139,16 @@ class UserController {
      
     }
     post3(req,res) {
-        const nameBattery = req.body.typebattery;
+        const scoreResult2 = req.body.scoreResult;
         // const nameBattery = req.body;
-        console.log('in ra nameBattery: ', nameBattery)
+        console.log('in ra nameBattery: ', scoreResult2)
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
                 connection.query(
                     // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
-                    // `INSERT INTO pintype (nameBattery) VALUES ('${nameBattery}')`,
-                    'SELECT * FROM pintype',
+                    `INSERT INTO pintype (nameBattery) VALUES ('${scoreResult2}')`,
+                    // 'SELECT * FROM pintype',
                     function (err, data, fields) {
                         console.log('data',data);
                         db.closeDB(connection);
