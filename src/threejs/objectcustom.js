@@ -25,21 +25,21 @@ axios.get('/api/users/2')
       })
      
 
-// const addbattery = () =>{
-//   axios.post('/api/users/typebattery',{typebattery})
-//   .then((res)=>{
+const addbattery = () =>
+  (axios.post('/api/users/typebattery',{typebattery})
+  .then((res)=>
     
-//     return res.data
+     res.data
     
-//   })
+))
   
-// }
+
 export default class Objectcustom extends Component {
     constructor(props) {
         super(props);
         this.state = {
     
-          typebattery: ''
+          typebattery: 'saovayta'
           
           
         }
@@ -113,32 +113,33 @@ export default class Objectcustom extends Component {
       mouse = new THREE.Vector2();
 
       const batteryChange = () =>{
-        // const name = 'battery_name';
-        const value = arrayObject[1];
+      //   // const name = 'battery_name';
+      //   // const value = arrayObject[1];
         
-        this.setState({
-          typebattery: value
-        })
-        console.log('value json: ',this.state)
-        // console.log('in typebattery: ',JSON.stringify(this.state.typebattery))
-        // addbattery(this.state.typebattery).then((res)=>{
-        //   console.log('insert ao: ', res)
-        // })
-        fetch('/api/users/typebattery', {
-        method: 'POST',
-        // We convert the React state to JSON and send it as the POST body
-        body: JSON.stringify(this.state)
-        // body: this.state.typebattery
+      //   // this.setState({
+      //   //   typebattery: value
+      //   // })
+      //   console.log('value json: ',this.state)
+      //   // console.log('in typebattery: ',JSON.stringify(this.state.typebattery))
+      //   // addbattery(this.state.typebattery).then((res)=>{
+      //   //   console.log('insert ao: ', res)
+      //   // })
+      //   fetch('/api/users/typebattery', {
+      //   method: 'POST',
+      //   // We convert the React state to JSON and send it as the POST body
+      //   body: JSON.stringify(this.state.typebattery)
+      //   // body: this.state.typebattery
 
-      }).then(function(response) {
-        console.log('test send data: ',response)
-        return response.json();
-      });
+      // }).then(function(response) {
+      //   console.log('test send data: ',response)
+      //   return response.json();
+      // });
+      
       
     
       }
       const geometry = new THREE.BoxGeometry();
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } ); //green
       const cube = new THREE.Mesh( geometry, material );
       cube.position.set(0,5,-12);
       cube.name='cube';
@@ -157,7 +158,7 @@ export default class Objectcustom extends Component {
     });
      
       const geometry2 = new THREE.BoxGeometry();
-      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
+      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } ); //yellow push data to database
       const cube2 = new THREE.Mesh( geometry2, material2 );
       cube2.position.set(0,0,-10);
       cube2.name='cube2';
@@ -168,8 +169,10 @@ export default class Objectcustom extends Component {
         // addbattery(arraytest).then((res)=>{
         //   console.log('return res: ',res);
         // })
-        batteryChange();
-        
+        console.log('typebattery truoc khi push: ', this.state.typebattery)
+        addbattery(this.state.typebattery).then((res)=>{
+          console.log(res);
+        })
      
       });
    
@@ -207,6 +210,7 @@ export default class Objectcustom extends Component {
           this.setState({
             typebattery: arrayObject[1]
           })
+          console.log('in ra arrow typebattery: ', this.state.typebattery)
           resetloaditem();
 
       
