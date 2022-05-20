@@ -15,8 +15,8 @@ model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice
 ,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
 
-const addresult = (score) =>
-        (axios.post('/api/users/result',score)
+const addresult = (score,username) =>
+        (axios.post('/api/users/result',{score,username})
         .then((res)=>
            res.data
           
@@ -31,16 +31,21 @@ export default class Result extends Component {
     componentDidMount(){
      
         
+      const nameResult = document.getElementById('nameResult');
+      nameResult.innerHTML = `${this.props.pushnewuser}`+"'s Score";
+
       const scoreResult = document.getElementById('scoreResult');
       scoreResult.innerHTML = `${this.props.pushscoreresult}`;
       // console.log('in ra result cuoi cung: ', this.props.pushscoreresult);
       let score = this.props.pushscoreresult;
       // console.log('in ra scoreResult2 cuoi cung: ', scoreResult2);
+      let username = this.props.pushnewuser;
+      console.log('in ra score cuoi cung: ', score);
+      console.log('in ra username cuoi cung: ', username);
 
-      console.log('in ra score cuoi cung: ', this.state);
       // let {score} = this.state;
       
-      addresult({score}).then((res)=>{
+      addresult(score,username).then((res)=>{
         console.log(res);
       })
     ///
@@ -49,8 +54,8 @@ export default class Result extends Component {
     return (
       <div>
         <div className='container'>
-          <div className='textresult'>
-            YOUR RESULT
+          <div className='textresult' id='nameResult'>
+            
           </div>
      
         </div>

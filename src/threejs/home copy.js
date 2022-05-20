@@ -11,9 +11,10 @@ import MouseMeshInteraction from "./mousemes_interact";
 import axios from 'axios';
 
 let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
-cube2;
+model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
+,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
 var clock2;
-export default class Home extends Component {
+export default class Home2 extends Component {
     constructor(props) {
         super(props);
         
@@ -75,26 +76,20 @@ export default class Home extends Component {
       const mmi = new MouseMeshInteraction(scene, camera);
       raycaster = new THREE.Raycaster();
       mouse = new THREE.Vector2();
-      
+
       const geometry2 = new THREE.BoxGeometry();
-      const textture2 = new THREE.TextureLoader().load('../Artboardfinal.png');
-      const material2 = new THREE.MeshBasicMaterial( { map:textture2, flatShading: true } );
-      for (let i =0; i<6; i++){
-        cube2 = new THREE.Mesh( geometry2, material2 );
-        cube2.position.set(-5,4,i*5-12);
-        cube2.scale.set(4,4,4);
-        cube2.name='cube2';
-        scene.add( cube2 );
-      }
-      
-      
+      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
+      const cube2 = new THREE.Mesh( geometry2, material2 );
+      cube2.position.set(0,0,-10);
+      cube2.name='cube2';
+      scene.add( cube2 );
       mmi.addHandler('cube2', 'click', (object) => {
         console.log('da click cubeeee');
         
      
       });
-      //create text
-     
+
+    
       //controls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.enable = false;
@@ -151,9 +146,9 @@ export default class Home extends Component {
         if (model2){
           model2.rotation.y -= 0.0;
         }
-        // if (cube2){
-        //   cube2.rotation.y += 0.01;
-        // }
+        if (cube2){
+          cube2.rotation.y += 0.05;
+        }
      
         // dragObject();
         // controls.autoRotate = true;

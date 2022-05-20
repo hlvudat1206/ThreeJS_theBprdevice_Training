@@ -77,8 +77,17 @@ export default class Timeandscore extends Component {
       
     }, 1000);
     
+    //user
+    const username = document.getElementById('username');
+    
+    let refreshName = setInterval(()=>{
+      username.innerHTML = "Name: "+`${this.props.pushnewuser}`;
+    },1000);
+  
+ 
+    
 
-   
+
 
   }
   
@@ -97,6 +106,7 @@ export default class Timeandscore extends Component {
             <div className = 'col-4' id ='counttimes'>
 
             </div>
+       
 
             <div className = 'col-2' id ='countdown'>
 

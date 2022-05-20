@@ -34,6 +34,7 @@ export default class Login extends Component {
   handleClick = () => {
     console.log(JSON.stringify(this.state));
     let {username,pass,image} = this.state;
+    {this.props.getsaveuser(this.state.username)};
     adduser(username,pass,image).then((res)=>{
       console.log(res)
     })
@@ -41,8 +42,14 @@ export default class Login extends Component {
   render() {
     return (
         // <Popup trigger={<button> Trigger</button>} position="right center">
-      <div>
-
+      <div className="container">
+       
+          <div className='col-12'>
+          <div className='row'>
+            <div className='col-3'>
+        
+            </div>
+            <div className='col-6'>
         <form >
             <div className="form-group">
               <label htmlFor="username">Name</label>
@@ -60,10 +67,13 @@ export default class Login extends Component {
           
             <button type="reset" onClick ={()=>this.handleClick()} className="btn btn-primary">Submit</button>
           </form>
+          <div className='col-3'>
 
+            </div>
+          </div>
+          </div>
 
-
-
+          </div>
       </div>
     //   </Popup>
     )

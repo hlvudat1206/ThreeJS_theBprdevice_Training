@@ -3,7 +3,23 @@ import {
   NavLink
 } from "react-router-dom";
 import '../../App.css'
-const Navigation= () => {
+export default class Navigation extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
+  componentDidMount(){
+    // console.log('in ra newuser: ',this.props.pushnewuser);
+    // const username = document.getElementById('username');
+    
+    // let refreshName = setInterval(()=>{
+    //   username.innerHTML = "Name: "+`${this.props.pushnewuser}`;
+    // },1000)
+
+  }
+    render() {
+     
+  
     return (
 
       <div className='buttonlink'>
@@ -11,8 +27,9 @@ const Navigation= () => {
             <div className='col-12'>
               <div className='row'>
                 <div className='col-4'>
+
                 </div>
-                <div className='col-4'>
+                <div className='col-5 mx-auto'>
                   <NavLink exact activeClassName="active" to="/">
                   <button type="button" className="btn btn-warning">Start</button>
                   </NavLink>
@@ -35,7 +52,7 @@ const Navigation= () => {
                   </NavLink>
                 </div>
 
-                <div className='col-2'>
+                <div className='col-2' id ='username'>
              
                 </div>
                 <div className='col-1'>
@@ -58,5 +75,4 @@ const Navigation= () => {
     </div>
     )
   }
-
-  export default Navigation;
+}

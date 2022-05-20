@@ -141,14 +141,17 @@ class UserController {
     }
     post3(req,res) {
         const score = req.body.score;
+        const username = req.body.username;
         // const nameBattery = req.body;
-        console.log('in ra scoreResult2: ', score);
+        console.log('in ra score database: ', score);
+        console.log('in ra username database: ', username);
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
                 connection.query(
                     // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
-                    `INSERT INTO pintype (nameBattery) VALUES ('${score}')`,
+                    // `INSERT INTO pintype (nameBattery) VALUES ('${score}')`,
+                    `UPDATE result SET score = '${score}' WHERE user = '${username}'`,
                     // 'SELECT * FROM pintype',
                     function (err, data, fields) {
                         console.log('data',data);

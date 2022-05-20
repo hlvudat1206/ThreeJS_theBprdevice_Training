@@ -35,7 +35,9 @@ export default class App extends Component {
       typepin: '',
       score: 0,
       status: false,
-      scoreResult: 0
+      scoreResult: 0,
+      newuser: ''
+
     }
     
   }
@@ -65,6 +67,12 @@ export default class App extends Component {
       scoreResult: scRe
     })
   }
+  saveuser = (saus) =>{
+    console.log('in ra username: '+saus)
+    this.setState({
+      newuser: saus
+    })
+  }
   render() {
     console.log('in ra app dl: ',this.state.typepin)
     
@@ -73,8 +81,8 @@ export default class App extends Component {
    
       
         {/* pushscore = {this.state.score} */}
-        <Navigation/>
-        <Timeandscore pushscore = {this.state.score} offscoreTime = {this.state.status} getscoreResult = {(scRe)=>this.scoreresult(scRe)}/>
+        <Navigation />
+        <Timeandscore pushnewuser={this.state.newuser}  pushscore = {this.state.score} offscoreTime = {this.state.status} getscoreResult = {(scRe)=>this.scoreresult(scRe)}/>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -89,7 +97,7 @@ export default class App extends Component {
             <Objectcustom  getdulieu = {(dl)=>this.getdata(dl) } />
           </Route>
           <Route path="/result" >
-            <Result pushscoreresult = {this.state.scoreResult} />
+            <Result pushnewuser={this.state.newuser} pushscoreresult = {this.state.scoreResult} />
           </Route>
          
           <Route path="/test1" >
@@ -99,7 +107,7 @@ export default class App extends Component {
             <Test2  />
           </Route>
           <Route path="/login" >
-            <Login  />
+            <Login  getsaveuser = {(saus)=>this.saveuser(saus)}/>
           </Route>
           <Route path="/:somestring" >
             <Errorshow  />
