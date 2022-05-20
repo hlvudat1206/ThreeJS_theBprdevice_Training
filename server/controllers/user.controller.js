@@ -105,6 +105,32 @@ class UserController {
      
      
     }
+    post3(req,res) {
+        const nameBattery = req.body.typebattery;
+        // const nameBattery = req.body;
+        console.log('in ra nameBattery: ', nameBattery)
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                    // `INSERT INTO pintype (nameBattery) VALUES ('${nameBattery}')`,
+                    'SELECT * FROM pintype',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        return res.status(200).json({ result: `Ket noi thanh cong22`});
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+            
+     
+     
+    }
      login(req,res) {
         const username = req.body.username;
         const password = req.body.password;
