@@ -26,10 +26,10 @@ export default class Navigation extends Component {
 
             <div className='col-12'>
               <div className='row'>
-                <div className='col-4'>
+                <div className='col-5'>
 
                 </div>
-                <div className='col-5 mx-auto'>
+                <div className='col-5'>
                   <NavLink exact activeClassName="active" to="/">
                   <button type="button" className="btn btn-warning">Start</button>
                   </NavLink>
@@ -52,7 +52,7 @@ export default class Navigation extends Component {
                   </NavLink>
                 </div>
 
-                <div className='col-2' id ='username'>
+                <div className='col-1' id ='username'>
              
                 </div>
                 <div className='col-1'>

@@ -39,6 +39,13 @@
   align-items: center;
   justify-content: center;
 }
+.card-img-top {
+  width: 25vw;
+  height: 15vw;
+  padding: 5px;
+ 
+
+}
 .textresult{
   justify-content: center;
   margin-top: 40px;

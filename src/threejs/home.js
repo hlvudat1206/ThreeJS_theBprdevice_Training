@@ -57,7 +57,7 @@ export default class Home extends Component {
         return  this.state.gettopscore.map((value,key)=> {
             return (
               <Toprank 
-              key = {key}
+              key2 = {key + 1}
               image = {value.imagelink}
                 name = {value.user}
                 score = {value.score}
@@ -89,36 +89,34 @@ export default class Home extends Component {
 
         <div >
             <div className='container'>
-              <div className ='row'>
+            
                 <div className='col-12'>
+                
+                <div class="d-flex">
                      {this.pushDatatoToprank()}
                 </div>
+         
             </div>
              </div>
-        </div>
-        
-      {/* <div className='container'> 
-      <div >
-          <div className='row '>
-             <div className='col-12'>
-              <div className='col-1'>
-              
-              </div>
-              <div className='col-10'>
-              {this.pushDatatoToprank()}
-              </div>
-              <div className='col-1'>
-              
-              </div>
-                  
-                
-        
-               </div>
+             <div className='container'>
+            
+            <div className='col-12'>
+            
+            <div className="textscore">
+              <h3>
+               SV: Huỳnh Lê Vũ Đạt <hr/>
+               GVHD: Trần Trung Tín <hr/>
+               Trường ĐH Bách Khoa TPHCM <hr/>
+               </h3>
             </div>
+     
+        </div>
          </div>
-        </div> */}
+         </div>
+        
+     
+        </div>
        </div>
-      </div>
     )
   }
 }
