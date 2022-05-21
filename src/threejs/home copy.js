@@ -78,16 +78,16 @@ export default class Home2 extends Component {
       mouse = new THREE.Vector2();
 
       const geometry2 = new THREE.BoxGeometry();
-      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } );
-      const cube2 = new THREE.Mesh( geometry2, material2 );
-      cube2.position.set(0,0,-10);
-      cube2.name='cube2';
-      scene.add( cube2 );
-      mmi.addHandler('cube2', 'click', (object) => {
-        console.log('da click cubeeee');
-        
-     
-      });
+      const textture2 = new THREE.TextureLoader().load('../Artboardfinal.png');
+      const material2 = new THREE.MeshBasicMaterial( { map:textture2, flatShading: true } );
+      for (let i =0; i<6; i++){
+        cube2 = new THREE.Mesh( geometry2, material2 );
+        cube2.position.set(-5,4,i*5-12);
+        cube2.scale.set(4,4,4);
+        cube2.name='cube2';
+        scene.add( cube2 );
+      }
+      
 
     
       //controls

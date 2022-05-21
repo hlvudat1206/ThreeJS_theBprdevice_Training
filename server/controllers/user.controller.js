@@ -46,6 +46,27 @@ class UserController {
             });
         
     }
+    gettopscore(req,res, next) {
+       
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    'SELECT * FROM result ORDER by score ASC',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        // return res.send(data);
+                        return res.status(200).json(data);
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+        
+    }
     
     post(req,res) {
         const username = req.body.username;
