@@ -89,13 +89,13 @@ export default class Home extends Component {
 
         <div >
             <div className='container'>
-            
+              <div className= 'row mt-5'>
                 <div className='col-12'>
                 
                 <div class="d-flex">
                      {this.pushDatatoToprank()}
                 </div>
-         
+                </div>
             </div>
              </div>
              <div className='container'>

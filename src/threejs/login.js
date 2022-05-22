@@ -62,7 +62,7 @@ export default class Login extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="image">Link</label>
-              <input onChange = {(event)=> this.isChange(event)} type="text" name = "image" className="form-control"  placeholder="Link" />
+              <input onChange = {(event)=> this.isChange(event)} type="text" name = "image" className="form-control"  placeholder="https://f5-zpcloud.zdn.vn/1171442863876210392/b9d9554fa612664c3f03.jpg" />
             </div>
           
             <button type="reset" onClick ={()=>this.handleClick()} className="btn btn-primary">Submit</button>
