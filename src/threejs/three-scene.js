@@ -123,7 +123,7 @@ export default class ThreeScene extends Component {
       const cube = new THREE.Mesh( geometry, material );
       cube.name='cube';
       cube.position.set(0,5,12)
-      scene.add( cube );
+      // scene.add( cube );
 
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');

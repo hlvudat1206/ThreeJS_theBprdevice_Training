@@ -60,7 +60,7 @@ export default class Objectcustom extends Component {
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 100);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.set(0, 0, 0);//wide position
+      // camera.position.set(0, 0, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
     
@@ -83,7 +83,7 @@ export default class Objectcustom extends Component {
       // document.body.style.backgroundColor = "blue"
       // document.body.innerHTML = "Some new HTML content";
       
-      camera.position.set(10, 2, 0);
+      camera.position.set(15, 2, 0);
       renderer.render(scene, camera);
 
       window.addEventListener( 'resize', resize);
@@ -157,25 +157,25 @@ export default class Objectcustom extends Component {
         
     });
      
-      const geometry2 = new THREE.BoxGeometry();
-      const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } ); //yellow push data to database
-      const cube2 = new THREE.Mesh( geometry2, material2 );
-      cube2.position.set(0,0,-10);
-      cube2.name='cube2';
-      scene.add( cube2 );
-      mmi.addHandler('cube2', 'click', (object) => {
-        console.log('da click cubeeee');
-        // const arradd = this.state.data;
-        // addbattery(arraytest).then((res)=>{
-        //   console.log('return res: ',res);
-        // })
-        console.log('typebattery truoc khi push: ', this.state.typebattery)
-        let typebattery = this.state.typebattery;
-        addbattery({typebattery}).then((res)=>{
-          console.log(res);
-        })
+      // const geometry2 = new THREE.BoxGeometry();
+      // const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } ); //yellow push data to database
+      // const cube2 = new THREE.Mesh( geometry2, material2 );
+      // cube2.position.set(0,0,-10);
+      // cube2.name='cube2';
+      // scene.add( cube2 );
+      // mmi.addHandler('cube2', 'click', (object) => {
+      //   console.log('da click cubeeee');
+      //   // const arradd = this.state.data;
+      //   // addbattery(arraytest).then((res)=>{
+      //   //   console.log('return res: ',res);
+      //   // })
+      //   console.log('typebattery truoc khi push: ', this.state.typebattery)
+      //   let typebattery = this.state.typebattery;
+      //   addbattery({typebattery}).then((res)=>{
+      //     console.log(res);
+      //   })
      
-      });
+      // });
    
       //test props
       
