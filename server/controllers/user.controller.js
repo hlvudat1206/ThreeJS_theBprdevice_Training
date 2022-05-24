@@ -52,7 +52,7 @@ class UserController {
             .then((connection) => {
                 console.log('connected successfully');
                 connection.query(
-                    'SELECT * FROM result ORDER by score ASC',
+                    'SELECT * FROM result ORDER by score DESC LIMIT 6',
                     function (err, data, fields) {
                         console.log('data',data);
                         db.closeDB(connection);
