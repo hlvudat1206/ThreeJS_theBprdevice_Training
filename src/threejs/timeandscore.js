@@ -21,8 +21,10 @@ export default class Timeandscore extends Component {
       second = time % 60;
       second = second < 10 ? '0' + second: second;
       countdown.innerHTML = "TimeLeft "+`${minute}: ${second}`;
-      
-      time --;
+      if (this.props.pusheventScore === true){
+        time --;
+      }
+     
       if (time < 0 ) { //stop the setInterval when time = 0 
         clearInterval(refreshIntervalId);
     }
@@ -50,7 +52,10 @@ export default class Timeandscore extends Component {
         {this.props.getscoreResult(scoreSum)}
       }
       
-      startScore ++;
+      if (this.props.pusheventScore === true){
+        startScore ++;
+      }
+      
     }, 100);
 
     // function updateCountup (){

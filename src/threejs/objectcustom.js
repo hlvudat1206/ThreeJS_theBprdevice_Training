@@ -39,16 +39,16 @@ export default class Objectcustom extends Component {
         super(props);
         this.state = {
     
-          typebattery: 'saovayta'
+          typebattery: 'saovayta',
           
-          
+          turnonScore: true
         }
         
     }
     
     componentDidMount(){
-
-    
+      //send data through props
+      this.props.gettriggerScore(this.state.turnonScore)
          // create scene
       
       scene = new THREE.Scene();
@@ -157,27 +157,7 @@ export default class Objectcustom extends Component {
         
     });
      
-      // const geometry2 = new THREE.BoxGeometry();
-      // const material2 = new THREE.MeshBasicMaterial( { color: 0xffbe00 } ); //yellow push data to database
-      // const cube2 = new THREE.Mesh( geometry2, material2 );
-      // cube2.position.set(0,0,-10);
-      // cube2.name='cube2';
-      // scene.add( cube2 );
-      // mmi.addHandler('cube2', 'click', (object) => {
-      //   console.log('da click cubeeee');
-      //   // const arradd = this.state.data;
-      //   // addbattery(arraytest).then((res)=>{
-      //   //   console.log('return res: ',res);
-      //   // })
-      //   console.log('typebattery truoc khi push: ', this.state.typebattery)
-      //   let typebattery = this.state.typebattery;
-      //   addbattery({typebattery}).then((res)=>{
-      //     console.log(res);
-      //   })
-     
-      // });
-   
-      //test props
+      
       
       // file perbaodo8 is belong to baodo6.glb
 

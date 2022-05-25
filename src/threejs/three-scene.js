@@ -83,7 +83,7 @@ export default class ThreeScene extends Component {
       camera.lookAt(0,1.5,0);
       stats = new Stats();
       document.body.appendChild( stats.dom );
-      // document.body.style.backgroundColor = "yellow"
+      // document.body.style.backgroundColor = "blue"
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -1296,27 +1296,26 @@ export default class ThreeScene extends Component {
            
            
           }
+     
         let onClick = (event) => {
-          console.log('da click 1234567');
-          //0.8, 0.05, 0.75
-         
-       
-          // if ( this.props.pushdata == "./battery.glb" || document.body.style.backgroundColor == "blue")
-          // {
-          // } else {
-          //   alert('Choosing the wrong battery')
-          // }
-          this.setState({
-            pullcuff: false,
-            
-          })
-          if (this.state.pullcuff = false & arrayArrow[arrayArrow.length -1] < 60){
+          
+            console.log('da click 1234567');
+        
             this.setState({
-              score: this.state.score +16
+              pullcuff: false,
+              
             })
-            {this.props.getscorescore(this.state.score)}
+            if (this.state.pullcuff = false & arrayArrow[arrayArrow.length -1] < 60){
+              this.setState({
+                score: this.state.score +16
+              })
+              {this.props.getscorescore(this.state.score)}
+          }
+          
         }
-      }
+    
+    
+      
 			render();
         
       window.addEventListener( 'mousemove', onPointerMove, false );

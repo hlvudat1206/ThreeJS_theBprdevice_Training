@@ -202,7 +202,7 @@ export default class Document extends Component {
         controls.update();
     }
 
-    let onClick = (event) => {
+    let onClick2 = (event) => {
         console.log('da click 1234567');
         //0.8, 0.05, 0.75
         
@@ -221,7 +221,7 @@ export default class Document extends Component {
 
         }
         render();
-    window.addEventListener('click', onClick);
+    window.addEventListener('click', onClick2);
     window.addEventListener( 'resize', resize, false);
     
     ///

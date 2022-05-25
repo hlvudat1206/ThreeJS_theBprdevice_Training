@@ -36,8 +36,8 @@ export default class App extends Component {
       score: 0,
       status: false,
       scoreResult: 0,
-      newuser: ''
-
+      newuser: '',
+      eventstateScore: false
     }
     
   }
@@ -73,6 +73,12 @@ export default class App extends Component {
       newuser: saus
     })
   }
+  eventScore = (triggerScore) => {
+    console.log('in ra triggerScore '+ triggerScore)
+    this.setState({
+      eventstateScore: triggerScore
+    })
+  }
   render() {
     console.log('in ra app dl: ',this.state.typepin)
     
@@ -82,7 +88,7 @@ export default class App extends Component {
       
         {/* pushscore = {this.state.score} */}
         <Navigation />
-        <Timeandscore pushnewuser={this.state.newuser}  pushscore = {this.state.score} offscoreTime = {this.state.status} getscoreResult = {(scRe)=>this.scoreresult(scRe)}/>
+        <Timeandscore pusheventScore={this.state.eventstateScore} pushnewuser={this.state.newuser}  pushscore = {this.state.score} offscoreTime = {this.state.status} getscoreResult = {(scRe)=>this.scoreresult(scRe)}/>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -94,7 +100,7 @@ export default class App extends Component {
             <Document />
           </Route>
           <Route path="/objectcustom" >
-            <Objectcustom  getdulieu = {(dl)=>this.getdata(dl) } />
+            <Objectcustom  gettriggerScore = {(triggerScore)=>this.eventScore(triggerScore)}getdulieu = {(dl)=>this.getdata(dl) } />
           </Route>
           <Route path="/result" >
             <Result pushnewuser={this.state.newuser} pushscoreresult = {this.state.scoreResult} />

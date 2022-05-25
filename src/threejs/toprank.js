@@ -13,7 +13,7 @@ export default class Toprank extends Component {
             <h5 className="card-title text-center">{this.props.name}</h5>
           
             <p className="card-text text-center">{this.props.score}</p>
-            <h2 class="card-subtitle text-center">Rank {this.props.key2}</h2>        
+            <h2 className="card-subtitle text-center" >Rank {this.props.key2}</h2>        
           </div>
           </div>
    
