@@ -9,12 +9,11 @@ module.exports.connectDB = () => {
             user: process.env.DB_USER || 'myUserName',
             password: process.env.DB_PASS || 'mypassword',
             database: process.env.DB_NAME || 'mydb'
-      
+   
             // host: 'localhost',
             // user: 'root',
-            // password: '123456',
-            // database: 'qlsvlab'
-
+            // password: '',
+            // database: 'qlsvlab',
         });
         con.connect((err)=> {
             if (err) {

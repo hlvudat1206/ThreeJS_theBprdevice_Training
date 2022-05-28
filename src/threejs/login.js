@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css'
-import Popup from 'reactjs-popup';
+
 import axios from 'axios';
 
 
