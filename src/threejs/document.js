@@ -79,14 +79,14 @@ export default class Document extends Component {
 
 
       const geometry1 = new THREE.BoxGeometry();
-      const textture1 = new THREE.TextureLoader().load('../leftclick.png');
+      const textture1 = new THREE.TextureLoader().load('../rightclick.png');
       const material1 = new THREE.MeshBasicMaterial( { map:textture1, flatShading: true } );
       const cube1 = new THREE.Mesh( geometry1, material1 );
       cube1.position.set(0,0,5);
       cube1.scale.set(6,6,6);
       cube1.name='cube1';
       scene.add( cube1 );
-      mmi.addHandler('cube1', 'click', (object) => {
+      mmi.addHandler('cube1', 'contextmenu', (object) => {
         console.log('da click cubeeee');
         // window.open = "/training";
         // window.open('localhost:3000');
