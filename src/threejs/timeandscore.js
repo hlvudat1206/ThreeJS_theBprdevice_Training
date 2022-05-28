@@ -27,6 +27,7 @@ export default class Timeandscore extends Component {
      
       if (time < 0 ) { //stop the setInterval when time = 0 
         clearInterval(refreshIntervalId);
+        clearInterval(refreshIntervalId2);
     }
       if (this.props.offscoreTime === true){
         clearInterval(refreshIntervalId);
@@ -46,7 +47,7 @@ export default class Timeandscore extends Component {
       } else {
         countup.innerHTML = "Score "+`${startScore*this.props.pushscore}`;
       }
-      if(this.props.offscoreTime === true){
+      if(this.props.offscoreTime === true){ //stop process by pressing button on the blood pressure monitor
         clearInterval(refreshIntervalId2);
         const scoreSum = startScore*this.props.pushscore + (minute*60 + second)*256;
         {this.props.getscoreResult(scoreSum)}
@@ -71,6 +72,7 @@ export default class Timeandscore extends Component {
     let refreshTimes = setInterval(() =>{
       // console.log('in ra score222: ',this.props.pushscore);
       if (this.props.pushscore === 0){
+        coefficientTimes = 0;
         counttimes.innerHTML = "x "+`${coefficientTimes}`;
       } else{
         counttimes.innerHTML = "x "+`${this.props.pushscore}`;
