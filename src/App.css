@@ -62,6 +62,14 @@
   align-items: center;
 
 }
+.textscore2{
+  color: #61dafb;
+  margin-top: 40px;
+  font-size: 40px;
+  text-align: center; 
+  align-items: center;
+
+}
 .formsignin{
   /* font-size: 40px; */
    margin-top: 40px;

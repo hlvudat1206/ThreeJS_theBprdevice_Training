@@ -49,6 +49,8 @@ export default class Objectcustom extends Component {
     componentDidMount(){
       //send data through props
       this.props.gettriggerScore(this.state.turnonScore)
+
+      
          // create scene
       
       scene = new THREE.Scene();

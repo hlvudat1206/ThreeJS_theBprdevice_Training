@@ -101,7 +101,15 @@ export default class Home extends Component {
              <div className='container'>
             
             <div className='col-12'>
-            
+              <div className="textscore">
+              Why do you need to use the blood pressure monitor everytime?
+
+              </div>
+            <div className="textscore">
+            <video width={1080} height={720} controls>
+              <source src="../BprVideo.mp4" type="video/mp4" />
+            </video>
+            </div>
             <div className="textscore">
               <h3>
                SV: Huỳnh Lê Vũ Đạt <hr/>

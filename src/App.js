@@ -20,8 +20,7 @@ import Result from './threejs/result';
 import Document from './threejs/document';
 
 import axios from 'axios';
-import Test1 from './threejs/test1';
-import Test2 from './threejs/test2';
+
 import Timeandscore from './threejs/timeandscore';
 import Login from './threejs/login';
 
@@ -106,12 +105,12 @@ export default class App extends Component {
             <Result pushnewuser={this.state.newuser} pushscoreresult = {this.state.scoreResult} />
           </Route>
          
-          <Route path="/test1" >
+          {/* <Route path="/test1" >
             <Test1  />
           </Route>
           <Route path="/test2" >
             <Test2  />
-          </Route>
+          </Route> */}
           <Route path="/login" >
             <Login  getsaveuser = {(saus)=>this.saveuser(saus)}/>
           </Route>
