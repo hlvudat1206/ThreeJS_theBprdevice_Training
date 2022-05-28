@@ -113,7 +113,7 @@ export default class Home extends Component {
             <div className="textscore">
               <h3>
                SV: Huỳnh Lê Vũ Đạt <hr/>
-               GVHD: Trần Trung Tín <hr/>
+               GVHD: Th.S Trần Trung Tín <hr/>
                Trường ĐH Bách Khoa TPHCM <hr/>
                </h3>
             </div>
