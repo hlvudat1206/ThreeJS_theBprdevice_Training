@@ -10,10 +10,10 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import ThreeScene from './threejs/three-scene2'
-<<<<<<< HEAD
+
 import React, { Component }  from 'react';
 import Directurl from './router/directurl';
-=======
+
 import ThreeScene from './threejs/three-scene';
 import Navigation from './threejs/router/Navigation';
 import Objectcustom from './threejs/objectcustom';
@@ -22,7 +22,7 @@ import Errorshow from './threejs/Errorshow';
 import Result from './threejs/result';
 
 import Document from './threejs/document';
->>>>>>> T120622
+
 
 import axios from 'axios';
 
