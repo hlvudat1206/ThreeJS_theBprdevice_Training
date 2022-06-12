@@ -1,22 +1,38 @@
 import * as THREE from "three";
 import React, { Component } from 'react';
+
 import MouseMeshInteraction from "./mousemes_interact";
 // import { useEffect } from "react";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DragControls } from "./DragControls";
-import CustomSinCurve from "./sinline";
+import Stats from 'three/examples/jsm/libs/stats.module'
+import axios from 'axios';
+import { Link } from "react-router-dom";
 
 
 
-
-
-
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2,model3, 
+let scene, camera, mouse, stats, raycaster, board, selectedPiece = null, mixer, light,light2, model, model2,model3, 
 model2animation, angleDeg, map2, returnI
 , returnI3, returnI5;
 var clock2;
 let arrowHelper;
+
+//get data from server
+// axios.get('http://localhost:5001/api/users/2')
+//       .then(function (response) {
+//         // handle success
+//         console.log(response);
+//       })
+//       .catch(function (error) {
+//         // handle error
+//         console.log(error);
+//       })
+const getuserData = () => 
+   axios.get('/api/users/2')
+                .then((res) => 
+                   res.data
+                )
 
 export default class ThreeScene extends Component {
     constructor(props) {
@@ -29,30 +45,45 @@ export default class ThreeScene extends Component {
         clickwire: false,
         onoff: 0,
         clickbpr_to_wireconnect: false,
-        animationCuff: false
+        animationCuff: false,
+        data: null,
+        score: 0,
+        offscore: false
+    
       }
      
     }
+   
+    
     
     componentDidMount(){
-
+      if (this.state.data === null){
+        getuserData().then((res) => {
+          this.setState({
+            data: res
+          });
+          console.log('in ra data node 2: ',this.state.data)
+        })
+        
+      }
+     
         // create scene
- 
       
       scene = new THREE.Scene();
       scene.background = new THREE.Color(0x4caca5
         );
 
         // create camera
-
+      
 
       camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
       // camera = new THREE.PerspectiveCamera( 185, window.innerWidth / window.innerHeight, 0.1, 1000 );
-      camera.position.set(0, 0, 0);//wide position
+      camera.position.set(15, 2, 0);//wide position
       // camera.position.set(10, 0, 0);
       camera.lookAt(0,1.5,0);
-    
-      
+      stats = new Stats();
+      document.body.appendChild( stats.dom );
+      // document.body.style.backgroundColor = "blue"
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -70,7 +101,7 @@ export default class ThreeScene extends Component {
       // camera.aspect = window.innerWidth / window.innerHeight
 
       
-      camera.position.set(10, 2, 0);
+      // camera.position.set(10, 2, 0);
       renderer.render(scene, camera);
       clock2 = new THREE.Clock();
       const mmi = new MouseMeshInteraction(scene, camera);
@@ -84,25 +115,25 @@ export default class ThreeScene extends Component {
       // const tube = new THREE.Mesh( geometry, material );
       // tube.position.set(4,4,4);
       // scene.add(tube);
-
-      
+     
+     
       
       const geometry = new THREE.BoxGeometry();
       const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
       const cube = new THREE.Mesh( geometry, material );
       cube.name='cube';
       cube.position.set(0,5,12)
-      scene.add( cube );
+      // scene.add( cube );
 
       mmi.addHandler('cube', 'click', (object) => {
         console.log('da click cubeeee');
-        window.location = 'home'
+        window.location = '/'
      
      
       });
       
       update();
-
+      
   
       // create light
       const hemiLight = new THREE.HemisphereLight(0xffeeb1, 0x080820,4); // anh sang truc tiep tu canh, su dung 2 mau nau pale orange for sky and gray for ground 
@@ -110,26 +141,24 @@ export default class ThreeScene extends Component {
       scene.add(hemiLight);
 
       light = new THREE.SpotLight(0xffa95c,4); //The sun
-      light.position.set(-50,50,50);
+      // light = new THREE.SpotLight(0xAAAAAA ,4); //The sun
+
+
+      // light.position.set(-50,50,50);
+      light.position.set(15,50,50);
+ 
+      
       light.castShadow = true;
       scene.add( light ); 
-
+  
       light.shadow.bias = -0.0001;
       light.shadow.mapSize.width = 1024*4;
       light.shadow.mapSize.height = 1024*4;
 
-      
-      
-      // const dirLight = new THREE.DirectionalLight(0xf5f5f5); // anh sang song song, xa vo cuc, mo ta as ban ngay, mo phong mat troi
-      // dirLight.position.set(-3, 10, -10);
-      // scene.add(dirLight);
   
-      // const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // anh sang toan bo, khong co huong
-      // ambientLight.position.set(0, 0, 0);
-      // scene.add(ambientLight);
       
 
-     
+      console.log('in ra dl: ',this.props.pushdata);
 			//////////////
 			const gray_color = new THREE.Color(0x57554f);
 			const yellow_color = new THREE.Color(0xe0c53a);
@@ -137,17 +166,44 @@ export default class ThreeScene extends Component {
 
       // initialize instance of class MouseMeshInteraction, passing threejs scene and camera
 			
-			// add a handler on mouse click for mesh (or meshes) with the name 'bulb'
-			
+			// add a handler on mouse click for mesh with the name 'bulb'
 
       mouse = new THREE.Vector2();
      
       raycaster = new THREE.Raycaster();
+
+      //Change Battery
+      
+      if (this.props.pushdata != './battery.glb'){
+        alert('Choosing the wrong battery')
+      
+        const loader1 = new GLTFLoader();
+        loader1.load("./popupBattery.glb", function (gltf) {
+        
+          camera.position.set(50, 2, 0);//wide position
+
+          // model = gltf.scene.children[2];
+          const model1 = gltf.scene;
+
+          gltf.scene.position.set(15,-1,2);
+          gltf.scene.scale.set(5.9, 5.9, 5.9);
+        
+          gltf.scene.rotation.y = Math.PI / 2;
+          // console.log('print scale:', gltf.scene.scale);
+
+
+          scene.add( model1 );
+
+        
+
+      })
+      } 
+      
       const _mixers = [];
       // import glb file
       const loader4 = new GLTFLoader();
       //labcustom.glb
-      loader4.load("./room103.glb", function (gltf) {
+      loader4.load("./Room103.glb", function (gltf) {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         const model6 = gltf.scene.children[0];
@@ -173,7 +229,11 @@ export default class ThreeScene extends Component {
         model2animation = gltf.animations;
         gltf.scene.position.set(1.5,-1,2);
         gltf.scene.scale.set(5.9, 5.9, 5.9);
-       
+        gltf.scene.children[2].material.emissive.b = 1
+        gltf.scene.children[2].material.emissive.g = 1
+        gltf.scene.children[2].material.emissive.r = 0.5
+
+
         // gltf.scene.rotation.y = 0.0;
         // console.log('print scale:', gltf.scene.scale);
 
@@ -182,7 +242,7 @@ export default class ThreeScene extends Component {
 
         
         const dcontrols2 = new DragControls( [gltf.scene.children[0]], camera, renderer.domElement );
-        document.body.appendChild( renderer.domElement );
+        
         dcontrols2.addEventListener( 'dragstart', ( event ) => {
       
             console.log('in x: ',mouse.x);
@@ -208,6 +268,10 @@ export default class ThreeScene extends Component {
 
         });
         mmi.addHandler('Plane001', 'click', (object) => {
+          this.setState({
+            score: this.state.score +4
+          })
+          {this.props.getscorescore(this.state.score)}
           console.log('daydo mesh is being clicked!');
           object.material.color.r = 0;
           object.material.color.g = 10;
@@ -254,9 +318,13 @@ export default class ThreeScene extends Component {
           object.material.color.r = 0;
           object.material.color.g = 10;
           object.material.color.b = 0;
+
           this.setState({
-            clickwire: true
+            clickwire: true,
+            score: this.state.score +32
           })
+      
+          {this.props.getscorescore(this.state.score)}
        
 
         
@@ -334,24 +402,7 @@ export default class ThreeScene extends Component {
         gltf.scene.rotation.y = 1.4;
         // gltf.scene.children[0].position.set(4,-5,2);
         gltf.scene.scale.set(4.8,4.8,4.8);
-        // gltf.scene.rotation.y = 1.8;
-        // gltf.scene.children[0].rotation.y = 1.78; 
-  // 
-
-        // scene.add( model3 );
-        // Create an AnimationMixer, and get the list of AnimationClip instances
-        // mixer = new THREE.AnimationMixer( model3 );
-        // const clips = gltf.animations;
-        
-
-        // // Play a specific animation
-        // const clip = THREE.AnimationClip.findByName( clips,'ArmatureAction' );
-        // // clip
-        // const action = mixer.clipAction(clip);
-        // // action.play();
-        // clips.forEach( function ( clip ) {
-        //   mixer.clipAction( clip ).play();
-        // } );
+       
       });
 
     
@@ -389,8 +440,12 @@ export default class ThreeScene extends Component {
         //   mixer.clipAction( clip ).play();
         // } );
         
-      
+    
         mmi.addHandler('Body001', 'click', (object) => {
+          this.setState({
+            score: this.state.score +8
+          })
+          {this.props.getscorescore(this.state.score)}
           console.log('Body001 is clicked!');
           // model2.children[2].position.set(0,-5,12);
           model2.children[2].position.set(0.8,0.05,0.75);
@@ -403,8 +458,7 @@ export default class ThreeScene extends Component {
           // scene.add(model2);
 
           console.log('in mode2 thay doi: ', model2);
-          // gltf.scene.parent.background.set(0xffaa00);
-          // gltf.scene.children[6].parent.parent.background.set(0xffaa00);
+
           this.setState({
             // movecuff: !this.state.movecuff
             clickhandforcuff: true
@@ -445,30 +499,24 @@ export default class ThreeScene extends Component {
         });
         mmi.addHandler('Body001', 'mouseenter',  (object) => {
           console.log('the hand has been moved');
-          // gltf.scene.parent.background.set(1,0,1)
-          // object.material.color.set( 0x57554f);
-        
-          // if (this.state.movehand === true){
-          //   console.log('da group vao')
-          //   model2.rotation.x = 1.78;
-          //   model2.position.set(-1,-2,12);
-          // } else {
-          //   console.log('chua co group')
-          // }
-
-          object.material.color.r = 0.6;
-          object.material.color.g = 0.2;
-          object.material.color.b = 0.2;
+    
+            object.material.color.r = 0.6;
+            object.material.color.g = 0.2;
+            object.material.color.b = 0.2;
+     
       
           
         });
         mmi.addHandler('Body001', 'mouseleave', (object) => {
           console.log('the hand hasnt been moved');
-          object.material.color.r = 0.801;
-          object.material.color.g = 0.664;
-          object.material.color.b = 0.234;
-          
-          // gltf.scene.children.material.opacity = 0.5;
+         
+            object.material.color.r = 0.801;
+            object.material.color.g = 0.664;
+            object.material.color.b = 0.234;
+
+    
+         
+      
           
         });
         
@@ -492,6 +540,10 @@ export default class ThreeScene extends Component {
         gltf.scene.rotation.z = -0.7;
         gltf.scene.rotation.x = 0;
         // gltf.scene.rotation.y = -0.05;
+        // gltf.scene.children[0].children[1].children[0].material.color.b = 0
+        // gltf.scene.children[0].children[1].children[0].material.color.g = 0.5
+        // gltf.scene.children[0].children[1].children[0].material.color.r = 0
+      
 
         scene.add( model );
         
@@ -503,114 +555,115 @@ export default class ThreeScene extends Component {
         // const imageArray = ['test1.jpg','test2.jpg','error.jpg'];
       
         
-        const imageArray = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
-        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
-        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
-        ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
-        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
-        ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
-        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
-        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
-        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
-        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
-        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
-        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
-        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
-        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
-        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
-        // ,'Artboard 119.png','Artboard 120.png','Artboard 121.png','Artboard 122.png','Artboard 123.png','Artboard 124.png'
-        // // ,'Artboard 125.png','Artboard 126.png','Artboard 127.png','Artboard 128.png','Artboard 129.png','Artboard 130.png'
-        // ,'Artboard 131.png','Artboard 132.png','Artboard 133.png','Artboard 134.png','Artboard 135.png','Artboard 136.png'
-        // ,'Artboard 137.png','Artboard 138.png','Artboard 139.png','Artboard 140.png','Artboard 141.png','Artboard 142.png'
-        ,'Artboard 143.png','Artboard 144.png','Artboard 145.png','Artboard 146.png','Artboard 147.png','Artboard 148.png'
-        // ,'Artboard 149.png','Artboard 150.png','Artboard 151.png','Artboard 152.png','Artboard 153.png','Artboard 154.png'
-        ,'Artboard 155.png','Artboard 156.png','Artboard 157.png','Artboard 158.png','Artboard 159.png','Artboard 160.png'
-        // ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
-        // ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
-        ,'Artboard 173.png','Artboard 174.png','Artboard 175.png','Artboard 173.png','Artboard 174.png','Artboard 172.png','Artboard 172.png'];
         
-        const imageArrayR = [
-        'Artboard final.png','Artboard final.png'
-        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
-        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
-        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
-        ,'Artboard 119.png','Artboard 120.png','Artboard 121.png','Artboard 122.png','Artboard 123.png','Artboard 124.png'
-        // ,'Artboard 125.png','Artboard 126.png','Artboard 127.png','Artboard 128.png','Artboard 129.png','Artboard 130.png'
-        ,'Artboard 131.png','Artboard 132.png','Artboard 133.png','Artboard 134.png','Artboard 135.png','Artboard 136.png'
-        // ,'Artboard 137.png','Artboard 138.png','Artboard 139.png','Artboard 140.png','Artboard 141.png','Artboard 142.png'
-        ,'Artboard 143.png','Artboard 144.png','Artboard 145.png','Artboard 146.png','Artboard 147.png','Artboard 148.png'
-        // ,'Artboard 149.png','Artboard 150.png','Artboard 151.png','Artboard 152.png','Artboard 153.png','Artboard 154.png'
-        ,'Artboard 155.png','Artboard 156.png','Artboard 157.png','Artboard 158.png','Artboard 159.png','Artboard 160.png'
-        // ,'Artboard 161.png','Artboard 162.png','Artboard 163.png','Artboard 164.png','Artboard 165.png','Artboard 166.png'
-        ,'Artboard 167.png','Artboard 168.png','Artboard 169.png','Artboard 170.png','Artboard 171.png','Artboard 172.png'
-        ,'Artboard 173.png'];
-        
-        const imageArray2 = ['Artboard 0.png','Artboard 1.png','Artboard 2.png','Artboard 3.png','Artboard 4.png'
-        ,'Artboard 5.png','Artboard 6.png','Artboard 7.png','Artboard 8.png','Artboard 9.png','Artboard 10.png'
-        // ,'Artboard 11.png','Artboard 12.png','Artboard 13.png','Artboard 14.png','Artboard 15.png','Artboard 16.png'
-        ,'Artboard 17.png','Artboard 18.png','Artboard 19.png','Artboard 20.png','Artboard 21.png','Artboard 22.png'
-        // ,'Artboard 23.png','Artboard 24.png','Artboard 25.png','Artboard 26.png','Artboard 27.png','Artboard 28.png'
-        ,'Artboard 29.png','Artboard 30.png','Artboard 31.png','Artboard 32.png','Artboard 33.png','Artboard 34.png'
-        // ,'Artboard 35.png','Artboard 36.png','Artboard 37.png','Artboard 38.png','Artboard 39.png','Artboard 40.png'
-        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
-        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
-        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
-        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
-        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
-        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
-        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
-        // ,'Artboard 113.png','Artboard 114.png','Artboard 115.png','Artboard 116.png','Artboard 117.png','Artboard 118.png'
-        
+        const imageArray=['Artboard0.png','Artboard1.png','Artboard2.png','Artboard3.png','Artboard4.png'
+        ,'Artboard5.png','Artboard6.png','Artboard7.png','Artboard8.png','Artboard9.png','Artboard10.png'
+        //,'Artboard11.png','Artboard12.png','Artboard13.png','Artboard14.png','Artboard15.png','Artboard16.png'
+        ,'Artboard17.png','Artboard18.png','Artboard19.png','Artboard20.png','Artboard21.png','Artboard22.png'
+        //,'Artboard23.png','Artboard24.png','Artboard25.png','Artboard26.png','Artboard27.png','Artboard28.png'
+        ,'Artboard29.png','Artboard30.png','Artboard31.png','Artboard32.png','Artboard33.png','Artboard34.png'
+        //,'Artboard35.png','Artboard36.png','Artboard37.png','Artboard38.png','Artboard39.png','Artboard40.png'
+        ,'Artboard41.png','Artboard42.png','Artboard43.png','Artboard44.png','Artboard45.png','Artboard46.png'
+        //,'Artboard47.png','Artboard48.png','Artboard49.png','Artboard50.png','Artboard51.png','Artboard52.png'
+        //,'Artboard53.png','Artboard54.png','Artboard55.png','Artboard56.png','Artboard57.png','Artboard58.png'
+        //,'Artboard59.png','Artboard60.png','Artboard61.png','Artboard62.png','Artboard63.png','Artboard64.png'
+        //,'Artboard65.png','Artboard66.png','Artboard67.png','Artboard68.png','Artboard69.png','Artboard70.png'
+        ,'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+        //,'Artboard101.png','Artboard102.png','Artboard103.png','Artboard104.png','Artboard105.png','Artboard106.png'
+        ,'Artboard107.png','Artboard108.png','Artboard109.png','Artboard110.png','Artboard111.png','Artboard112.png'
+        //,'Artboard113.png','Artboard114.png','Artboard115.png','Artboard116.png','Artboard117.png','Artboard118.png'
+        //,'Artboard119.png','Artboard120.png','Artboard121.png','Artboard122.png','Artboard123.png','Artboard124.png'
+        ////,'Artboard125.png','Artboard126.png','Artboard127.png','Artboard128.png','Artboard129.png','Artboard130.png'
+        //,'Artboard131.png','Artboard132.png','Artboard133.png','Artboard134.png','Artboard135.png','Artboard136.png'
+        //,'Artboard137.png','Artboard138.png','Artboard139.png','Artboard140.png','Artboard141.png','Artboard142.png'
+        ,'Artboard143.png','Artboard144.png','Artboard145.png','Artboard146.png','Artboard147.png','Artboard148.png'
+        //,'Artboard149.png','Artboard150.png','Artboard151.png','Artboard152.png','Artboard153.png','Artboard154.png'
+        ,'Artboard155.png','Artboard156.png','Artboard157.png','Artboard158.png','Artboard159.png','Artboard160.png'
+        //,'Artboard161.png','Artboard162.png','Artboard163.png','Artboard164.png','Artboard165.png','Artboard166.png'
+        //,'Artboard167.png','Artboard168.png','Artboard169.png','Artboard170.png','Artboard171.png','Artboard172.png'
+        ,'Artboard173.png','Artboard174.png','Artboard175.png','Artboard173.png','Artboard174.png','Artboard172.png','Artboard172.png'];
+
+        const imageArrayR=[
+        'Artboardfinal.png','Artboardfinal.png'
+        ,'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+        //,'Artboard101.png','Artboard102.png','Artboard103.png','Artboard104.png','Artboard105.png','Artboard106.png'
+        ,'Artboard107.png','Artboard108.png','Artboard109.png','Artboard110.png','Artboard111.png','Artboard112.png'
+        //,'Artboard113.png','Artboard114.png','Artboard115.png','Artboard116.png','Artboard117.png','Artboard118.png'
+        // ,'Artboard119.png','Artboard120.png','Artboard121.png','Artboard122.png','Artboard123.png','Artboard124.png'
+        //,'Artboard125.png','Artboard126.png','Artboard127.png','Artboard128.png','Artboard129.png','Artboard130.png'
+        ,'Artboard131.png','Artboard132.png','Artboard133.png','Artboard134.png','Artboard135.png','Artboard136.png'
+        //,'Artboard137.png','Artboard138.png','Artboard139.png','Artboard140.png','Artboard141.png','Artboard142.png'
+        ,'Artboard143.png','Artboard144.png','Artboard145.png','Artboard146.png','Artboard147.png','Artboard148.png'
+        //,'Artboard149.png','Artboard150.png','Artboard151.png','Artboard152.png','Artboard153.png','Artboard154.png'
+        ,'Artboard155.png','Artboard156.png','Artboard157.png','Artboard158.png','Artboard159.png','Artboard160.png'
+        //,'Artboard161.png','Artboard162.png','Artboard163.png','Artboard164.png','Artboard165.png','Artboard166.png'
+        ,'Artboard167.png','Artboard168.png','Artboard169.png','Artboard170.png','Artboard171.png','Artboard172.png'
+        ,'Artboard173.png'];
+
+        const imageArray2=['Artboard0.png','Artboard1.png','Artboard2.png','Artboard3.png','Artboard4.png'
+        ,'Artboard5.png','Artboard6.png','Artboard7.png','Artboard8.png','Artboard9.png','Artboard10.png'
+        //,'Artboard11.png','Artboard12.png','Artboard13.png','Artboard14.png','Artboard15.png','Artboard16.png'
+        ,'Artboard17.png','Artboard18.png','Artboard19.png','Artboard20.png','Artboard21.png','Artboard22.png'
+        //,'Artboard23.png','Artboard24.png','Artboard25.png','Artboard26.png','Artboard27.png','Artboard28.png'
+        ,'Artboard29.png','Artboard30.png','Artboard31.png','Artboard32.png','Artboard33.png','Artboard34.png'
+        //,'Artboard35.png','Artboard36.png','Artboard37.png','Artboard38.png','Artboard39.png','Artboard40.png'
+        ,'Artboard41.png','Artboard42.png','Artboard43.png','Artboard44.png','Artboard45.png','Artboard46.png'
+        //,'Artboard47.png','Artboard48.png','Artboard49.png','Artboard50.png','Artboard51.png','Artboard52.png'
+        //,'Artboard53.png','Artboard54.png','Artboard55.png','Artboard56.png','Artboard57.png','Artboard58.png'
+        //,'Artboard59.png','Artboard60.png','Artboard61.png','Artboard62.png','Artboard63.png','Artboard64.png'
+        //,'Artboard65.png','Artboard66.png','Artboard67.png','Artboard68.png','Artboard69.png','Artboard70.png'
+        ,'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+        //,'Artboard101.png','Artboard102.png','Artboard103.png','Artboard104.png','Artboard105.png','Artboard106.png'
+        ,'Artboard107.png','Artboard108.png','Artboard109.png','Artboard110.png','Artboard111.png','Artboard112.png'
+        //,'Artboard113.png','Artboard114.png','Artboard115.png','Artboard116.png','Artboard117.png','Artboard118.png'
+
         ];
 
-        const imageArray2R = [
-        'Artboard final 2.png','Artboard final 2.png',
-        ,'Artboard 41.png','Artboard 42.png','Artboard 43.png','Artboard 44.png','Artboard 45.png','Artboard 46.png'
-        // ,'Artboard 47.png','Artboard 48.png','Artboard 49.png','Artboard 50.png','Artboard 51.png','Artboard 52.png'
-        // ,'Artboard 53.png','Artboard 54.png','Artboard 55.png','Artboard 56.png','Artboard 57.png','Artboard 58.png'
-        // ,'Artboard 59.png','Artboard 60.png','Artboard 61.png','Artboard 62.png','Artboard 63.png','Artboard 64.png'
-        // ,'Artboard 65.png','Artboard 66.png','Artboard 67.png','Artboard 68.png','Artboard 69.png','Artboard 70.png'
-        ,'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-        // ,'Artboard 101.png','Artboard 102.png','Artboard 103.png','Artboard 104.png','Artboard 105.png','Artboard 106.png'
-        ,'Artboard 107.png','Artboard 108.png','Artboard 109.png','Artboard 110.png','Artboard 111.png','Artboard 112.png'
+        const imageArray2R=[
+        'Artboardfinal2.png','Artboardfinal2.png',
+        ,'Artboard41.png','Artboard42.png','Artboard43.png','Artboard44.png','Artboard45.png','Artboard46.png'
+        //,'Artboard47.png','Artboard48.png','Artboard49.png','Artboard50.png','Artboard51.png','Artboard52.png'
+        //,'Artboard53.png','Artboard54.png','Artboard55.png','Artboard56.png','Artboard57.png','Artboard58.png'
+        //,'Artboard59.png','Artboard60.png','Artboard61.png','Artboard62.png','Artboard63.png','Artboard64.png'
+        //,'Artboard65.png','Artboard66.png','Artboard67.png','Artboard68.png','Artboard69.png','Artboard70.png'
+        ,'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+        //,'Artboard101.png','Artboard102.png','Artboard103.png','Artboard104.png','Artboard105.png','Artboard106.png'
+        ,'Artboard107.png','Artboard108.png','Artboard109.png','Artboard110.png','Artboard111.png','Artboard112.png'
         ];
 
-        const imageArray3 = [
-        'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-        // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-        ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-        // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-        ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-        ,'Artboard 1E.png'  
+        const imageArray3=[
+        'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+        ,'Artboard1E.png'
         ];
-        const imageArray3_2 = [
-          'Artboard 1E.png',
-          'Artboard 71.png','Artboard 72.png','Artboard 73.png','Artboard 74.png','Artboard 75.png','Artboard 76.png'
-          // ,'Artboard 77.png','Artboard 78.png','Artboard 79.png','Artboard 80.png','Artboard 81.png','Artboard 82.png'
-          ,'Artboard 83.png','Artboard 84.png','Artboard 85.png','Artboard 86.png','Artboard 87.png','Artboard 88.png'
-          // ,'Artboard 89.png','Artboard 90.png','Artboard 91.png','Artboard 92.png','Artboard 93.png','Artboard 94.png'
-          ,'Artboard 95.png','Artboard 96.png','Artboard 97.png','Artboard 98.png','Artboard 99.png','Artboard 100.png'
-            
-          ];
+        const imageArray3_2=[
+        'Artboard1E.png',
+        'Artboard71.png','Artboard72.png','Artboard73.png','Artboard74.png','Artboard75.png','Artboard76.png'
+        //,'Artboard77.png','Artboard78.png','Artboard79.png','Artboard80.png','Artboard81.png','Artboard82.png'
+        ,'Artboard83.png','Artboard84.png','Artboard85.png','Artboard86.png','Artboard87.png','Artboard88.png'
+        //,'Artboard89.png','Artboard90.png','Artboard91.png','Artboard92.png','Artboard93.png','Artboard94.png'
+        ,'Artboard95.png','Artboard96.png','Artboard97.png','Artboard98.png','Artboard99.png','Artboard100.png'
+
+        ];
         // const map = new THREE.TextureLoader();
         
         const imageArrayRR = imageArrayR.reverse()
@@ -626,12 +679,9 @@ export default class ThreeScene extends Component {
         
         // [gltf.scene.children[0]]
         const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
-
-          
-
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
-        document.body.appendChild( renderer.domElement );
+     
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
 
@@ -641,7 +691,7 @@ export default class ThreeScene extends Component {
         // event.object.material.emissive.set( 0x000000 );
           console.log('in x2: ',mouse.x);
           console.log('in y2: ',mouse.y);
-
+        
           if (mouse.x < -0.01 &&  mouse.y > 0.1) {
             
             // gltf.scene.position.set(0,4,5);
@@ -660,9 +710,15 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'click', (object) => {
           console.log('in clickbpr_to_wireconnect:', this.state.clickbpr_to_wireconnect)
           console.log('in clickhandforcuff: ', this.state.clickhandforcuff)
-       
-        if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
+     
           
+        if (this.state.clickbpr_to_wireconnect === true && this.state.clickhandforcuff === true){
+          this.setState({
+            score: this.state.score +128,
+            offscore: true
+          })
+          {this.props.getscorescore(this.state.score)}
+          {this.props.offoffscore(this.state.offscore)}
           // console.log('print arrayArrow[arrayArrow.length -1]: ',arrayArrow[arrayArrow.length -1])
           const z = imageArray.length -1
             const sleep = ms => {
@@ -675,6 +731,7 @@ export default class ThreeScene extends Component {
             const getNumArray2 = index => {
               return sleep(400).then(v => index)
             }
+
           if (arrayArrow[arrayArrow.length -1] < 60){          
             const endscreen = async _ => {
               console.log('Start')
@@ -683,10 +740,10 @@ export default class ThreeScene extends Component {
                   const returnI2 = await getNumArray2(i)
                   console.log(returnI2)
 
-                  const map = new THREE.TextureLoader()
-
+                   const map = new THREE.TextureLoader()
                   // rotate( Math.PI / 2 );
                     .load(imageArrayRR[returnI2])
+                 
                     map.minFilter = THREE.LinearFilter;
 
                     // map.repeat.set(0.5,0.5); //scale image len
@@ -701,8 +758,6 @@ export default class ThreeScene extends Component {
                         child.material.map = map;
                         // child.visible = false;
                         // child.castShadow = true; 
-                      
-
                     }
                     // scene.add(model)
                   });
@@ -798,6 +853,7 @@ export default class ThreeScene extends Component {
                 map2 = new THREE.TextureLoader()
                   .load(imageArray2[returnI3])
                   map2.minFilter = THREE.LinearFilter;
+                  
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
                   map2.center.set(0.5, 0.5);
@@ -823,37 +879,6 @@ export default class ThreeScene extends Component {
           } else {
             
 
-            const endscreen = async _ => {
-              console.log('Start')
-              if (returnI5 === imageArray3.length -1){
-              for (let i = 0; i<imageArray3RR.length; i++) {
-                  const returnI2 = await getNumArray2(i)
-                  console.log(returnI2)
-                 
-                  const map = new THREE.TextureLoader()
-                  // rotate( Math.PI / 2 );
-                    .load(imageArray3RR[returnI2])
-                    map.minFilter = THREE.LinearFilter;
-
-                    // map.repeat.set(0.5,0.5); //scale image len
-                    // map.rotation = Math.PI / 2;
-                    map.center.set(0.5, 0.5);
-                    map.rotation = THREE.Math.degToRad(90);
-                    screen.traverse(child =>  {
-                      
-                      if(child.isMesh) {
-                        // child.receiveShadow = true;   
-                        child.material.map = map;
-                        // child.visible = false;
-                        // child.castShadow = true;    
-                    }
-                    // scene.add(model)
-                  });
-            
-                console.log('End')
-                  }
-            }
-          }
             const startscreen = async _ => {
               console.log('Start')
             
@@ -863,6 +888,8 @@ export default class ThreeScene extends Component {
                 console.log('in returnI: ',returnI5)
                 map2 = new THREE.TextureLoader()
                   .load(imageArray3[returnI5])
+                  // console.log('in ra map2: ',map2)
+                  // map2.mapping = 100;
                   map2.minFilter = THREE.LinearFilter;
                   // map.repeat.set(0.5,0.5); //scale image len
                   // map.rotation = Math.PI / 2;
@@ -877,7 +904,6 @@ export default class ThreeScene extends Component {
                   }
          
                 });
-                endscreen();
 
               }
               
@@ -946,8 +972,11 @@ export default class ThreeScene extends Component {
         mmi.addHandler('Vert001', 'contextmenu', (object) => {
           this.setState({
             clickbpr_to_wireconnect: true,
-            clickwire: false
+            clickwire: false,
+            score: this.state.score +64
           })
+
+          {this.props.getscorescore(this.state.score)}
           console.log('onoff: ',this.state.onoff)
           model2.children[2].visible = false;
 
@@ -1075,11 +1104,11 @@ export default class ThreeScene extends Component {
         // requestAnimationFrame(animate);
         if (mixer)
               mixer.update(clock.getDelta());
-          light.position.set( 
-          camera.position.x + 10,
-          camera.position.y + 10,
-          camera.position.z + 10,
-        );
+        //   light.position.set( 
+        //   camera.position.x + 10,
+        //   camera.position.y + 10,
+        //   camera.position.z + 10,
+        // );
         if (cube){
           cube.rotation.y += 0.05;
         }
@@ -1091,6 +1120,7 @@ export default class ThreeScene extends Component {
         resetMaterials();
         // controls.update();
         // onMouseMove();
+        stats.update();
         renderer.render(scene, camera);
   
       }
@@ -1128,16 +1158,9 @@ export default class ThreeScene extends Component {
             // arrow to guide connecting to the blood pressure monitor
             if (this.state.clickwire === true && this.state.clickhandforcuff === true) {
 
-            
-              // this.setState({
-              //   pullcuff: false
-              // })
-              const dir = new THREE.Vector3( 0,0, -1 );
-             
+              const dir = new THREE.Vector3( 0,0, -1 );           
               dir.normalize();
-  
               const origin = new THREE.Vector3( 0, 0, 3 );
-          
               const length = 5;
               
               if (this.state.onoff === 0){
@@ -1148,6 +1171,7 @@ export default class ThreeScene extends Component {
                 this.setState({
                   onoff: 1
                 });
+              
               } else {
                 const hex = 0xe83b1e;
                 arrowHelper = new THREE.ArrowHelper( dir, origin, length, hex );
@@ -1254,24 +1278,7 @@ export default class ThreeScene extends Component {
                   // arrayMouseX.push((mouse.x)*20);
                   // arrayMouseY.push((mouse.y)*20);
               }
-              // if (arrayArrow[arrayArrow.length - 1] > arrayArrow[arrayArrow.length - 2]){
-              //   console.log('arrayMouseX: ', arrayMouseX)
-              //   console.log('arrayMouseY: ', arrayMouseY)
-
-              //   const dir = new THREE.Vector3( arrayMouseX[arrayArrow.length - 1],arrayMouseY[arrayArrow.length - 1], 0 );
-              //   const origin = new THREE.Vector3( 0,0.5,14 );
-          
-              //   const length = 5;
-              //   const headLengthzero = 1;
-              //   const headWidthzero = 1;
-              //   dir.normalize();
-              //   const hex = 0x00FF00;
-              //   const arrowHelper3 = new THREE.ArrowHelper( dir, origin, length, hex, headLengthzero, headWidthzero );
-              //   arrowHelper3.rotation.y = (Math.PI)*2;
-              //   arrowHelper3.rotation.x = (Math.PI);
-              //   scene.add(arrowHelper3);
-
-              // }
+              
      
             }
             
@@ -1286,18 +1293,28 @@ export default class ThreeScene extends Component {
            
            
           }
+     
         let onClick = (event) => {
-          console.log('da click 1234567');
-          //0.8, 0.05, 0.75
           
-
-          this.setState({
-            pullcuff: false,
-            
-          })
+            console.log('da click 1234567');
+        
+            this.setState({
+              pullcuff: false,
+              
+            })
+            if (this.state.pullcuff = false & arrayArrow[arrayArrow.length -1] < 60){
+              this.setState({
+                score: this.state.score +16
+              })
+              {this.props.getscorescore(this.state.score)}
+          }
+          
         }
+    
+    
+      
 			render();
-   
+        
       window.addEventListener( 'mousemove', onPointerMove, false );
       // window.addEventListener( 'resize', resize, false );
       window.addEventListener( 'resize', resize, false);
@@ -1306,15 +1323,29 @@ export default class ThreeScene extends Component {
 
       
     }
-
-
+    
+    componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
     render() {
-        
+      console.log('in ra data node: ', this.state.data);
+
+
       return (
           <div>
+            {/* <Link to="/objectcustom">
+        <div class = "buttonlink">
+        <button type="button" class="btn btn-success">Success</button>
+
+        </div>
+        </Link> */}
           <canvas id="bg">
          
           </canvas>
+
           
           </div>
       )

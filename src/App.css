@@ -13,6 +13,85 @@
   }
 }
 
+.buttonlink{
+  background-color: #FF7433;
+  /* padding: 15px; */
+  /* text-align: center; */
+  /* height: 15vmin; */
+  /* align-items: center;
+  justify-content: center; */
+}
+.formsignin{
+  background-color: #FF7433;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  padding-top: 100px;
+}
+.textlink{
+  background-color: #FF7433;
+  /* padding: 15px; */
+  font-size: 30px;
+  font-weight: bold;
+ 
+ 
+  /* height: 15vmin; */
+  align-items: center;
+  justify-content: center;
+}
+.card-img-top {
+  width: 25vw;
+  height: 15vw;
+  padding: 5px;
+
+ 
+
+}
+.textresult{
+  justify-content: center;
+  margin-top: 40px;
+  font-size: 40px;
+  align-items: center;
+  text-align: center;
+}
+.textscore{
+
+  margin-top: 40px;
+  font-size: 40px;
+  text-align: center; 
+  align-items: center;
+
+}
+.textscore2{
+  color: #61dafb;
+  margin-top: 40px;
+  font-size: 40px;
+  text-align: center; 
+  align-items: center;
+
+}
+.formsignin{
+  /* font-size: 40px; */
+   margin-top: 40px;
+   background-color: #34b4eb;
+   text-align: center;
+   /* align-items: center; */
+}
+.card-columns{
+  /* @include media-breakpoint-only(lg) { */
+    column-count: 4;
+  /* }
+  @include media-breakpoint-only(xl) { */
+    column-count: 5;
+  /* } */
+}
+.score{
+  text-align: left;
+}
+.time{
+  text-align: right;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

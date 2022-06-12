@@ -20,7 +20,7 @@ export default class Directurl extends Component {
     return (
       <Router>
             <div>
-          <Route exact path="/home">
+          <Route exact path="/">
             <Home />
           </Route>
           <Route path="/training">
@@ -29,6 +29,7 @@ export default class Directurl extends Component {
           <Route path="/objectcustom">
             <Objectcustom />
           </Route>
+
           </div>
       </Router>
     )

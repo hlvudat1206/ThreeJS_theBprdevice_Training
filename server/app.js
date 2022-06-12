@@ -1,20 +1,22 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 8000;
 const apiPath = '/api/';
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+require('dotenv').config();
 
 app.use(express.json());
 app.use(express.urlencoded());
     // const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // website
-app.use(express.static('client'));
+// app.use(express.static('client'));
+app.get('/client', express.static('client'));
 // app.get('/', function (req, res) {
 //    res.sendFile( __dirname + "/" + "index.html" );
 // })
@@ -42,3 +44,11 @@ app.listen(port, function () {
    
     console.log("Example app listening at http://%s:%s", host, port)
 });
+
+// var server = app.listen(port, function () {
+//     var host = server.address().address
+//     var port = server.address().port
+//     console.log("Example app listening at http://%s:%s", host, port)
+//  })
+
+module.exports = app;

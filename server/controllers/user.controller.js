@@ -14,39 +14,19 @@ const jwt = require('jsonwebtoken');
 
 
 class UserController {
-    get(req,res) {
-        // return res.status(200).json('Chao ban, da nhan duoc yeu cau');
-        // const filter = req.query.filter; //Khai bao filter. Muon tren URL ten gi thi query. cai do
-        // // console.log('filter',filter);
-        // const filterpeople = people.filter((person) => person.first_name.includes(filter)); //Loc first name co chu 'a'
-        
-        // const fs = require('fs'); // write vao file
+    get(req,res, next) {
+        // Website you wish to allow to connect
+        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-        // fs.writeFile('mynewfile1.txt', 'Hello content!', function (err) {
-        //     if (err) throw err;
-        //     console.log('Saved!');
-        // });
-        
+        // // Request methods you wish to allow
+        // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-        // const fs = require('fs'); // write vao file
+        // // Request headers you wish to allow
+        // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-        // fs.appendFile('mynewfile1.txt', 'Hello content! - Them vao 1 it', function (err) {
-        //     if (err) throw err;
-        //     console.log('Saved!');
-        // });
-        ///////////////
-        // try {
-        //     const data = fs.readFileSync(filename, 'utf8');
-        //     console.log(data);    //hien thi tren terminal
-        //     return res.status(200).json({data}); 
-
-        // } catch(e) {
-        //     console.log('Error:', e.stack);
-        // }
-                
-        // return res.status(200).json({error: 'Ko the doc file'});
-
-        // return res.status(200).json({data: filterpeople, length: filterpeople.length});
+        // // Set to true if you need the website to include cookies in the requests sent
+        // // to the API (e.g. in case you use sessions)
+        // res.setHeader('Access-Control-Allow-Credentials', true);
         db.connectDB()
             .then((connection) => {
                 console.log('connected successfully');
@@ -55,6 +35,7 @@ class UserController {
                     function (err, data, fields) {
                         console.log('data',data);
                         db.closeDB(connection);
+                        // return res.send(data);
                         return res.status(200).json(data);
                     }
                 );
@@ -65,22 +46,33 @@ class UserController {
             });
         
     }
-    // post(req,res) {
-    //     const filter = req.body.filter; //Khai bao filter
-    //     console.log('filter',filter);
-    //     const fs = require('fs'); // write vao file
-    //     fs.appendFile(filename, `Hello ${filter}`, function (err) {
-    //         if (err) throw err;
-    //         console.log('Saved!');
-    //     });
-    //     return res.status(200).json({ result: `chao ban ${filter}`});
-    // }
+    gettopscore(req,res, next) {
+       
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    'SELECT * FROM result ORDER by score DESC LIMIT 6',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        // return res.send(data);
+                        return res.status(200).json(data);
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+        
+    }
+    
     post(req,res) {
         const username = req.body.username;
         const password = req.body.password;
         let encryptedPassword = '';
-        // console.log('username', username);
-        // console.log('password', password);
+
         bcrypt.genSalt(saltRounds, (err, salt) => {
             bcrypt.hash(password, salt, function(err, hash) {
                 encryptedPassword = hash;
@@ -108,6 +100,95 @@ class UserController {
             });
         });
     }
+    signup(req,res) {
+        const username = req.body.username;
+        const password = req.body.pass;
+        const image = req.body.image;
+        let encryptedPassword = '';
+
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(password, salt, function(err, hash) {
+                encryptedPassword = hash;
+                console.log('hash', hash);
+                db.connectDB()
+                    .then((connection) => {
+                        console.log('connected successfully');
+                        connection.query(
+                            // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                            `INSERT INTO result (user, pass, imagelink) VALUES ('${username}','${encryptedPassword}','${image}')`,
+
+                            // 'SELECT * FROM login',
+                            function (err, data, fields) {
+                                console.log('data',data);
+                                db.closeDB(connection);
+                                return res.status(200).json({ result: `Ket noi thanh cong`});
+                            }
+                        );
+                    })
+                    .catch((error) => {
+                        console.log('DB not connected successfully',error);
+                        return res.status(200).json({ result: `Ko the ket noi Db`});
+                    });
+            
+        // return res.status(200).json({ result: `Dang nhap thanh cong`});
+            });
+        });
+    }
+    post2(req,res) {
+        let nameBattery = req.body.typebattery;
+        // const nameBattery = req.body;
+        console.log('in ra nameBattery: ', nameBattery)
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                    `INSERT INTO pintype (nameBattery) VALUES ('${nameBattery}')`,
+                    // 'SELECT * FROM login',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        return res.status(200).json({ result: `Ket noi thanh cong`});
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+            
+     
+     
+    }
+    post3(req,res) {
+        const score = req.body.score;
+        const username = req.body.username;
+        // const nameBattery = req.body;
+        console.log('in ra score database: ', score);
+        console.log('in ra username database: ', username);
+        db.connectDB()
+            .then((connection) => {
+                console.log('connected successfully');
+                connection.query(
+                    // `INSERT INTO login (username,password,passreal) VALUES ('${username}','${encryptedPassword}','${password}')`,
+                    // `INSERT INTO pintype (nameBattery) VALUES ('${score}')`,
+                    `UPDATE result SET score = '${score}' WHERE user = '${username}'`,
+                    // 'SELECT * FROM pintype',
+                    function (err, data, fields) {
+                        console.log('data',data);
+                        db.closeDB(connection);
+                        return res.status(200).json({ result: `Ket noi thanh cong22`});
+                    }
+                );
+            })
+            .catch((error) => {
+                console.log('DB not connected successfully',error);
+                return res.status(200).json({ result: `Ko the ket noi Db`});
+            });
+            
+     
+     
+    }
      login(req,res) {
         const username = req.body.username;
         const password = req.body.password;
@@ -120,18 +201,6 @@ class UserController {
                         console.log('data',data[0].password);
                         db.closeDB(connection);
 
-                        // bcrypt.compare(password, data[0].password, 
-                        //     function(err, result) {
-                        //         if (result) {
-                        //             return res.status(200).json('log in thanh cong');
-                            
-                        //         } else {
-                        //             return res.status(200).json('log in that bai');
-                        //         }
-                        //     }
-                            
-                        
-                        // );
                         const kiemtraPwd = await bcrypt.compare(password, data[0].password); 
                             //  function(err, kiemtraPwd) {
                                 if (kiemtraPwd) {
