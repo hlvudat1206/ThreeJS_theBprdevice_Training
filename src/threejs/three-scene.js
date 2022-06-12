@@ -203,7 +203,7 @@ export default class ThreeScene extends Component {
       // import glb file
       const loader4 = new GLTFLoader();
       //labcustom.glb
-      loader4.load("./room103.glb", function (gltf) {
+      loader4.load("./Room103.glb", function (gltf) {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         const model6 = gltf.scene.children[0];

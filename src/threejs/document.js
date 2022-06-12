@@ -79,7 +79,7 @@ export default class Document extends Component {
 
 
       const geometry1 = new THREE.BoxGeometry();
-      const textture1 = new THREE.TextureLoader().load('../rightclick.png');
+      const textture1 = new THREE.TextureLoader().load('../rightclick.PNG');
       const material1 = new THREE.MeshBasicMaterial( { map:textture1, flatShading: true } );
       const cube1 = new THREE.Mesh( geometry1, material1 );
       cube1.position.set(0,0,5);
@@ -94,7 +94,7 @@ export default class Document extends Component {
        
       });
       const geometry2 = new THREE.BoxGeometry();
-      const textture2 = new THREE.TextureLoader().load('../HDSD.png');
+      const textture2 = new THREE.TextureLoader().load('../HDSD.PNG');
       const material2 = new THREE.MeshBasicMaterial( { map:textture2, flatShading: true } );
       const cube2 = new THREE.Mesh( geometry2, material2 );
       cube2.position.set(0,0,-5);
