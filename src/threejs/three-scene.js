@@ -679,9 +679,6 @@ export default class ThreeScene extends Component {
         
         // [gltf.scene.children[0]]
         const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
-
-          
-
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
 
      
