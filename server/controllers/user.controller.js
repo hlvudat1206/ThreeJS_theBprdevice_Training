@@ -218,6 +218,8 @@ class UserController {
                 return res.status(200).json({ result: `Ko the ket noi Db`});
             });
     }
+    
+//(ko su dung trong thesis)
 
     promise(req,res) {
         let data = 'chua co';

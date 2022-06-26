@@ -13,9 +13,9 @@ import MouseMeshInteraction from "./mousemes_interact";
 import axios from 'axios';
 
 
-let scene, camera, mouse, raycaster, board, selectedPiece = null, mixer, light, model, model2, model2x, model5, model5_1,
+let scene, camera, mouse, raycaster, selectedPiece = null, mixer, light, model, model2, model2x,
 model2animation, renderer,binormal,normal, angleDeg, group, clipsanimationDevice, clipanimationDevice, returnZ, value2 = null
-,arrayObject_orig, arrayObject, arrowforward, arrowBack, key2, typebattery;
+,arrayObject_orig, arrayObject, arrowforward, arrowBack;
 var clock2;
 
 axios.get('/api/users/2')
@@ -567,7 +567,6 @@ export default class Objectcustom extends Component {
         }
       }
       
-      
       // function updateCamera(){
       //   const time = clock2.getElapsedTime();
       //   const looptime = 20;
@@ -630,15 +629,7 @@ export default class Objectcustom extends Component {
         // renderer.render(scene, camera);
   
       }
-      // function onClick( event ) {
-
-      //   // calculate pointer position in normalized device coordinates
-      //   // (-1 to +1) for both components
-      
-      //   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-      //   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-      
-      // }
+  
 
       let onClick = (event) => {
         console.log('da click 1234567');

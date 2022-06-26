@@ -1,3 +1,4 @@
+//hoc (ko su dung trong thesis)
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {

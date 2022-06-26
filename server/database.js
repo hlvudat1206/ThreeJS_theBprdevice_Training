@@ -28,7 +28,7 @@ module.exports.closeDB = (con) => {
     con.destroy();
 };
 
-
+//hoc
 module.exports.testPromise = (name='', ms = 0) => {
     return new Promise((resolve, reject) =>{
         setTimeout(() => {

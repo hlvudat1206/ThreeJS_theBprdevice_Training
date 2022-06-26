@@ -84,6 +84,7 @@ export default class ThreeScene extends Component {
       stats = new Stats();
       document.body.appendChild( stats.dom );
       // document.body.style.backgroundColor = "blue"
+
         // create rendering
 
       const renderer = new THREE.WebGL1Renderer({
@@ -93,8 +94,6 @@ export default class ThreeScene extends Component {
       renderer.toneMappingExposure = 2.3;
       renderer.shadowMap.enabled = true;
 
-      // renderer.setPixelRatio(window.devicePixelRatio);
-      // renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio( window.devicePixelRatio*0.7 );
       // renderer.setSize( 800, 400 ); // some width and height values
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -117,7 +116,7 @@ export default class ThreeScene extends Component {
       // scene.add(tube);
      
      
-      
+      //add cube
       const geometry = new THREE.BoxGeometry();
       const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
       const cube = new THREE.Mesh( geometry, material );
@@ -207,11 +206,7 @@ export default class ThreeScene extends Component {
         console.log('in ra:', gltf);
         console.log('in ra children22: ',gltf.scene.children[0]);
         const model6 = gltf.scene.children[0];
-        // model.traverse(n => { if ( n.isMesh ) {
-        //   n.castShadow = true; 
-        //   n.receiveShadow = true;
-        //   if(n.material.map) n.material.map.anisotropy = 16; 
-        // }});
+  
 
         gltf.scene.position.set(-7,-14,-3);
         gltf.scene.scale.set(15.8, 15.8, 15.8);
@@ -232,10 +227,6 @@ export default class ThreeScene extends Component {
         gltf.scene.children[2].material.emissive.b = 1
         gltf.scene.children[2].material.emissive.g = 1
         gltf.scene.children[2].material.emissive.r = 0.5
-
-
-        // gltf.scene.rotation.y = 0.0;
-        // console.log('print scale:', gltf.scene.scale);
 
 
         scene.add( model2 );
@@ -351,7 +342,7 @@ export default class ThreeScene extends Component {
         
 
       })
-      
+      ////(ko su dung trong thesis)
       // let mixer;
       // const loader3 = new GLTFLoader();
       // loader3.load("./boyring6.glb", function (gltf) {
@@ -420,6 +411,7 @@ export default class ThreeScene extends Component {
   // 
 
         scene.add( model5 );
+
         // Create an AnimationMixer, and get the list of AnimationClip instances
         mixer = new THREE.AnimationMixer( model5 );
         const clips = gltf.animations;
@@ -451,12 +443,8 @@ export default class ThreeScene extends Component {
           model2.children[2].position.set(0.8,0.05,0.75);
           // model2.children[2].rotation.x = -1;
           // model2.children[2].rotation.z = -0.5;
-
-
-
           // model2.children[2].scale.set(5,5,5);
           // scene.add(model2);
-
           console.log('in mode2 thay doi: ', model2);
 
           this.setState({
@@ -680,8 +668,6 @@ export default class ThreeScene extends Component {
         // [gltf.scene.children[0]]
         const dcontrols = new DragControls([gltf.scene.children[0]] , camera, renderer.domElement );
         // const dcontrols = new DragControls( [gltf.scene.children[1]], camera, renderer.domElement );
-
-     
 
         dcontrols.addEventListener( 'dragstart', ( event ) => {
 
