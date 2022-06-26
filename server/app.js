@@ -17,9 +17,7 @@ app.use(express.urlencoded());
 // website
 // app.use(express.static('client'));
 app.get('/client', express.static('client'));
-// app.get('/', function (req, res) {
-//    res.sendFile( __dirname + "/" + "index.html" );
-// })
+
 
 
 // routers
