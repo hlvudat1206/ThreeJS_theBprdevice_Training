@@ -68,7 +68,7 @@ export default class Objectcustom extends Component {
     
  
         // create rendering
-
+      // create renderer to render images abviously,not jagged edge in vr headset
       const renderer = new THREE.WebGL1Renderer({
         canvas: document.querySelector("#bg"),
       });
